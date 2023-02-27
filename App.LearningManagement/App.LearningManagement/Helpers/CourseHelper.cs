@@ -394,26 +394,6 @@ namespace App.LearningManagement.Helpers
             };
         }
 
-        public void GradeAssignment(Student student, Assignment assignment, double grade)
-        {
-            Console.WriteLine("Enter a student:");
-            var student_name = Console.ReadLine();
-            Console.WriteLine("Enter an assignment:");
-            var assignment_name = Console.ReadLine();
-            Console.WriteLine("Enter a grade:");
-            var grade_value = Console.ReadLine();
-
-            if (student.Grades.ContainsKey(assignment.Id))
-            {
-                student.Grades[assignment.Id] = grade;
-            }
-            else
-            {
-                student.Grades.Add(assignment.Id, grade);
-            }
-            //myCourse.GradeAssignment(student_name, assignment_name, 90.5);
-        }
-
         public void CRUDAnnouncement()
         {
             Console.WriteLine("Would you like to [1.]create, [2.]read, [3.]update, or [4.]delete an announcement for a course:");
