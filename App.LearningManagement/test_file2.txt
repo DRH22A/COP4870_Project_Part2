@@ -1,0 +1,113 @@
+2
+1
+COP4530
+Data Algorithms 2
+Cool algorithms
+N
+2
+1
+COP3330
+Data Algorithms 1
+Cool algorithms easy
+N
+2
+5
+COP4530
+New Bio Assignment
+Mammoth Essay
+100
+07/23/2024
+2
+6
+COP4530
+1
+Biology Group
+2
+5
+COP4530
+New Bio Assignment 2
+Dolphin Essay
+100
+07/28/2024
+2
+6
+COP4530
+1
+Biology Group
+2
+6
+COP4530
+2
+Biology Group
+2
+11
+1
+COP4530
+Exam 1 this Friday
+We have our first exam friday
+2
+11
+2
+COP4530
+2
+11
+3
+COP4530
+1
+Exam 1 Next Friday
+Get ready for Exam 1 next friday
+2
+11
+2
+COP4530
+2
+11
+4
+COP4530
+1
+2
+11
+2
+COP4530
+1
+1
+S
+Daniel Halterman
+1
+O
+1
+3
+1
+1
+1
+T
+Brad Berry
+200
+1
+3
+200
+1
+1
+I
+Dr. Yu
+3000
+1
+3
+1
+1
+1
+S
+Bugs Bunny
+1
+1
+2
+F
+1
+3
+2
+1
+5
+COP4530
+1
+1
+100
