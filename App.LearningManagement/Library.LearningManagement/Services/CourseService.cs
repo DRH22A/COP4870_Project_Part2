@@ -49,6 +49,5 @@ namespace Library.LearningManagement.Services
                 || s.Description.ToUpper().Contains(query.ToUpper())
                 || s.Code.ToUpper().Contains(query.ToUpper()));
         }
-
     }
 }

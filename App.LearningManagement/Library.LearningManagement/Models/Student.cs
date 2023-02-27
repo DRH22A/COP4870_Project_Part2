@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,18 @@ namespace Library.LearningManagement.Models
 
         public Student() {
             Grades = new Dictionary<int, double>();
+        }
+
+        public void SetGrade(int assignmentId, double grade)
+        {
+            if (Grades.ContainsKey(assignmentId))
+            {
+                Grades[assignmentId] = grade;
+            }
+            else
+            {
+                Grades.Add(assignmentId, grade);
+            }
         }
 
         public override string ToString()

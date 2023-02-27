@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Library.LearningManagement.Models.Assignment;
 
 namespace Library.LearningManagement.Models
 {
@@ -14,6 +15,9 @@ namespace Library.LearningManagement.Models
         public List<Person> Roster { get; set; }
         public List<Assignment> Assignments { get; set; }
         public List<Module> Modules { get; set; }
+        public List<AssignmentGroup> AssignmentGroups { get; set; }
+        public List<Announcement> Announcements { get; set; }
+        public int CreditHours { get; set; }
 
         public Course() { 
             Code = string.Empty;
@@ -22,6 +26,9 @@ namespace Library.LearningManagement.Models
             Roster= new List<Person>();
             Assignments= new List<Assignment>();
             Modules= new List<Module>();
+            AssignmentGroups = new List<AssignmentGroup>();
+            Announcements = new List<Announcement>();
+            CreditHours = 0;
         }
 
         public override string ToString()
@@ -38,5 +45,44 @@ namespace Library.LearningManagement.Models
                     $"Assignments:\n{string.Join("\n", Assignments.Select(a => a.ToString()).ToArray())}";
             }
         }
+        public void AddAssignment(Assignment assignment, string groupName)
+        {
+            if (string.IsNullOrEmpty(groupName))
+            {
+                Assignments.Add(assignment);
+            }
+            else
+            {
+                var group = AssignmentGroups.FirstOrDefault(g => g.group_name == groupName);
+                if (group == null)
+                {
+                    group = new AssignmentGroup() { group_name = groupName, assignments = new List<Assignment>() };
+                    AssignmentGroups.Add(group);
+                }
+                group.assignments.Add(assignment);
+            }
+        }
+    }
+    public class AssignmentGroup
+    {
+        public string group_name { get; set; }
+        public List<Assignment> assignments { get; set; }
+    }
+    public class Announcement 
+    {
+        public Announcement()
+        {
+            announcement_name = string.Empty;
+            announcement_description = string.Empty;
+            announcement_id = 0;
+        }
+        public string announcement_name { get; set; }
+        public string announcement_description { get; set; }
+        public int announcement_id { get; set; }
+        public override string ToString()
+        {
+            return announcement_name;
+        }
+
     }
 }

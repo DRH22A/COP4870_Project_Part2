@@ -20,10 +20,10 @@ namespace App.LearningManagement.Helpers
             courseService= CourseService.Current;
         }
 
-        public void CreateStudentRecord(Person? selectedStudent = null)
+        public void CreateStudentRecord(Person? selectedPerson = null)
         {
             bool isCreate = false;
-            if (selectedStudent == null)
+            if (selectedPerson == null)
             {
                 isCreate = true;
                 Console.WriteLine("What type of person would you like to add?");
@@ -37,21 +37,40 @@ namespace App.LearningManagement.Helpers
                 }
                 if(choice.Equals("S", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    selectedStudent = new Student();
+                    selectedPerson = new Student();
                 } else if (choice.Equals("T", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    selectedStudent = new TeachingAssistant();
+                    selectedPerson = new TeachingAssistant();
                 } else if (choice.Equals("I", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    selectedStudent = new Instructor();
+                    selectedPerson = new Instructor();
                 }
             }
 
-            Console.WriteLine("What is the id of the student?");
-            var id = Console.ReadLine();
-            Console.WriteLine("What is the name of the student?");
+            Console.WriteLine("What is the name of the person?");
             var name = Console.ReadLine();
-            if (selectedStudent is Student)
+            Console.WriteLine("What is the id of the person?");
+            string id = Console.ReadLine() ?? string.Empty;
+            int temp_code = Int32.Parse(id);
+            bool check = false;
+            while (!check)
+            {
+                if (studentService.Students.Any(s => s.Id == temp_code))
+                {
+                    Console.WriteLine("A person with that id already exists.");
+                    Console.WriteLine("Please enter a different id:");
+                    id = Console.ReadLine() ?? string.Empty;
+                    temp_code = Int32.Parse(id);
+                }
+                else
+                {
+                    check = true;
+                }
+            }
+            selectedPerson.Id = temp_code;
+
+
+            if (selectedPerson is Student)
             {
                 Console.WriteLine("What is the classification of the student? [(F)reshman, S(O)phomore, (J)unior, (S)enior]");
                 var classification = Console.ReadLine() ?? string.Empty;
@@ -69,7 +88,7 @@ namespace App.LearningManagement.Helpers
                 {
                     classEnum = PersonClassification.Senior;
                 }
-                var studentRecord = selectedStudent as Student;
+                var studentRecord = selectedPerson as Student;
                 if (studentRecord != null)
                 {
                     studentRecord.Classification = classEnum;
@@ -78,17 +97,17 @@ namespace App.LearningManagement.Helpers
 
                     if (isCreate)
                     {
-                        studentService.Add(selectedStudent);
+                        studentService.Add(selectedPerson);
                     }
                 }
             } else {
-                if (selectedStudent != null)
+                if (selectedPerson != null)
                 {
-                    selectedStudent.Id = int.Parse(id ?? "0");
-                    selectedStudent.Name = name ?? string.Empty;
+                    selectedPerson.Id = int.Parse(id ?? "0");
+                    selectedPerson.Name = name ?? string.Empty;
                     if (isCreate)
                     {
-                        studentService.Add(selectedStudent);
+                        studentService.Add(selectedPerson);
                     }
                 }
             }
@@ -135,5 +154,76 @@ namespace App.LearningManagement.Helpers
             Console.WriteLine("Student Course List:");
             courseService.Courses.Where(c => c.Roster.Any(s => s.Id == selectionInt)).ToList().ForEach(Console.WriteLine);
         }
+
+        public void GradeAssignment()
+        {
+            Console.WriteLine("Enter the code for the course:");
+            courseService.Courses.ForEach(Console.WriteLine);
+            var selection = Console.ReadLine();
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse == null)
+            {
+                Console.WriteLine("Invalid course code.");
+                return;
+            }
+
+            studentService.Students.ForEach(Console.WriteLine);
+            Console.WriteLine("Enter the Id of the student:");
+            string studentIdString = Console.ReadLine();
+            if (!int.TryParse(studentIdString, out int studentId))
+            {
+                Console.WriteLine("Invalid student ID.");
+                return;
+            }
+            var selectedStudent = StudentService.Current.Students.FirstOrDefault(s => s.Id == studentId) as Student;
+            if (selectedStudent == null)
+            {
+                Console.WriteLine("Invalid student ID for the selected course.");
+                return;
+            }
+
+
+            Console.WriteLine("Enter the Id of the assignment:");
+            selectedCourse.Assignments.ForEach(Console.WriteLine);
+            string assignmentIdString = Console.ReadLine();
+            if (!int.TryParse(assignmentIdString, out int assignmentId))
+            {
+                Console.WriteLine("Invalid assignment ID.");
+                return;
+            }
+
+            var selectedAssignment = selectedCourse.Assignments.FirstOrDefault(a => a.Id == assignmentId);
+            if (selectedAssignment == null)
+            {
+                Console.WriteLine("Invalid assignment ID for the selected course.");
+                return;
+            }
+
+            Console.WriteLine($"Enter the grade for the assignment '{selectedAssignment.Name}' for student '{selectedStudent.Name}' in course '{selectedCourse.Name}':");
+            string gradeString = Console.ReadLine();
+            if (!double.TryParse(gradeString, out double grade))
+            {
+                Console.WriteLine("Invalid grade value.");
+                return;
+            }
+
+            selectedStudent.SetGrade(selectedAssignment.Id, grade);
+            Console.WriteLine($"Grade '{grade}' added for assignment '{selectedAssignment.Name}' for student '{selectedStudent.Name}' in course '{selectedCourse.Name}'.");
+
+
+        }
+
+
+
+        /*
+        public void GPACalculation()
+        {
+            //GPA = (Total grade points earned) / (Total credit hours attempted)
+            double GPA = grade_points_earned / total_credit_hours;
+            Console.WriteLine(GPA);
+
+        }
+        */
     }
 }

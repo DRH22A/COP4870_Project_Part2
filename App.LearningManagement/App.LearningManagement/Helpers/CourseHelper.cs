@@ -33,15 +33,51 @@ namespace App.LearningManagement.Helpers
             {
                 Console.WriteLine("Do you want to update the course code?");
                 choice = Console.ReadLine() ?? "N";
+                if (choice.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Console.WriteLine("What is the code of the course?");
+                    string newCode = Console.ReadLine() ?? string.Empty;
+                    bool check = false;
+                    while (!check)
+                    {
+                        if (courseService.Courses.Any(c => c.Code == newCode))
+                        {
+                            Console.WriteLine("A course with that code already exists.");
+                            Console.WriteLine("Please enter a different code:");
+                            newCode = Console.ReadLine() ?? string.Empty;
+                        }
+                        else
+                        {
+                            check = true;
+                        }
+                    }
+                    selectedCourse.Code = newCode;
+                }
             }
 
-            if(choice.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+
+            if (choice.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
             {
                 Console.WriteLine("What is the code of the course?");
-                selectedCourse.Code = Console.ReadLine() ?? string.Empty;
+                string newCode = Console.ReadLine() ?? string.Empty;
+                bool check = false;
+                while (!check)
+                {
+                    if (courseService.Courses.Any(c => c.Code == newCode))
+                    {
+                        Console.WriteLine("A course with that code already exists.");
+                        Console.WriteLine("Please enter a different code:");
+                        newCode = Console.ReadLine() ?? string.Empty;
+                    }
+                    else
+                    {
+                        check = true;
+                    }
+                }
+                selectedCourse.Code = newCode;
             }
 
-            if(!isNewCourse)
+            if (!isNewCourse)
             {
                 Console.WriteLine("Do you want to update the course name?");
                 choice = Console.ReadLine() ?? "N";
@@ -189,6 +225,55 @@ namespace App.LearningManagement.Helpers
             }
         }
 
+        public void GroupAssignment()
+        {
+            Console.WriteLine("Enter the code for the course to add the assignment to:");
+            courseService.Courses.ForEach(Console.WriteLine);
+            var selection = Console.ReadLine();
+
+            var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+            if (selectedCourse != null)
+            {
+                Console.WriteLine("Choose an assignment to add to a group:");
+                selectedCourse.Assignments.ForEach(Console.WriteLine);
+                var selectionStr = Console.ReadLine() ?? string.Empty;
+                var selectionInt = int.Parse(selectionStr);
+                var selectedAssignment = selectedCourse.Assignments.FirstOrDefault(a => a.Id == selectionInt);
+                if (selectedAssignment != null)
+                {
+                    Console.WriteLine("Enter the group name:");
+                    var groupName = Console.ReadLine();
+                    var assignmentGroup = selectedCourse.AssignmentGroups.FirstOrDefault(g => g.group_name.Equals(groupName, StringComparison.InvariantCultureIgnoreCase));
+                    if (assignmentGroup == null)
+                    {
+                        assignmentGroup = new AssignmentGroup
+                        {
+                            group_name = groupName,
+                            assignments = new List<Assignment> { selectedAssignment }
+                        };
+                        selectedCourse.AssignmentGroups.Add(assignmentGroup);
+                    }
+                    else
+                    {
+                        if (!assignmentGroup.assignments.Contains(selectedAssignment))
+                        {
+                            assignmentGroup.assignments.Add(selectedAssignment);
+                            Console.WriteLine($"Added assignment '{selectedAssignment.Name}' to group '{assignmentGroup.group_name}'");
+                            Console.WriteLine("Assignments in the group:");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Assignment '{selectedAssignment.Name}' already exists in group '{assignmentGroup.group_name}'");
+                        }
+                    }
+                    Console.WriteLine($"{assignmentGroup.group_name}:");
+                    assignmentGroup.assignments.ForEach(Console.WriteLine);
+                }
+            }
+        }
+
+
+
         public void UpdateAssignment()
         {
             Console.WriteLine("Enter the code for the course:");
@@ -307,6 +392,130 @@ namespace App.LearningManagement.Helpers
                 TotalAvailablePoints = totalPoints,
                 DueDate = dueDate
             };
+        }
+
+        public void GradeAssignment(Student student, Assignment assignment, double grade)
+        {
+            Console.WriteLine("Enter a student:");
+            var student_name = Console.ReadLine();
+            Console.WriteLine("Enter an assignment:");
+            var assignment_name = Console.ReadLine();
+            Console.WriteLine("Enter a grade:");
+            var grade_value = Console.ReadLine();
+
+            if (student.Grades.ContainsKey(assignment.Id))
+            {
+                student.Grades[assignment.Id] = grade;
+            }
+            else
+            {
+                student.Grades.Add(assignment.Id, grade);
+            }
+            //myCourse.GradeAssignment(student_name, assignment_name, 90.5);
+        }
+
+        public void CRUDAnnouncement()
+        {
+            Console.WriteLine("Would you like to [1.]create, [2.]read, [3.]update, or [4.]delete an announcement for a course:");
+            string choice_value = Console.ReadLine() ?? string.Empty;
+            int int_choice_value = Int32.Parse(choice_value);
+            Announcement CreateAnnouncement()
+            {
+                var announcement = new Announcement();
+                Console.WriteLine("Enter announcement name:");
+                announcement.announcement_name = Console.ReadLine();
+                Console.WriteLine("Enter announcement description:");
+                announcement.announcement_description = Console.ReadLine();
+                return announcement;
+            }
+            if (int_choice_value == 1)
+            {
+                Console.WriteLine("Enter the code for the course to add the announcement to:");
+                courseService.Courses.ForEach(Console.WriteLine);
+                var selection = Console.ReadLine();
+
+                var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+                if (selectedCourse != null)
+                {
+                    var announcement = CreateAnnouncement();
+                    selectedCourse.Announcements.Add(announcement);
+                    Console.WriteLine($"Announcement '{announcement.announcement_name}' added to course '{selectedCourse.Name}'");
+                }
+            }
+            else if (int_choice_value == 2)
+            {
+                Console.WriteLine("Enter the code for the course:");
+                courseService.Courses.ForEach(Console.WriteLine);
+                var selection = Console.ReadLine();
+
+                var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+                if (selectedCourse != null)
+                {
+                    Console.WriteLine($"Announcements for course '{selectedCourse.Name}':");
+                    for (int i = 0; i < selectedCourse.Announcements.Count; i++)
+                    {
+                        int j = 0;
+                        Console.WriteLine("[" + ++i + ".] " + selectedCourse.Announcements[j].announcement_name);
+                        j++;
+                    }
+                }
+            }
+            else if (int_choice_value == 3)
+            {
+                Console.WriteLine("Enter the code for the course:");
+                courseService.Courses.ForEach(Console.WriteLine);
+                var selection = Console.ReadLine();
+
+                var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+                if (selectedCourse != null)
+                {
+                    Console.WriteLine("Choose an announcement to update:");
+                    for (int i = 0; i < selectedCourse.Announcements.Count; i++)
+                    {
+                        int j = 0;
+                        Console.WriteLine("[" + ++i + ".] " + selectedCourse.Announcements[j].announcement_name);
+                        j++;
+                    }
+                    var selectionStr = Console.ReadLine() ?? string.Empty;
+                    var selectionInt = int.Parse(selectionStr);
+                    selectionInt -= 1;
+                    var selectedAnnouncement = selectedCourse.Announcements.FirstOrDefault(a => a.announcement_id == selectionInt);
+                    if (selectedAnnouncement != null)
+                    {
+                        var index = selectedCourse.Announcements.IndexOf(selectedAnnouncement);
+                        selectedCourse.Announcements.RemoveAt(index);
+                        selectedCourse.Announcements.Insert(index, CreateAnnouncement());
+                        Console.WriteLine($"Announcement '{selectedAnnouncement.announcement_name}' updated");
+                    }
+                }
+            }
+            else if (int_choice_value == 4)
+            {
+                Console.WriteLine("Enter the code for the course:");
+                courseService.Courses.ForEach(Console.WriteLine);
+                var selection = Console.ReadLine();
+
+                var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+                if (selectedCourse != null)
+                {
+                    Console.WriteLine("Choose an announcement to delete:");
+                    for (int i = 0; i < selectedCourse.Announcements.Count; i++)
+                    {
+                        int j = 0;
+                        Console.WriteLine("[" + ++i + ".] " + selectedCourse.Announcements[j].announcement_name);
+                        j++;
+                    }
+                    var selectionStr = Console.ReadLine() ?? string.Empty;
+                    var selectionInt = int.Parse(selectionStr);
+                    selectionInt -= 1;
+                    var selectedAnnouncement = selectedCourse.Announcements.FirstOrDefault(a => a.announcement_id == selectionInt);
+                    if (selectedAnnouncement != null)
+                    {
+                        selectedCourse.Announcements.Remove(selectedAnnouncement);
+                        Console.WriteLine($"Announcement '{selectedAnnouncement.announcement_name}' deleted");
+                    }
+                }
+            }
         }
     }
 }

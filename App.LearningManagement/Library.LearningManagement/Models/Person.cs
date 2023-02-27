@@ -8,6 +8,7 @@
         public Person()
         {
             Name = string.Empty;
+            Id= 0;
         }
 
         public override string ToString()
