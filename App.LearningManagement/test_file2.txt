@@ -1,14 +1,26 @@
+1
+1
+S
+Daniel Halterman
+1
+O
 2
 1
 COP4530
+4
 Data Algorithms 2
 Cool algorithms
+3
+1
 N
 2
 1
 COP3330
+1
 Data Algorithms 1
 Cool algorithms easy
+3
+1
 N
 2
 5
@@ -22,6 +34,7 @@ Mammoth Essay
 COP4530
 1
 Biology Group
+20
 2
 5
 COP4530
@@ -70,12 +83,6 @@ COP4530
 2
 COP4530
 1
-1
-S
-Daniel Halterman
-1
-O
-1
 3
 1
 1
@@ -111,3 +118,141 @@ COP4530
 1
 1
 100
+2
+12
+1
+COP4530
+Test Module
+Test Description
+2
+12
+2
+COP4530
+2
+12
+3
+COP4530
+1
+Replacement Module
+New Description
+2
+12
+2
+COP4530
+2
+12
+4
+COP4530
+1
+2
+12
+2
+COP4530
+1
+6
+1
+COP4530
+P
+1
+5
+COP4530
+1
+2
+80
+1
+6
+1
+COP4530
+P
+2
+5
+COP4530
+New Cool Assignment
+testing123
+100
+08/23/2023
+2
+6
+COP4530
+3
+Biology Group
+1
+5
+COP4530
+1
+3
+60
+1
+6
+1
+COP4530
+P
+2
+5
+COP4530
+Filler
+Filler description
+100
+03/23/23
+2
+6
+COP4530
+4
+Filler Group
+80
+1
+5
+COP4530
+1
+4
+100
+1
+6
+1
+COP4530
+P
+2
+5
+COP3330
+COP3330 Intro Assignment
+FizzBuzz
+100
+03/23/23
+2
+6
+COP3330
+5
+Assignments
+20
+2
+5
+COP3330
+COP3330 Exam 1
+Good Luck
+100
+03/28/23
+2
+6
+COP3330
+6
+Exams
+80
+1
+5
+COP3330
+1
+5
+80
+1
+5
+COP3330
+1
+6
+90
+1
+6
+1
+COP4530
+C
+COP3330
+P

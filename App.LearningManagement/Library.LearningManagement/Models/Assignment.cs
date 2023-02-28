@@ -29,11 +29,5 @@ namespace Library.LearningManagement.Models
         {
             return $"{Id}. ({DueDate}) {Name}";
         }
-
-        public class AssignmentGroup
-        {
-            public string group_name { get; set; }
-            public List<Assignment> assignments { get; set; }
-        }
     }
 }

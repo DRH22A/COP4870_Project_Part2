@@ -1,4 +1,6 @@
 ﻿using App.LearningManagement.Helpers;
+using Library.LearningManagement.Models;
+using Library.LearningManagement.Services;
 
 namespace MyApp // Note: actual namespace depends on the project name.
 {
@@ -8,13 +10,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
         {
             var studentHelper = new StudentHelper();
             var courseHelper = new CourseHelper();
+
             bool cont = true;
 
             while (cont)
             {
                 Console.WriteLine("1. Maintain People");
                 Console.WriteLine("2. Maintain Courses");
-                Console.WriteLine("3. Exit");                           //sys
+                Console.WriteLine("3. Exit");
                 var input = Console.ReadLine();
                 if (int.TryParse(input, out int result)) {
                     if (result == 1)
@@ -42,6 +45,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("3. List all people");     
             Console.WriteLine("4. Search for a person");
             Console.WriteLine("5. Provide a grade for a specific assignment to a student in a course");
+            Console.WriteLine("6. Calculate a weighted average to a student for a course based on a weight given to an assignment group");
+            Console.WriteLine("7. Calculate a student's GPA");
 
             var input = Console.ReadLine();
             if (int.TryParse(input, out int result))
@@ -66,6 +71,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 {
                     studentHelper.GradeAssignment();
                 }
+                else if (result == 6)
+                {
+                    studentHelper.GetWeightedAverage();
+                }
+                else if (result == 7)
+                {
+                    studentHelper.CalculateGPA();
+                }
             }
         }
 
@@ -79,9 +92,10 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("6. Add an assignment to a group");
             Console.WriteLine("7. Update an assignment");
             Console.WriteLine("8. Remove an assignment");
-            Console.WriteLine("9. List all courses");               //course
+            Console.WriteLine("9. List all courses");                //course
             Console.WriteLine("10. Search for a course");            //course
-            Console.WriteLine("11. CRUD annoucement for a course");            //course
+            Console.WriteLine("11. CRUD annoucement for a course");  //course
+            Console.WriteLine("12. CRUD course modules");
 
 
             var input = Console.ReadLine();
@@ -136,6 +150,10 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 else if (result == 11)
                 {
                     courseHelper.CRUDAnnouncement();
+                }
+                else if (result == 12)
+                {
+                    courseHelper.CRUDModule();
                 }
             }
         }

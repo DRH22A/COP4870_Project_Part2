@@ -37,6 +37,7 @@ namespace App.LearningManagement.Helpers
                 {
                     Console.WriteLine("What is the code of the course?");
                     string newCode = Console.ReadLine() ?? string.Empty;
+
                     bool check = false;
                     while (!check)
                     {
@@ -75,6 +76,10 @@ namespace App.LearningManagement.Helpers
                     }
                 }
                 selectedCourse.Code = newCode;
+                Console.WriteLine("How many credit hours is this course worth?");
+                string temp_credit = Console.ReadLine() ?? string.Empty;
+                int int_credit = Int32.Parse(temp_credit);
+                selectedCourse.CreditHours = int_credit;
             }
 
             if (!isNewCourse)
@@ -103,6 +108,23 @@ namespace App.LearningManagement.Helpers
             {
                 Console.WriteLine("What is the description of the course?");
                 selectedCourse.Description = Console.ReadLine() ?? string.Empty;
+            }
+
+            if (!isNewCourse)
+            {
+                Console.WriteLine("Do you want to update the course credit hours?");
+                choice = Console.ReadLine() ?? "N";
+            }
+            else
+            {
+                choice = "Y";
+            }
+            if (choice.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+            {
+                Console.WriteLine("What is the new credit hours of the course?");
+                string temp_hours_input = Console.ReadLine() ?? string.Empty;
+                int int_hours_input = Int32.Parse(temp_hours_input);
+                selectedCourse.CreditHours = int_hours_input;
             }
 
             if (isNewCourse)
@@ -173,13 +195,12 @@ namespace App.LearningManagement.Helpers
                 if(selection != null)
                 {
                     var selectedId = int.Parse(selection);
-                    var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectedId);
+                    var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectedId) as Student;
                     if (selectedStudent != null)
                     {
                         selectedCourse.Roster.Add(selectedStudent);
                     }
                 }
-
             }
         }
         public void RemoveStudent()
@@ -246,10 +267,14 @@ namespace App.LearningManagement.Helpers
                     var assignmentGroup = selectedCourse.AssignmentGroups.FirstOrDefault(g => g.group_name.Equals(groupName, StringComparison.InvariantCultureIgnoreCase));
                     if (assignmentGroup == null)
                     {
+                        Console.WriteLine("Enter the weight of the group (ie. 40 = 40%):");
+                        var temp_weight = Console.ReadLine();
+                        double new_weight = Double.Parse(temp_weight);
                         assignmentGroup = new AssignmentGroup
                         {
-                            group_name = groupName,
-                            assignments = new List<Assignment> { selectedAssignment }
+                            group_name = groupName ?? string.Empty,
+                            assignments = new List<Assignment> { selectedAssignment },
+                            weight = new_weight
                         };
                         selectedCourse.AssignmentGroups.Add(assignmentGroup);
                     }
@@ -403,9 +428,9 @@ namespace App.LearningManagement.Helpers
             {
                 var announcement = new Announcement();
                 Console.WriteLine("Enter announcement name:");
-                announcement.announcement_name = Console.ReadLine();
+                announcement.announcement_name = Console.ReadLine() ?? string.Empty;
                 Console.WriteLine("Enter announcement description:");
-                announcement.announcement_description = Console.ReadLine();
+                announcement.announcement_description = Console.ReadLine() ?? string.Empty;
                 return announcement;
             }
             if (int_choice_value == 1)
@@ -493,6 +518,113 @@ namespace App.LearningManagement.Helpers
                     {
                         selectedCourse.Announcements.Remove(selectedAnnouncement);
                         Console.WriteLine($"Announcement '{selectedAnnouncement.announcement_name}' deleted");
+                    }
+                }
+            }
+        }
+        public void CRUDModule()
+        {
+            Console.WriteLine("Would you like to [1.]create, [2.]read, [3.]update, or [4.]delete a module for a course:");
+            string choice_value = Console.ReadLine() ?? string.Empty;
+            int int_choice_value = Int32.Parse(choice_value);
+
+            Module CreateModule()
+            {
+                var module = new Module();
+                Console.WriteLine("Enter module name:");
+                module.Name = Console.ReadLine();
+                Console.WriteLine("Enter module description:");
+                module.Description = Console.ReadLine();
+                return module;
+            }
+
+            if (int_choice_value == 1)
+            {
+                Console.WriteLine("Enter the code for the course to add the module to:");
+                courseService.Courses.ForEach(Console.WriteLine);
+                var selection = Console.ReadLine();
+
+                var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+                if (selectedCourse != null)
+                {
+                    var module = CreateModule();
+                    selectedCourse.Modules.Add(module);
+                    Console.WriteLine($"Module '{module.Name}' added to course '{selectedCourse.Name}'");
+                }
+            }
+            else if (int_choice_value == 2)
+            {
+                Console.WriteLine("Enter the code for the course:");
+                courseService.Courses.ForEach(Console.WriteLine);
+                var selection = Console.ReadLine();
+
+                var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+                if (selectedCourse != null)
+                {
+                    Console.WriteLine($"Modules for course '{selectedCourse.Name}':");
+                    for (int i = 0; i < selectedCourse.Modules.Count; i++)
+                    {
+                        int j = 0;
+                        Console.WriteLine("[" + ++i + ".] " + selectedCourse.Modules[j].Name);
+                        j++;
+                    }
+                }
+            }
+            else if (int_choice_value == 3)
+            {
+                Console.WriteLine("Enter the code for the course:");
+                courseService.Courses.ForEach(Console.WriteLine);
+                var selection = Console.ReadLine();
+
+                var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+                if (selectedCourse != null)
+                {
+                    Console.WriteLine("Choose a module to update:");
+                    for (int i = 0; i < selectedCourse.Modules.Count; i++)
+                    {
+                        int j = 0;
+                        Console.WriteLine("[" + ++i + ".] " + selectedCourse.Modules[j].Name);
+                        j++;
+                    }
+                    var selectionStr = Console.ReadLine() ?? string.Empty;
+                    var selectionInt = int.Parse(selectionStr);
+                    selectionInt -= 1;
+                    var selectedModule = selectedCourse.Modules.ElementAtOrDefault(selectionInt);
+                    if (selectedModule != null)
+                    {
+                        var index = selectedCourse.Modules.IndexOf(selectedModule);
+                        selectedCourse.Modules.RemoveAt(index);
+                        selectedCourse.Modules.Insert(index, CreateModule());
+                        Console.WriteLine($"Module '{selectedModule.Name}' updated");
+                    }
+                }
+            }
+            else if (int_choice_value == 4)
+            {
+                Console.WriteLine("Enter the code for the course:");
+                courseService.Courses.ForEach(Console.WriteLine);
+                var selection = Console.ReadLine();
+
+                var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
+                if (selectedCourse != null)
+                {
+                    Console.WriteLine("Choose a module to delete:");
+                    for (int i = 0; i < selectedCourse.Modules.Count; i++)
+                    {
+                        int j = 0;
+                        Console.WriteLine("[" + ++i + ".] " + selectedCourse.Modules[j].Name);
+                        j++;
+                    }
+                    var selectionStr = Console.ReadLine();
+                    int selectionIndex;
+                    if (int.TryParse(selectionStr, out selectionIndex) && selectionIndex >= 1 && selectionIndex <= selectedCourse.Modules.Count)
+                    {
+                        selectedCourse.Modules.RemoveAt(selectionIndex - 1);
+                        Console.WriteLine("Module deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid selection.");
                     }
                 }
             }

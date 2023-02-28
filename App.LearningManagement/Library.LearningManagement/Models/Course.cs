@@ -17,7 +17,9 @@ namespace Library.LearningManagement.Models
         public List<Module> Modules { get; set; }
         public List<AssignmentGroup> AssignmentGroups { get; set; }
         public List<Announcement> Announcements { get; set; }
-        public int CreditHours { get; set; }
+        public double CreditHours { get; set; }
+        public double TotalGPAPoints { get; set; }
+
 
         public Course() { 
             Code = string.Empty;
@@ -29,6 +31,7 @@ namespace Library.LearningManagement.Models
             AssignmentGroups = new List<AssignmentGroup>();
             Announcements = new List<Announcement>();
             CreditHours = 0;
+            TotalGPAPoints = 0;
         }
 
         public override string ToString()
@@ -45,7 +48,7 @@ namespace Library.LearningManagement.Models
                     $"Assignments:\n{string.Join("\n", Assignments.Select(a => a.ToString()).ToArray())}";
             }
         }
-        public void AddAssignment(Assignment assignment, string groupName)
+        public void AddAssignment(Assignment assignment, string groupName, double Weight)
         {
             if (string.IsNullOrEmpty(groupName))
             {
@@ -56,7 +59,7 @@ namespace Library.LearningManagement.Models
                 var group = AssignmentGroups.FirstOrDefault(g => g.group_name == groupName);
                 if (group == null)
                 {
-                    group = new AssignmentGroup() { group_name = groupName, assignments = new List<Assignment>() };
+                    group = new AssignmentGroup() { group_name = groupName, assignments = new List<Assignment>(), weight = Weight };
                     AssignmentGroups.Add(group);
                 }
                 group.assignments.Add(assignment);
@@ -67,6 +70,7 @@ namespace Library.LearningManagement.Models
     {
         public string group_name { get; set; }
         public List<Assignment> assignments { get; set; }
+        public double weight { get; set; }
     }
     public class Announcement 
     {

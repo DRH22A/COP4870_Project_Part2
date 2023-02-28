@@ -16,8 +16,8 @@ namespace App.LearningManagement.Helpers
 
         public StudentHelper()
         {
-            studentService= StudentService.Current;
-            courseService= CourseService.Current;
+            studentService = StudentService.Current;
+            courseService = CourseService.Current;
         }
 
         public void CreateStudentRecord(Person? selectedPerson = null)
@@ -31,17 +31,19 @@ namespace App.LearningManagement.Helpers
                 Console.WriteLine("(T)eachingAssistant");
                 Console.WriteLine("(I)nstructor");
                 var choice = Console.ReadLine() ?? string.Empty;
-                if(string.IsNullOrEmpty(choice))
+                if (string.IsNullOrEmpty(choice))
                 {
                     return;
                 }
-                if(choice.Equals("S", StringComparison.InvariantCultureIgnoreCase))
+                if (choice.Equals("S", StringComparison.InvariantCultureIgnoreCase))
                 {
                     selectedPerson = new Student();
-                } else if (choice.Equals("T", StringComparison.InvariantCultureIgnoreCase))
+                }
+                else if (choice.Equals("T", StringComparison.InvariantCultureIgnoreCase))
                 {
                     selectedPerson = new TeachingAssistant();
-                } else if (choice.Equals("I", StringComparison.InvariantCultureIgnoreCase))
+                }
+                else if (choice.Equals("I", StringComparison.InvariantCultureIgnoreCase))
                 {
                     selectedPerson = new Instructor();
                 }
@@ -100,7 +102,9 @@ namespace App.LearningManagement.Helpers
                         studentService.Add(selectedPerson);
                     }
                 }
-            } else {
+            }
+            else
+            {
                 if (selectedPerson != null)
                 {
                     selectedPerson.Id = int.Parse(id ?? "0");
@@ -120,10 +124,10 @@ namespace App.LearningManagement.Helpers
 
             var selectionStr = Console.ReadLine();
 
-            if(int.TryParse(selectionStr, out int selectionInt))
+            if (int.TryParse(selectionStr, out int selectionInt))
             {
                 var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectionInt);
-                if(selectedStudent != null)
+                if (selectedStudent != null)
                 {
                     CreateStudentRecord(selectedStudent);
                 }
@@ -207,23 +211,142 @@ namespace App.LearningManagement.Helpers
                 Console.WriteLine("Invalid grade value.");
                 return;
             }
-
+            string grade_letter = "";
+            if (grade >= 90)
+            {
+                grade_letter = "A";
+            }
+            else if (grade >= 80 && grade < 90)
+            {
+                grade_letter = "B";
+            }
+            else if (grade >= 70 && grade < 80)
+            {
+                grade_letter = "C";
+            }
+            else if (grade >= 60 && grade < 70)
+            {
+                grade_letter = "D";
+            }
+            else if (grade < 60 && grade >= 0)
+            {
+                grade_letter = "E";
+            }
             selectedStudent.SetGrade(selectedAssignment.Id, grade);
-            Console.WriteLine($"Grade '{grade}' added for assignment '{selectedAssignment.Name}' for student '{selectedStudent.Name}' in course '{selectedCourse.Name}'.");
+            Console.WriteLine($"Grade '{grade}' {grade_letter} added for assignment '{selectedAssignment.Name}' for student '{selectedStudent.Name}' in course '{selectedCourse.Name}'.");
 
 
         }
 
 
-
-        /*
-        public void GPACalculation()
+        public void GetWeightedAverage()
         {
-            //GPA = (Total grade points earned) / (Total credit hours attempted)
-            double GPA = grade_points_earned / total_credit_hours;
-            Console.WriteLine(GPA);
+            double gpa_storage = 0;
+            int coursesGraded = 0;
+            studentService.Students.ForEach(Console.WriteLine);
+            Console.WriteLine("Enter the ID of the student:");
+            var studentIdStr = Console.ReadLine();
+            if (int.TryParse(studentIdStr, out int studentId))
+            {
+                var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == studentId && s is Student) as Student;
+                bool addMoreCourses = true;
+                while (selectedStudent != null && addMoreCourses)
+                {
+                    courseService.Courses.ForEach(Console.WriteLine);
+                    Console.WriteLine("Enter the code of the course:");
+                    var courseCode = Console.ReadLine();
+                    var selectedCourse = courseService.Courses.FirstOrDefault(c => c.Code.Equals(courseCode, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (selectedCourse != null)
+                    {
+                        selectedCourse.TotalGPAPoints = 0; // Reset TotalGPAPoints to 0 before calculating the weighted average for the selected course
+                        double totalWeightedAverage = 0;
+                        double totalWeight = 0;
+
+                        foreach (var assignmentGroup in selectedCourse.AssignmentGroups)
+                        {
+                            double weightedAverage = selectedStudent.GetWeightedAverage(new List<AssignmentGroup> { assignmentGroup });
+                            totalWeightedAverage += weightedAverage * assignmentGroup.weight;
+                            totalWeight += assignmentGroup.weight;
+                        }
+
+                        string letterGrade = "";
+                        double finalGrade = totalWeightedAverage / totalWeight;
+
+                        if (finalGrade >= 90)
+                        {
+                            letterGrade = "A";
+                            selectedCourse.TotalGPAPoints += 4 * selectedCourse.CreditHours;
+                            coursesGraded++;
+                        }
+                        else if (finalGrade >= 80 && finalGrade < 90)
+                        {
+                            letterGrade = "B";
+                            selectedCourse.TotalGPAPoints += 3 * selectedCourse.CreditHours;
+                            coursesGraded++;
+                        }
+                        else if (finalGrade >= 70 && finalGrade < 80)
+                        {
+                            letterGrade = "C";
+                            selectedCourse.TotalGPAPoints += 2 * selectedCourse.CreditHours;
+                            coursesGraded++;
+                        }
+                        else if (finalGrade >= 60 && finalGrade < 70)
+                        {
+                            letterGrade = "D";
+                            selectedCourse.TotalGPAPoints += selectedCourse.CreditHours;
+                            coursesGraded++;
+                        }
+                        else
+                        {
+                            letterGrade = "F";
+                            coursesGraded++;
+                        }
+
+                        gpa_storage += (selectedCourse.TotalGPAPoints / selectedCourse.CreditHours); // use the counter variable in the calculation
+                        Console.WriteLine(gpa_storage);
+                        Console.WriteLine($"Weighted Average for {selectedStudent.Name} in {selectedCourse.Name}: {Math.Round(finalGrade, 2)}% ({letterGrade})");
+                        Console.WriteLine("Would you like to continue adding courses for your GPA or print the GPA (C/P)");
+                        string decision = Console.ReadLine();
+                        if (decision.Equals("P", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            if (selectedCourse.CreditHours == 0)
+                            {
+                                Console.WriteLine("No courses were added.");
+                            }
+                            else
+                            {
+                                double totalGPA = gpa_storage / coursesGraded;
+                                Console.WriteLine($"Total GPA for {selectedStudent.Name}: {Math.Round(totalGPA, 2)}");
+                            }
+                            break;
+                        }
+                        else if (decision.Equals("C", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            // continue adding courses
+                        }
+                        else
+                        {
+                            // print GPA
+                            addMoreCourses = false;
+                            // rest of the code to print GPA
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid course code. Please try again.");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid student ID. Please try again.");
+            }
+        }
+
+        public void CalculateGPA()
+        {
 
         }
-        */
     }
 }
