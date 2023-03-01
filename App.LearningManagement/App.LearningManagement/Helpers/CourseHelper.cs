@@ -154,6 +154,7 @@ namespace App.LearningManagement.Helpers
                 }
                 Console.WriteLine("Use 'P' to go to the previous page, 'N' to go to the next page, 'F' to go to the first page, 'L' to go to the last page," +
                                   " or enter a page number to go directly to that page. Enter 'Q' to quit:");
+                Console.WriteLine($"Page [{courseNavigator.ReturnCurrentPage()} / {courseNavigator.ReturnLastPage()}]");
                 var input = Console.ReadLine();
                 if (input.Equals("P", StringComparison.InvariantCultureIgnoreCase) && courseNavigator.HasPreviousPage)
                 {

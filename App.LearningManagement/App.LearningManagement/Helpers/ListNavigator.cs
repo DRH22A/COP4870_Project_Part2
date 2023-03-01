@@ -40,6 +40,14 @@ namespace App.LearningManagement.Helpers
                 return currentPage < lastPage;
             }
         }
+        public int ReturnCurrentPage()
+        {
+            return currentPage;
+        }
+        public int ReturnLastPage()
+        {
+            return lastPage;
+        }
         public ListNavigator(List<T> list, int pageSize = 5)
         {
             this.pageSize = pageSize;
