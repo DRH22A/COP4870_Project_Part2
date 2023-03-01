@@ -241,8 +241,7 @@ namespace App.LearningManagement.Helpers
                 if(selection != null)
                 {
                     var selectedId = int.Parse(selection);
-                    var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectedId) as Student;
-                    if (selectedStudent != null)
+                    if (studentService.Students.FirstOrDefault(s => s.Id == selectedId) is Student selectedStudent)
                     {
                         selectedCourse.Roster.Add(selectedStudent);
                     }
@@ -285,10 +284,7 @@ namespace App.LearningManagement.Helpers
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
-            if (selectedCourse != null)
-            {
-                selectedCourse.Assignments.Add(CreateAssignment());
-            }
+            selectedCourse?.Assignments.Add(CreateAssignment());
         }
 
         public void GroupAssignment()
@@ -426,7 +422,7 @@ namespace App.LearningManagement.Helpers
             }
         }
 
-        private void SetupAssignments(Course c)
+        private static void SetupAssignments(Course c)
         {
             Console.WriteLine("Would you like to add assignments? (Y/N)");
             var assignResponse = Console.ReadLine() ?? "N";
@@ -448,7 +444,7 @@ namespace App.LearningManagement.Helpers
 
         }
 
-        private Assignment CreateAssignment()
+        private static Assignment CreateAssignment()
         {
             //Name
             Console.WriteLine("Name:");
@@ -477,7 +473,7 @@ namespace App.LearningManagement.Helpers
             Console.WriteLine("Would you like to [1.]create, [2.]read, [3.]update, or [4.]delete an announcement for a course:");
             string choice_value = Console.ReadLine() ?? string.Empty;
             int int_choice_value = Int32.Parse(choice_value);
-            Announcement CreateAnnouncement()
+            static Announcement CreateAnnouncement()
             {
                 var announcement = new Announcement();
                 Console.WriteLine("Enter announcement name:");
@@ -581,7 +577,7 @@ namespace App.LearningManagement.Helpers
             string choice_value = Console.ReadLine() ?? string.Empty;
             int int_choice_value = Int32.Parse(choice_value);
 
-            Module CreateModule()
+            static Module CreateModule()
             {
                 var module = new Module();
                 Console.WriteLine("Enter module name:");
@@ -669,8 +665,7 @@ namespace App.LearningManagement.Helpers
                         j++;
                     }
                     var selectionStr = Console.ReadLine();
-                    int selectionIndex;
-                    if (int.TryParse(selectionStr, out selectionIndex) && selectionIndex >= 1 && selectionIndex <= selectedCourse.Modules.Count)
+                    if (int.TryParse(selectionStr, out int selectionIndex) && selectionIndex >= 1 && selectionIndex <= selectedCourse.Modules.Count)
                     {
                         selectedCourse.Modules.RemoveAt(selectionIndex - 1);
                         Console.WriteLine("Module deleted successfully.");

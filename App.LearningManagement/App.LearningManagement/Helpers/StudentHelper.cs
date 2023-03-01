@@ -12,10 +12,10 @@ namespace App.LearningManagement.Helpers
 {
     internal class StudentHelper
     {
-        private StudentService studentService;
-        private CourseService courseService;
-        private ListNavigator<Person> studentNavigator;
-        private ListNavigator<Course> courseNavigator;
+        private readonly StudentService studentService;
+        private readonly CourseService courseService;
+        private readonly ListNavigator<Person> studentNavigator;
+        private readonly ListNavigator<Course> courseNavigator;
 
 
         public StudentHelper()
@@ -75,7 +75,9 @@ namespace App.LearningManagement.Helpers
                     check = true;
                 }
             }
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             selectedPerson.Id = temp_code;
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
 
             if (selectedPerson is Student)
@@ -96,8 +98,7 @@ namespace App.LearningManagement.Helpers
                 {
                     classEnum = PersonClassification.Senior;
                 }
-                var studentRecord = selectedPerson as Student;
-                if (studentRecord != null)
+                if (selectedPerson is Student studentRecord)
                 {
                     studentRecord.Classification = classEnum;
                     studentRecord.Id = int.Parse(id ?? "0");
@@ -273,8 +274,7 @@ namespace App.LearningManagement.Helpers
                 Console.WriteLine("Invalid student ID.");
                 return;
             }
-            var selectedStudent = StudentService.Current.Students.FirstOrDefault(s => s.Id == studentId) as Student;
-            if (selectedStudent == null)
+            if (StudentService.Current.Students.FirstOrDefault(s => s.Id == studentId) is not Student selectedStudent)
             {
                 Console.WriteLine("Invalid student ID for the selected course.");
                 return;
