@@ -4,6 +4,36 @@ S
 Daniel Halterman
 1
 O
+1
+1
+S
+Elizabeth Hardy
+5
+F
+1
+1
+S
+Jake Trusedale
+6
+S
+1
+1
+S
+Dyllan Ruler
+7
+J
+1
+1
+S
+Brian Ranner
+8
+F
+1
+1
+S
+Pablo Escobar
+9
+S
 2
 1
 COP4530
@@ -12,6 +42,7 @@ Data Algorithms 2
 Cool algorithms
 3
 1
+Q
 N
 2
 1
@@ -21,9 +52,11 @@ Data Algorithms 1
 Cool algorithms easy
 3
 1
+Q
 N
 2
 5
+Q
 COP4530
 New Bio Assignment
 Mammoth Essay
@@ -31,12 +64,14 @@ Mammoth Essay
 07/23/2024
 2
 6
+Q
 COP4530
 1
 Biology Group
 20
 2
 5
+Q
 COP4530
 New Bio Assignment 2
 Dolphin Essay
@@ -44,27 +79,32 @@ Dolphin Essay
 07/28/2024
 2
 6
+Q
 COP4530
 1
 Biology Group
 2
 6
+Q
 COP4530
 2
 Biology Group
 2
 11
 1
+Q
 COP4530
 Exam 1 this Friday
 We have our first exam friday
 2
 11
 2
+Q
 COP4530
 2
 11
 3
+Q
 COP4530
 1
 Exam 1 Next Friday
@@ -72,18 +112,22 @@ Get ready for Exam 1 next friday
 2
 11
 2
+Q
 COP4530
 2
 11
 4
+Q
 COP4530
 1
 2
 11
 2
+Q
 COP4530
 1
 3
+Q
 1
 1
 1
@@ -92,6 +136,7 @@ Brad Berry
 200
 1
 3
+Q
 200
 1
 1
@@ -100,6 +145,7 @@ Dr. Yu
 3000
 1
 3
+Q
 1
 1
 1
@@ -111,26 +157,32 @@ Bugs Bunny
 F
 1
 3
+Q
 2
 1
 5
+Q
 COP4530
+Q
 1
 1
 100
 2
 12
 1
+Q
 COP4530
 Test Module
 Test Description
 2
 12
 2
+Q
 COP4530
 2
 12
 3
+Q
 COP4530
 1
 Replacement Module
@@ -138,34 +190,44 @@ New Description
 2
 12
 2
+Q
 COP4530
 2
 12
 4
+Q
 COP4530
 1
 2
 12
 2
+Q
 COP4530
 1
 6
+Q
 1
+Q
 COP4530
 P
 1
 5
+Q
 COP4530
+Q
 1
 2
 80
 1
 6
+Q
 1
+Q
 COP4530
 P
 2
 5
+Q
 COP4530
 New Cool Assignment
 testing123
@@ -173,22 +235,28 @@ testing123
 08/23/2023
 2
 6
+Q
 COP4530
 3
 Biology Group
 1
 5
+Q
 COP4530
+Q
 1
 3
 60
 1
 6
+Q
 1
+Q
 COP4530
 P
 2
 5
+Q
 COP4530
 Filler
 Filler description
@@ -196,23 +264,29 @@ Filler description
 03/23/23
 2
 6
+Q
 COP4530
 4
 Filler Group
 80
 1
 5
+Q
 COP4530
+Q
 1
 4
 100
 1
 6
+Q
 1
+Q
 COP4530
 P
 2
 5
+Q
 COP3330
 COP3330 Intro Assignment
 FizzBuzz
@@ -220,12 +294,14 @@ FizzBuzz
 03/23/23
 2
 6
+Q
 COP3330
 5
 Assignments
 20
 2
 5
+Q
 COP3330
 COP3330 Exam 1
 Good Luck
@@ -233,26 +309,34 @@ Good Luck
 03/28/23
 2
 6
+Q
 COP3330
 6
 Exams
 80
 1
 5
+Q
 COP3330
+Q
 1
 5
 80
 1
 5
+Q
 COP3330
+Q
 1
 6
 90
 1
 6
+Q
 1
+Q
 COP4530
 C
+Q
 COP3330
 P

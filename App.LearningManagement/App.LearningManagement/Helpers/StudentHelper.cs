@@ -3,6 +3,7 @@ using Library.LearningManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,16 @@ namespace App.LearningManagement.Helpers
     {
         private StudentService studentService;
         private CourseService courseService;
+        private ListNavigator<Person> studentNavigator;
+        private ListNavigator<Course> courseNavigator;
+
 
         public StudentHelper()
         {
             studentService = StudentService.Current;
             courseService = CourseService.Current;
+            studentNavigator = new ListNavigator<Person>(studentService.Students, pageSize: 5);
+            courseNavigator = new ListNavigator<Course>(courseService.Courses, pageSize: 5);
         }
 
         public void CreateStudentRecord(Person? selectedPerson = null)
@@ -116,12 +122,99 @@ namespace App.LearningManagement.Helpers
                 }
             }
         }
+        public void DisplayStudents()
+        {
+            var students = studentNavigator.GetCurrentPage();
+            while (true)
+            {
+                foreach (var student in students.Values)
+                {
+                    Console.WriteLine($"[{student.Id}] - {student.Name}");
+                }
+                Console.WriteLine("Use 'P' to go to the previous page, 'N' to go to the next page, 'F' to go to the first page, 'L' to go to the last page," +
+                                  " or enter a page number to go directly to that page. Enter 'Q' to quit:");
+
+                var input = Console.ReadLine();
+                if (input.Equals("P", StringComparison.InvariantCultureIgnoreCase) && studentNavigator.HasPreviousPage)
+                {
+                    students = studentNavigator.GoBackward();
+                }
+                else if (input.Equals("N", StringComparison.InvariantCultureIgnoreCase) && studentNavigator.HasNextPage)
+                {
+                    students = studentNavigator.GoForward();
+                }
+                else if (input.Equals("F", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    students = studentNavigator.GoToFirstPage();
+                }
+                else if (input.Equals("L", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    students = studentNavigator.GoToLastPage();
+                }
+                else if (int.TryParse(input, out int pageNumber))
+                {
+                    students = studentNavigator.GoToPage(pageNumber);
+                }
+                else if (input.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please try again.");
+                    continue;  // prompt the user again
+                }
+            }
+        }
+
+        public void DisplayCourses()
+        {
+            var courses = courseNavigator.GetCurrentPage();
+            while (true)
+            {
+                foreach (var course in courses.Values)
+                {
+                    Console.WriteLine($"{course.Code} - {course.Name}");
+                }
+                Console.WriteLine("Use 'P' to go to the previous page, 'N' to go to the next page, 'F' to go to the first page, 'L' to go to the last page," +
+                                  " or enter a page number to go directly to that page. Enter 'Q' to quit:");
+                var input = Console.ReadLine();
+                if (input.Equals("P", StringComparison.InvariantCultureIgnoreCase) && courseNavigator.HasPreviousPage)
+                {
+                    courses = courseNavigator.GoBackward();
+                }
+                else if (input.Equals("N", StringComparison.InvariantCultureIgnoreCase) && courseNavigator.HasNextPage)
+                {
+                    courses = courseNavigator.GoForward();
+                }
+                else if (input.Equals("F", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    courses = courseNavigator.GoToFirstPage();
+                }
+                else if (input.Equals("L", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    courses = courseNavigator.GoToLastPage();
+                }
+                else if (int.TryParse(input, out int pageNumber))
+                {
+                    courses = courseNavigator.GoToPage(pageNumber);
+                }
+                else if (input.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please try again.");
+                    continue;  // prompt the user again
+                }
+            }
+        }
 
         public void UpdateStudentRecord()
         {
+            DisplayStudents();
             Console.WriteLine("Select a person to update:");
-            studentService.Students.ForEach(Console.WriteLine);
-
             var selectionStr = Console.ReadLine();
 
             if (int.TryParse(selectionStr, out int selectionInt))
@@ -136,8 +229,7 @@ namespace App.LearningManagement.Helpers
 
         public void ListStudents()
         {
-            studentService.Students.ForEach(Console.WriteLine);
-
+            DisplayStudents();
             Console.WriteLine("Select a student:");
             var selectionStr = Console.ReadLine();
             var selectionInt = int.Parse(selectionStr ?? "0");
@@ -161,8 +253,8 @@ namespace App.LearningManagement.Helpers
 
         public void GradeAssignment()
         {
+            DisplayCourses();
             Console.WriteLine("Enter the code for the course:");
-            courseService.Courses.ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -172,7 +264,7 @@ namespace App.LearningManagement.Helpers
                 return;
             }
 
-            studentService.Students.ForEach(Console.WriteLine);
+            DisplayStudents();
             Console.WriteLine("Enter the Id of the student:");
             string studentIdString = Console.ReadLine();
             if (!int.TryParse(studentIdString, out int studentId))
@@ -243,7 +335,7 @@ namespace App.LearningManagement.Helpers
         {
             double gpa_storage = 0;
             int coursesGraded = 0;
-            studentService.Students.ForEach(Console.WriteLine);
+            DisplayStudents();
             Console.WriteLine("Enter the ID of the student:");
             var studentIdStr = Console.ReadLine();
             if (int.TryParse(studentIdStr, out int studentId))
@@ -252,7 +344,7 @@ namespace App.LearningManagement.Helpers
                 bool addMoreCourses = true;
                 while (selectedStudent != null && addMoreCourses)
                 {
-                    courseService.Courses.ForEach(Console.WriteLine);
+                    DisplayCourses();
                     Console.WriteLine("Enter the code of the course:");
                     var courseCode = Console.ReadLine();
                     var selectedCourse = courseService.Courses.FirstOrDefault(c => c.Code.Equals(courseCode, StringComparison.InvariantCultureIgnoreCase));
@@ -304,10 +396,9 @@ namespace App.LearningManagement.Helpers
                         }
 
                         gpa_storage += (selectedCourse.TotalGPAPoints / selectedCourse.CreditHours); // use the counter variable in the calculation
-                        Console.WriteLine(gpa_storage);
                         Console.WriteLine($"Weighted Average for {selectedStudent.Name} in {selectedCourse.Name}: {Math.Round(finalGrade, 2)}% ({letterGrade})");
                         Console.WriteLine("Would you like to continue adding courses for your GPA or print the GPA (C/P)");
-                        string decision = Console.ReadLine();
+                        string decision = Console.ReadLine() ?? string.Empty;
                         if (decision.Equals("P", StringComparison.InvariantCultureIgnoreCase))
                         {
                             if (selectedCourse.CreditHours == 0)

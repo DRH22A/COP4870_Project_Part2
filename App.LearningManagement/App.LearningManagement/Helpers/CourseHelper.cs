@@ -12,11 +12,13 @@ namespace App.LearningManagement.Helpers
     {
         private CourseService courseService;
         private StudentService studentService;
+        private ListNavigator<Course> courseNavigator;
 
         public CourseHelper()
         {
             studentService= StudentService.Current;
             courseService = CourseService.Current;
+            courseNavigator = new ListNavigator<Course>(courseService.Courses, pageSize: 5);
         }
 
         public void CreateCourseRecord(Course? selectedCourse = null)
@@ -141,11 +143,54 @@ namespace App.LearningManagement.Helpers
             }
 
         }
+        public void DisplayCourses()
+        {
+            var courses = courseNavigator.GetCurrentPage();
+            while (true)
+            {
+                foreach (var course in courses.Values)
+                {
+                    Console.WriteLine($"{course.Code} - {course.Name}");
+                }
+                Console.WriteLine("Use 'P' to go to the previous page, 'N' to go to the next page, 'F' to go to the first page, 'L' to go to the last page," +
+                                  " or enter a page number to go directly to that page. Enter 'Q' to quit:");
+                var input = Console.ReadLine();
+                if (input.Equals("P", StringComparison.InvariantCultureIgnoreCase) && courseNavigator.HasPreviousPage)
+                {
+                    courses = courseNavigator.GoBackward();
+                }
+                else if (input.Equals("N", StringComparison.InvariantCultureIgnoreCase) && courseNavigator.HasNextPage)
+                {
+                    courses = courseNavigator.GoForward();
+                }
+                else if (input.Equals("F", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    courses = courseNavigator.GoToFirstPage();
+                }
+                else if (input.Equals("L", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    courses = courseNavigator.GoToLastPage();
+                }
+                else if (int.TryParse(input, out int pageNumber))
+                {
+                    courses = courseNavigator.GoToPage(pageNumber);
+                }
+                else if (input.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please try again.");
+                    continue;  // prompt the user again
+                }
+            }
+        }
 
         public void UpdateCourseRecord()
         {
+            DisplayCourses();
             Console.WriteLine("Enter the code for the course to update:");
-            courseService.Courses.ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -159,8 +204,9 @@ namespace App.LearningManagement.Helpers
         {
             if(string.IsNullOrEmpty(query))
             {
-                courseService.Courses.ForEach(Console.WriteLine);
-            } else
+                DisplayCourses();
+            }
+            else
             {
                 courseService.Search(query).ToList().ForEach(Console.WriteLine);
             }
@@ -179,10 +225,9 @@ namespace App.LearningManagement.Helpers
 
         public void AddStudent()
         {
+            DisplayCourses();
             Console.WriteLine("Enter the code for the course to add the student to:");
-            courseService.Courses.ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
-
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
             if (selectedCourse != null)
             {
@@ -205,10 +250,9 @@ namespace App.LearningManagement.Helpers
         }
         public void RemoveStudent()
         {
+            DisplayCourses();
             Console.WriteLine("Enter the code for the course to remove the student from:");
-            courseService.Courses.ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
-
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
             if (selectedCourse != null)
             {
@@ -235,8 +279,8 @@ namespace App.LearningManagement.Helpers
         }
         public void AddAssignment()
         {
+            DisplayCourses();
             Console.WriteLine("Enter the code for the course to add the assignment to:");
-            courseService.Courses.ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -248,8 +292,8 @@ namespace App.LearningManagement.Helpers
 
         public void GroupAssignment()
         {
+            DisplayCourses();
             Console.WriteLine("Enter the code for the course to add the assignment to:");
-            courseService.Courses.ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -270,6 +314,14 @@ namespace App.LearningManagement.Helpers
                         Console.WriteLine("Enter the weight of the group (ie. 40 = 40%):");
                         var temp_weight = Console.ReadLine();
                         double new_weight = Double.Parse(temp_weight);
+                        while(new_weight > 100)
+                        {
+                            Console.WriteLine("Invalid weight value");
+                            Console.WriteLine("Enter the weight of the group (ie. 40 = 40%):");
+                            temp_weight = Console.ReadLine();
+                            new_weight = Double.Parse(temp_weight);
+
+                        }
                         assignmentGroup = new AssignmentGroup
                         {
                             group_name = groupName ?? string.Empty,
@@ -301,8 +353,8 @@ namespace App.LearningManagement.Helpers
 
         public void UpdateAssignment()
         {
+            DisplayCourses();
             Console.WriteLine("Enter the code for the course:");
-            courseService.Courses.ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -324,8 +376,8 @@ namespace App.LearningManagement.Helpers
 
         public void RemoveAssignment()
         {
+            DisplayCourses();
             Console.WriteLine("Enter the code for the course:");
-            courseService.Courses.ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -435,8 +487,8 @@ namespace App.LearningManagement.Helpers
             }
             if (int_choice_value == 1)
             {
+                DisplayCourses();
                 Console.WriteLine("Enter the code for the course to add the announcement to:");
-                courseService.Courses.ForEach(Console.WriteLine);
                 var selection = Console.ReadLine();
 
                 var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -449,8 +501,8 @@ namespace App.LearningManagement.Helpers
             }
             else if (int_choice_value == 2)
             {
+                DisplayCourses();
                 Console.WriteLine("Enter the code for the course:");
-                courseService.Courses.ForEach(Console.WriteLine);
                 var selection = Console.ReadLine();
 
                 var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -467,8 +519,8 @@ namespace App.LearningManagement.Helpers
             }
             else if (int_choice_value == 3)
             {
+                DisplayCourses();
                 Console.WriteLine("Enter the code for the course:");
-                courseService.Courses.ForEach(Console.WriteLine);
                 var selection = Console.ReadLine();
 
                 var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -496,8 +548,8 @@ namespace App.LearningManagement.Helpers
             }
             else if (int_choice_value == 4)
             {
+                DisplayCourses();
                 Console.WriteLine("Enter the code for the course:");
-                courseService.Courses.ForEach(Console.WriteLine);
                 var selection = Console.ReadLine();
 
                 var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -540,8 +592,8 @@ namespace App.LearningManagement.Helpers
 
             if (int_choice_value == 1)
             {
+                DisplayCourses();
                 Console.WriteLine("Enter the code for the course to add the module to:");
-                courseService.Courses.ForEach(Console.WriteLine);
                 var selection = Console.ReadLine();
 
                 var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -554,8 +606,8 @@ namespace App.LearningManagement.Helpers
             }
             else if (int_choice_value == 2)
             {
+                DisplayCourses();
                 Console.WriteLine("Enter the code for the course:");
-                courseService.Courses.ForEach(Console.WriteLine);
                 var selection = Console.ReadLine();
 
                 var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -572,8 +624,8 @@ namespace App.LearningManagement.Helpers
             }
             else if (int_choice_value == 3)
             {
+                DisplayCourses();
                 Console.WriteLine("Enter the code for the course:");
-                courseService.Courses.ForEach(Console.WriteLine);
                 var selection = Console.ReadLine();
 
                 var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -601,8 +653,8 @@ namespace App.LearningManagement.Helpers
             }
             else if (int_choice_value == 4)
             {
+                DisplayCourses();
                 Console.WriteLine("Enter the code for the course:");
-                courseService.Courses.ForEach(Console.WriteLine);
                 var selection = Console.ReadLine();
 
                 var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
