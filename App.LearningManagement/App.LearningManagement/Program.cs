@@ -46,7 +46,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("4. Search for a person");
             Console.WriteLine("5. Provide a grade for a specific assignment to a student in a course");
             Console.WriteLine("6. Calculate a weighted average to a student for a course based on a weight given to an assignment group");
-            Console.WriteLine("7. Calculate a student's GPA");
 
             var input = Console.ReadLine();
             if (int.TryParse(input, out int result))
@@ -74,10 +73,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 else if (result == 6)
                 {
                     studentHelper.GetWeightedAverage();
-                }
-                else if (result == 7)
-                {
-                    studentHelper.CalculateGPA();
                 }
             }
         }

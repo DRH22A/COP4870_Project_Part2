@@ -56,7 +56,7 @@ namespace App.LearningManagement.Helpers
             }
 
             Console.WriteLine("What is the name of the person?");
-            var name = Console.ReadLine();
+            var name = Console.ReadLine() ?? string.Empty;
             Console.WriteLine("What is the id of the person?");
             string id = Console.ReadLine() ?? string.Empty;
             int temp_code = Int32.Parse(id);
@@ -216,7 +216,7 @@ namespace App.LearningManagement.Helpers
         {
             DisplayStudents();
             Console.WriteLine("Select a person to update:");
-            var selectionStr = Console.ReadLine();
+            var selectionStr = Console.ReadLine() ?? string.Empty;
 
             if (int.TryParse(selectionStr, out int selectionInt))
             {
@@ -232,7 +232,7 @@ namespace App.LearningManagement.Helpers
         {
             DisplayStudents();
             Console.WriteLine("Select a student:");
-            var selectionStr = Console.ReadLine();
+            var selectionStr = Console.ReadLine() ?? string.Empty;
             var selectionInt = int.Parse(selectionStr ?? "0");
 
             Console.WriteLine("Student Course List:");
@@ -245,7 +245,7 @@ namespace App.LearningManagement.Helpers
             var query = Console.ReadLine() ?? string.Empty;
 
             studentService.Search(query).ToList().ForEach(Console.WriteLine);
-            var selectionStr = Console.ReadLine();
+            var selectionStr = Console.ReadLine() ?? string.Empty;
             var selectionInt = int.Parse(selectionStr ?? "0");
 
             Console.WriteLine("Student Course List:");
@@ -256,7 +256,7 @@ namespace App.LearningManagement.Helpers
         {
             DisplayCourses();
             Console.WriteLine("Enter the code for the course:");
-            var selection = Console.ReadLine();
+            var selection = Console.ReadLine() ?? string.Empty;
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
             if (selectedCourse == null)
@@ -267,7 +267,7 @@ namespace App.LearningManagement.Helpers
 
             DisplayStudents();
             Console.WriteLine("Enter the Id of the student:");
-            string studentIdString = Console.ReadLine();
+            string studentIdString = Console.ReadLine() ?? string.Empty;
             if (!int.TryParse(studentIdString, out int studentId))
             {
                 Console.WriteLine("Invalid student ID.");
@@ -283,7 +283,7 @@ namespace App.LearningManagement.Helpers
 
             Console.WriteLine("Enter the Id of the assignment:");
             selectedCourse.Assignments.ForEach(Console.WriteLine);
-            string assignmentIdString = Console.ReadLine();
+            string assignmentIdString = Console.ReadLine() ?? string.Empty;
             if (!int.TryParse(assignmentIdString, out int assignmentId))
             {
                 Console.WriteLine("Invalid assignment ID.");
@@ -298,7 +298,7 @@ namespace App.LearningManagement.Helpers
             }
 
             Console.WriteLine($"Enter the grade for the assignment '{selectedAssignment.Name}' for student '{selectedStudent.Name}' in course '{selectedCourse.Name}':");
-            string gradeString = Console.ReadLine();
+            string gradeString = Console.ReadLine() ?? string.Empty;
             if (!double.TryParse(gradeString, out double grade))
             {
                 Console.WriteLine("Invalid grade value.");
@@ -338,7 +338,7 @@ namespace App.LearningManagement.Helpers
             int coursesGraded = 0;
             DisplayStudents();
             Console.WriteLine("Enter the ID of the student:");
-            var studentIdStr = Console.ReadLine();
+            var studentIdStr = Console.ReadLine() ?? string.Empty;
             if (int.TryParse(studentIdStr, out int studentId))
             {
                 var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == studentId && s is Student) as Student;
@@ -347,7 +347,7 @@ namespace App.LearningManagement.Helpers
                 {
                     DisplayCourses();
                     Console.WriteLine("Enter the code of the course:");
-                    var courseCode = Console.ReadLine();
+                    var courseCode = Console.ReadLine() ?? string.Empty;
                     var selectedCourse = courseService.Courses.FirstOrDefault(c => c.Code.Equals(courseCode, StringComparison.InvariantCultureIgnoreCase));
 
                     if (selectedCourse != null)
@@ -434,11 +434,6 @@ namespace App.LearningManagement.Helpers
             {
                 Console.WriteLine("Invalid student ID. Please try again.");
             }
-        }
-
-        public void CalculateGPA()
-        {
-
         }
     }
 }

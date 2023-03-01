@@ -12,7 +12,7 @@ namespace App.LearningManagement.Helpers
     {
         private CourseService courseService;
         private StudentService studentService;
-        private ListNavigator<Course> courseNavigator;
+        private readonly ListNavigator<Course> courseNavigator;
 
         public CourseHelper()
         {
