@@ -155,7 +155,7 @@ namespace App.LearningManagement.Helpers
                 Console.WriteLine("Use 'P' to go to the previous page, 'N' to go to the next page, 'F' to go to the first page, 'L' to go to the last page," +
                                   " or enter a page number to go directly to that page. Enter 'Q' to quit:");
                 Console.WriteLine($"Page [{courseNavigator.ReturnCurrentPage()} / {courseNavigator.ReturnLastPage()}]");
-                var input = Console.ReadLine();
+                var input = Console.ReadLine() ?? string.Empty;
                 if (input.Equals("P", StringComparison.InvariantCultureIgnoreCase) && courseNavigator.HasPreviousPage)
                 {
                     courses = courseNavigator.GoBackward();
@@ -309,13 +309,13 @@ namespace App.LearningManagement.Helpers
                     if (assignmentGroup == null)
                     {
                         Console.WriteLine("Enter the weight of the group (ie. 40 = 40%):");
-                        var temp_weight = Console.ReadLine();
+                        var temp_weight = Console.ReadLine() ?? string.Empty;
                         double new_weight = Double.Parse(temp_weight);
                         while(new_weight > 100)
                         {
                             Console.WriteLine("Invalid weight value");
                             Console.WriteLine("Enter the weight of the group (ie. 40 = 40%):");
-                            temp_weight = Console.ReadLine();
+                            temp_weight = Console.ReadLine() ?? string.Empty;
                             new_weight = Double.Parse(temp_weight);
 
                         }
