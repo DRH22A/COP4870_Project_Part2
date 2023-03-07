@@ -45,7 +45,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("3. List all people");     
             Console.WriteLine("4. Search for a person");
             Console.WriteLine("5. Provide a grade for a specific assignment to a student in a course");
-            Console.WriteLine("6. Calculate a weighted average to a student for a course based on a weight given to an assignment group");
+            Console.WriteLine("6. Calculate a weighted average to a student for a course based on a weight given to an assignment group and calculate GPA");
 
             var input = Console.ReadLine();
             if (int.TryParse(input, out int result))

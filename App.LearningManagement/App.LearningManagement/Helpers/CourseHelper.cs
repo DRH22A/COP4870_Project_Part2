@@ -121,7 +121,7 @@ namespace App.LearningManagement.Helpers
             {
                 choice = "Y";
             }
-            if (choice.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+            if (!isNewCourse)
             {
                 Console.WriteLine("What is the new credit hours of the course?");
                 string temp_hours_input = Console.ReadLine() ?? string.Empty;
