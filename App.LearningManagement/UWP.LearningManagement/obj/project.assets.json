@@ -568,6 +568,16 @@
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.props": {},
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.targets": {}
         }
+      },
+      "UWP.Library.LearningManagement/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.17763/win10-arm": {
@@ -1315,6 +1325,16 @@
         "build": {
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.props": {},
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.targets": {}
+        }
+      },
+      "UWP.Library.LearningManagement/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
         }
       }
     },
@@ -2065,6 +2085,16 @@
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.props": {},
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.targets": {}
         }
+      },
+      "UWP.Library.LearningManagement/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.17763/win10-arm64-aot": {
@@ -2814,6 +2844,16 @@
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.props": {},
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.targets": {}
         }
+      },
+      "UWP.Library.LearningManagement/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.17763/win10-x64": {
@@ -3561,6 +3601,16 @@
         "build": {
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.props": {},
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.targets": {}
+        }
+      },
+      "UWP.Library.LearningManagement/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
         }
       }
     },
@@ -4311,6 +4361,16 @@
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.props": {},
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.targets": {}
         }
+      },
+      "UWP.Library.LearningManagement/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        }
       }
     },
     "UAP,Version=v10.0.17763/win10-x86": {
@@ -5058,6 +5118,16 @@
         },
         "native": {
           "runtimes/win10-x86/nativeassets/uap10.0.15138/clrcompression.dll": {}
+        }
+      },
+      "UWP.Library.LearningManagement/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
         }
       }
     },
@@ -5808,6 +5878,16 @@
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.props": {},
           "build/runtime.win10-x86.Microsoft.Net.UWPCoreRuntimeSdk.targets": {}
         }
+      },
+      "UWP.Library.LearningManagement/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UWP.Library.LearningManagement.dll": {}
+        }
       }
     }
   },
@@ -6194,7 +6274,7 @@
       ]
     },
     "NETStandard.Library/2.0.3": {
-      "sha512": "548M6mnBSJWxsIlkQHfbzoYxpiYFXZZSL00p4GHYv8PkiqFBnnT68mW5mGEsA/ch9fDO9GkPgkFQpWiXZN7mAQ==",
+      "sha512": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "type": "package",
       "path": "netstandard.library/2.0.3",
       "files": [
@@ -10247,11 +10327,17 @@
         "runtimes/win10-x86/lib/uap10.0.15138/netstandard.dll",
         "runtimes/win10-x86/nativeassets/uap10.0.15138/clrcompression.dll"
       ]
+    },
+    "UWP.Library.LearningManagement/1.0.0": {
+      "type": "project",
+      "path": "../UWP.Library.LearningManagement/UWP.Library.LearningManagement.csproj",
+      "msbuildProject": "../UWP.Library.LearningManagement/UWP.Library.LearningManagement.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "UAP,Version=v10.0.17763": [
-      "Microsoft.NETCore.UniversalWindowsPlatform >= 6.2.14"
+      "Microsoft.NETCore.UniversalWindowsPlatform >= 6.2.14",
+      "UWP.Library.LearningManagement >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -10287,7 +10373,11 @@
       },
       "frameworks": {
         "uap10.0.17763": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\drhal\\source\\repos\\CSharpSpring23_StudentProject\\App.LearningManagement\\UWP.Library.LearningManagement\\UWP.Library.LearningManagement.csproj": {
+              "projectPath": "C:\\Users\\drhal\\source\\repos\\CSharpSpring23_StudentProject\\App.LearningManagement\\UWP.Library.LearningManagement\\UWP.Library.LearningManagement.csproj"
+            }
+          }
         }
       }
     },

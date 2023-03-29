@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="efae62e0-7c68-4490-ba7a-c409e5ec4d00"
+    Name="603d6ae2-2874-4080-87ab-a8ae920a99a4"
     Publisher="CN=drhal"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="efae62e0-7c68-4490-ba7a-c409e5ec4d00" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="603d6ae2-2874-4080-87ab-a8ae920a99a4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>UWP.LearningManagement</DisplayName>

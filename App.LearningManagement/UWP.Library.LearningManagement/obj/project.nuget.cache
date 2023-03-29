@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZLEXI60/2G0TmCGoaO86CYKzmm0t9QX4Fg9SWItruH+9twuLKbEG6pgMzKwwU8nXdij/GUkPU3T2mK5xlk+RDQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\drhal\\source\\repos\\CSharpSpring23_StudentProject\\App.LearningManagement\\UWP.Library.LearningManagement\\UWP.Library.LearningManagement.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\drhal\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\drhal\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
