@@ -25,7 +25,11 @@ namespace Library.LearningManagement.Services
             {
                 new Student{ Name = "Daniel Halterman", Id=1, Classification=PersonClassification.Freshman},
                 new Instructor{ Name = "Brian Ranner", Id=2},
-                new TeachingAssistant{ Name = "Scott Reynolds", Id=3}
+                new TeachingAssistant{ Name = "Scott Reynolds", Id=3},
+                new Student{ Name = "Daniel Halterman2", Id=11, Classification=PersonClassification.Freshman},
+                new Student{ Name = "Daniel Halterman3", Id=111, Classification=PersonClassification.Freshman},
+                new Student{ Name = "Daniel Halterman4", Id=1111, Classification=PersonClassification.Freshman}
+
             };
         }
 

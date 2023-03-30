@@ -25,7 +25,11 @@ namespace Library.LearningManagement.Services
             {
                 new Course {Code = "COP4870", Name = "Full-Stack Application Development with C#", Description = "Fun Programming 1"},
                 new Course { Code = "COP4530", Name = "DATA STRUCTURES, ALGORITHMS, AND GENERIC PROGRAMMING", Description = "Fun Programming 2"},
-                new Course { Code = "COP4342", Name = "UNIX TOOLS", Description = "Fun Programming 3"}
+                new Course { Code = "COP4342", Name = "UNIX TOOLS4", Description = "Fun Programming 3"},
+                new Course { Code = "COP43422", Name = "UNIX TOOLS3", Description = "Fun Programming 3"},
+                new Course { Code = "COP434233", Name = "UNIX TOOLS2", Description = "Fun Programming 3"},
+                new Course { Code = "COP434254", Name = "UNIX TOOLS1", Description = "Fun Programming 3"}
+
             };
         }
 

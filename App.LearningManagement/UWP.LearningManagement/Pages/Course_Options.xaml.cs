@@ -215,14 +215,17 @@ namespace UWP.LearningManagement.Pages
             if (!isListOpen)
             {
                 coursesList.Visibility = Visibility.Visible;
+                navigationList.Visibility = Visibility.Visible; // set the visibility of the navigation buttons
                 isListOpen = true;
             }
             else
             {
                 coursesList.Visibility = Visibility.Collapsed;
+                navigationList.Visibility = Visibility.Collapsed; // hide the navigation buttons
                 isListOpen = false;
             }
         }
+
 
         private async void DeleteCourse_Click(object sender, RoutedEventArgs e)
         {

@@ -12,18 +12,29 @@
         <StackPanel x:ConnectionId='2' x:Name="courseMenu">
             <TextBox x:ConnectionId='6' x:Name="course_searchBox" PlaceholderText="Search for a course" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"                                    />
             <Button x:ConnectionId='7' Content="List all courses" HorizontalAlignment="Stretch" FontSize="14"                             />
-            <ItemsControl x:ConnectionId='8' x:Name="coursesList" HorizontalAlignment="Center" Margin="10" ItemsSource="{Binding Courses}" Visibility="Collapsed">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button x:ConnectionId='18' HorizontalAlignment="Stretch" VerticalAlignment="Top"                          >
-                            <TextBlock Margin="5">
-                                <Run Text="{Binding Code}"/>
-                                <Run Text="-"/>
-                                <Run Text="{Binding Name}"/>
-                            </TextBlock>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:ConnectionId='22' x:Name="coursesList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button x:ConnectionId='23' HorizontalAlignment="Stretch" VerticalAlignment="Top"                          >
+                                <TextBlock Margin="5">
+                                    <Run Text="{Binding Code}"/>
+                                    <Run Text="-"/>
+                                    <Run Text="{Binding Name}"/>
+                                </TextBlock>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            <ItemsControl x:ConnectionId='8' x:Name="navigationList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                    <Button x:ConnectionId='18' Content="First Page" FontSize="20"                            />
+                    <Button x:ConnectionId='19' Content="Previous Page" FontSize="20"                            />
+                    <TextBlock Text="{Binding CurrentPage}" FontSize="20" Margin="10"/>
+                    <Button x:ConnectionId='20' Content="Next Page" FontSize="20"                            />
+                    <Button x:ConnectionId='21' Content="Last Page" FontSize="20"                            />
+                </StackPanel>
             </ItemsControl>
             <Button x:ConnectionId='9' Content="Add Student" HorizontalAlignment="Stretch" FontSize="14"                         />
             <Button x:ConnectionId='10' Content="Remove Student" HorizontalAlignment="Stretch" FontSize="14"                            />

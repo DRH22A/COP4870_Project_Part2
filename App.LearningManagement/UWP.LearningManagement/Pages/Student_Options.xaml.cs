@@ -289,11 +289,13 @@ namespace UWP.LearningManagement.Pages
             if (!isListOpen)
             {
                 peopleList.Visibility = Visibility.Visible;
+                studentNavigationList.Visibility = Visibility.Visible;
                 isListOpen = true;
             }
             else
             {
                 peopleList.Visibility = Visibility.Collapsed;
+                studentNavigationList.Visibility = Visibility.Collapsed;
                 isListOpen = false;
             }
         }
