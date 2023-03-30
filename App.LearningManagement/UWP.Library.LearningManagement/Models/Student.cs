@@ -73,7 +73,7 @@ namespace Library.LearningManagement.Models
 
     public enum PersonClassification
     {
-        Freshman, Sophomore, Junior, Senior
+        Freshman, Sophomore, Junior, Senior, Instructor, TeachingAssistant
     }
 
 }

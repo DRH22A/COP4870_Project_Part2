@@ -27,6 +27,7 @@ namespace UWP.LearningManagement.ViewModels
             }
         }
 
-        public ObservableCollection<Person> Students => studentService.Students;
+        public ObservableCollection<Person> People => studentService.People;
+
     }
 }

@@ -11,21 +11,21 @@ namespace Library.LearningManagement.Services
 {
     public class StudentService
     {
-        private ObservableCollection<Person> studentList;
+        private ObservableCollection<Person> personList;
         private ObservableCollection<Course> courseList;
 
         private static StudentService _instance;
-        public ObservableCollection<Person> Students
+        public ObservableCollection<Person> People
         {
-            get { return studentList; }
+            get { return personList; }
         }
         public StudentService()
         {
-            studentList = new ObservableCollection<Person>()
+            personList = new ObservableCollection<Person>()
             {
-                new Person{ Name = "Daniel Halterman", Id=1},
-                new Person{ Name = "Brian Ranner", Id=2},
-                new Person{ Name = "Scott Reynolds", Id=3}
+                new Student{ Name = "Daniel Halterman", Id=1, Classification=PersonClassification.Freshman},
+                new Instructor{ Name = "Brian Ranner", Id=2},
+                new TeachingAssistant{ Name = "Scott Reynolds", Id=3}
             };
         }
 
@@ -44,12 +44,16 @@ namespace Library.LearningManagement.Services
 
         public void Add(Person student)
         {
-            studentList.Add(student);
+            personList.Add(student);
+        }
+        public void Remove(Person student)
+        {
+            personList.Remove(student);
         }
 
         public IEnumerable<Person> Search(string query)
         {
-            return studentList.Where(s => s.Name.ToUpper().Contains(query.ToUpper()));
+            return personList.Where(s => s.Name.ToUpper().Contains(query.ToUpper()));
         }
     }
 }

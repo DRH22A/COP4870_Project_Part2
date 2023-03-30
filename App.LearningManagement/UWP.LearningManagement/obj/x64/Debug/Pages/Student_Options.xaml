@@ -10,23 +10,30 @@
 
     <Grid>
         <StackPanel x:ConnectionId='2' x:Name="peopleMenu">
-            <TextBox x:ConnectionId='5' x:Name="searchBox" PlaceholderText="Search for a person" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"                                    />
-            <Button x:ConnectionId='6' Content="List all people" HorizontalAlignment="Stretch" FontSize="14"                         />
-            <ItemsControl x:ConnectionId='7' x:Name="peopleList" Margin="10" ItemsSource="{Binding Students}" Visibility="Collapsed">
+            <TextBox x:ConnectionId='6' x:Name="searchBox" PlaceholderText="Search for a person" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"                                    />
+            <Button x:ConnectionId='7' Content="List all people" HorizontalAlignment="Stretch" FontSize="14"                         />
+            <ItemsControl x:ConnectionId='8' x:Name="peopleList" HorizontalAlignment="Center" Margin="10" ItemsSource="{Binding Students}" Visibility="Collapsed">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}" Margin="5"/>
+                        <Button x:ConnectionId='12' HorizontalAlignment="Stretch" VerticalAlignment="Top"                          >
+                            <TextBlock Margin="5">
+                                <Run Text="{Binding Id}"/>
+                                <Run Text="-"/>
+                                <Run Text="{Binding Name}"/>
+                            </TextBlock>                        
+                        </Button>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Button x:ConnectionId='8' Content="Provide a grade for a specific assignment" HorizontalAlignment="Stretch" FontSize="14"                              />
-            <Button x:ConnectionId='9' Content="Calculate a weighted average" HorizontalAlignment="Stretch" FontSize="14"                              />
-            <Button x:ConnectionId='10' Content="Return to Main Menu" HorizontalAlignment="Stretch" FontSize="14"                     />
+            <Button x:ConnectionId='9' Content="Provide a grade for a specific assignment" HorizontalAlignment="Stretch" FontSize="14"                              />
+            <Button x:ConnectionId='10' Content="Calculate a weighted average" HorizontalAlignment="Stretch" FontSize="14"                              />
+            <Button x:ConnectionId='11' Content="Return to Main Menu" HorizontalAlignment="Stretch" FontSize="14"                     />
         </StackPanel>
         <Grid>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                 <Button x:ConnectionId='3' Content="Add a new person " FontSize="24"                        />
                 <Button x:ConnectionId='4' Content=" Update a person" FontSize="24"                           />
+                <Button x:ConnectionId='5' Content=" Delete a person" FontSize="24"                            />
             </StackPanel>
         </Grid>
     </Grid>

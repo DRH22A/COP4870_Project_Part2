@@ -3,8 +3,10 @@ using Library.LearningManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using UWP.LearningManagement.ViewModels;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -13,7 +15,6 @@ namespace UWP.LearningManagement.Pages
 {
     public sealed partial class Student_Options : Page
     {
-
         public Student_Options()
         {
             this.InitializeComponent();
@@ -25,15 +26,18 @@ namespace UWP.LearningManagement.Pages
             ContentDialog addPersonDialog = new ContentDialog
             {
                 Title = "Add a New Person",
+
                 Content = new StackPanel
                 {
                     Children =
                     {
                         new TextBox { PlaceholderText = "Enter name here", Name = "NameTextBox" },
                         new TextBox { PlaceholderText = "Enter ID here", Name = "IdTextBox" },
+                        new ComboBox { Header = "Classification", Name = "ClassificationComboBox", ItemsSource = Enum.GetValues(typeof(PersonClassification)) },
                         new TextBlock { Foreground = new SolidColorBrush(Colors.Red), Name = "ErrorTextBlock" }
                     }
                 },
+
                 PrimaryButtonText = "Add",
                 SecondaryButtonText = "Cancel"
             };
@@ -42,6 +46,7 @@ namespace UWP.LearningManagement.Pages
             {
                 TextBox nameTextBox = (TextBox)((StackPanel)addPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "NameTextBox");
                 TextBox idTextBox = (TextBox)((StackPanel)addPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "IdTextBox");
+                ComboBox classificationComboBox = (ComboBox)((StackPanel)addPersonDialog.Content).Children.First(c => c is ComboBox && ((ComboBox)c).Name == "ClassificationComboBox");
                 TextBlock errorTextBlock = (TextBlock)((StackPanel)addPersonDialog.Content).Children.First(c => c is TextBlock && ((TextBlock)c).Name == "ErrorTextBlock");
                 string name = nameTextBox.Text.Trim();
                 if (string.IsNullOrEmpty(name))
@@ -51,39 +56,61 @@ namespace UWP.LearningManagement.Pages
                     return;
                 }
 
-                if (int.TryParse(idTextBox.Text.Trim(), out int id))
+                Person newPerson;
+                if (classificationComboBox.SelectedIndex == 0)
                 {
-                    if (StudentService.Current.Students.Any(s => s.Id == id))
-                    {
-                        errorTextBlock.Text = "A student with the same ID already exists. Please enter a unique ID.";
-                        contentDialogArgs.Cancel = true;
-                        return;
-                    }
-
-                    if (StudentService.Current.Students.Any(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
-                    {
-                        errorTextBlock.Text = "A student with the same name already exists. Please enter a unique name.";
-                        contentDialogArgs.Cancel = true;
-                        return;
-                    }
-
-                    Person newPerson = new Person { Id = id, Name = name };
-                    StudentService.Current.Add(newPerson);
-
-                    if (!string.IsNullOrWhiteSpace(searchBox.Text))
-                    {
-                        peopleList.ItemsSource = StudentService.Current.Search(searchBox.Text);
-                    }
-                    else
-                    {
-                        peopleList.ItemsSource = StudentService.Current.Students;
-                    }
+                    newPerson = new Student { Id = int.Parse(idTextBox.Text.Trim()), Name = name, Classification=PersonClassification.Freshman };
+                }
+                else if (classificationComboBox.SelectedIndex == 1)
+                {
+                    newPerson = new Student { Id = int.Parse(idTextBox.Text.Trim()), Name = name, Classification = PersonClassification.Sophomore };
+                }
+                else if (classificationComboBox.SelectedIndex == 2)
+                {
+                    newPerson = new Student { Id = int.Parse(idTextBox.Text.Trim()), Name = name, Classification = PersonClassification.Junior };
+                }
+                else if (classificationComboBox.SelectedIndex == 3)
+                {
+                    newPerson = new Student { Id = int.Parse(idTextBox.Text.Trim()), Name = name, Classification = PersonClassification.Freshman };
+                }
+                else if (classificationComboBox.SelectedIndex == 4)
+                {
+                    newPerson = new Instructor { Id = int.Parse(idTextBox.Text.Trim()), Name = name };
+                }
+                else if (classificationComboBox.SelectedIndex == 5)
+                {
+                    newPerson = new TeachingAssistant { Id = int.Parse(idTextBox.Text.Trim()), Name = name };
                 }
                 else
                 {
-                    errorTextBlock.Text = "Please enter a valid integer ID.";
+                    errorTextBlock.Text = "Please select a classification.";
                     contentDialogArgs.Cancel = true;
                     return;
+                }
+
+                if (StudentService.Current.People.Any(s => s.Id == newPerson.Id))
+                {
+                    errorTextBlock.Text = "A person with the same ID already exists. Please enter a unique ID.";
+                    contentDialogArgs.Cancel = true;
+                    return;
+                }
+
+                if (StudentService.Current.People.Any(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+                {
+                    errorTextBlock.Text = "A person with the same name already exists. Please enter a unique name.";
+                    contentDialogArgs.Cancel = true;
+                    return;
+                }
+
+                StudentService.Current.Add(newPerson);
+
+                if (!string.IsNullOrWhiteSpace(searchBox.Text))
+                {
+                    peopleList.ItemsSource = StudentService.Current.Search(searchBox.Text);
+                }
+                else
+                {
+                    peopleList.ItemsSource = StudentService.Current.People;
                 }
             };
 
@@ -95,7 +122,7 @@ namespace UWP.LearningManagement.Pages
             ContentDialog updatePersonDialog = new ContentDialog
             {
                 Title = "Update a Person",
-                Content = new ComboBox { PlaceholderText = "Select a person", ItemsSource = StudentService.Current.Students },
+                Content = new ComboBox { PlaceholderText = "Select a person", ItemsSource = StudentService.Current.People },
                 PrimaryButtonText = "Update",
                 SecondaryButtonText = "Cancel"
             };
@@ -132,7 +159,6 @@ namespace UWP.LearningManagement.Pages
                         return;
                     }
 
-                    // Create a new ContentDialog to allow the user to edit the ID of the selected person
                     ContentDialog editIdDialog = new ContentDialog
                     {
                         Title = "Edit ID",
@@ -147,7 +173,7 @@ namespace UWP.LearningManagement.Pages
                         TextBox idTextBox = (TextBox)editIdDialog.Content;
                         if (int.TryParse(idTextBox.Text.Trim(), out int newId))
                         {
-                            if (newId == selectedPerson.Id)
+                            if (newId == selectedPerson.Id && newId != selectedPerson.Id)
                             {
                                 // Display an error message if the user didn't enter a new ID
                                 ContentDialog errorDialog = new ContentDialog
@@ -159,9 +185,8 @@ namespace UWP.LearningManagement.Pages
                                 _ = errorDialog.ShowAsync();
                                 return;
                             }
-                            if (StudentService.Current.Students.Any(s => s.Id == newId))
+                            if (StudentService.Current.People.Any(s => s.Id == newId) && newId != selectedPerson.Id)
                             {
-                                // Display an error message if the new ID already exists
                                 ContentDialog errorDialog = new ContentDialog
                                 {
                                     Title = "Duplicate ID",
@@ -181,20 +206,18 @@ namespace UWP.LearningManagement.Pages
                             }
                             else
                             {
-                                peopleList.ItemsSource = StudentService.Current.Students;
+                                peopleList.ItemsSource = StudentService.Current.People;
                             }
                         }
                         else
                         {
-                            // Display an error message if the user entered an invalid ID
                             ContentDialog errorDialog = new ContentDialog
                             {
                                 Title = "Invalid ID",
                                 Content = "Please enter a valid integer ID.",
                                 CloseButtonText = "OK"
                             };
-                            _ = errorDialog
-        .ShowAsync();
+                            _ = errorDialog.ShowAsync();
                         }
                     }
 
@@ -204,32 +227,77 @@ namespace UWP.LearningManagement.Pages
                     }
                     else
                     {
-                        peopleList.ItemsSource = StudentService.Current.Students;
+                        peopleList.ItemsSource = StudentService.Current.People;
                     }
                 }
             }
         }
 
+        private async void Delete_Person_Click(object sender, RoutedEventArgs e)
+        {
+            var comboBox = new ComboBox { PlaceholderText = "Select a person", ItemsSource = StudentService.Current.People };
+            var deletePersonDialog = new ContentDialog
+            {
+                Title = "Delete a Person",
+                Content = comboBox,
+                PrimaryButtonText = "Delete",
+                SecondaryButtonText = "Cancel"
+            };
 
+            if (await deletePersonDialog.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var selectedPerson = comboBox.SelectedItem as Person;
+                if (selectedPerson != null)
+                {
+                    StudentService.Current.Remove(selectedPerson);
+                }
+            }
+        }
 
-
+        private async void Person_Info_Click(object sender, RoutedEventArgs e)
+        {
+            var student = ((FrameworkElement)sender).DataContext as Student;
+            if (student != null)
+            {
+                var dialog = new MessageDialog($"Name: {student.Name}\nId: {student.Id}\nClassification: {student.Classification}");
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                var instructor = ((FrameworkElement)sender).DataContext as Instructor;
+                if (instructor != null)
+                {
+                    var dialog = new MessageDialog($"Name: {instructor.Name}\nId: {instructor.Id}");
+                    await dialog.ShowAsync();
+                }
+                else
+                {
+                    var teachingAssistant = ((FrameworkElement)sender).DataContext as TeachingAssistant;
+                    if (teachingAssistant != null)
+                    {
+                        var dialog = new MessageDialog($"Name: {teachingAssistant.Name}\nId: {teachingAssistant.Id}");
+                        await dialog.ShowAsync();
+                    }
+                }
+            }
+        }
 
         bool isListOpen = false;
         private void ListPeople_Click(object sender, RoutedEventArgs e)
         {
+            peopleList.ItemsSource = StudentService.Current.People;
             if (!isListOpen)
             {
-                // Show the list of people
-                peopleList.Visibility = Visibility.Visible; 
+                peopleList.Visibility = Visibility.Visible;
                 isListOpen = true;
             }
             else
             {
-                // Hide the list of people
                 peopleList.Visibility = Visibility.Collapsed;
                 isListOpen = false;
             }
         }
+
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -237,23 +305,19 @@ namespace UWP.LearningManagement.Pages
 
             if (string.IsNullOrWhiteSpace(searchQuery))
             {
-                // Reset the items source if the search query is empty
-                peopleList.ItemsSource = StudentService.Current.Students;
+                peopleList.ItemsSource = StudentService.Current.People;
             }
             else
             {
-                // Filter the items source based on the search query
                 peopleList.ItemsSource = StudentService.Current.Search(searchQuery);
             }
 
-            // Show the list of people if it's not already visible
             if (!isListOpen)
             {
                 peopleList.Visibility = Visibility.Visible;
                 isListOpen = true;
             }
         }
-
 
         private void GradeAssignment_Click(object sender, RoutedEventArgs e)
         {

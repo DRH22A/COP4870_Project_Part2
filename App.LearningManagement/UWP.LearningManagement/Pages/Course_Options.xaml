@@ -10,19 +10,37 @@
 
     <Grid>
         <StackPanel x:Name="courseMenu">
-            <Button Content="Create Course Record" HorizontalAlignment="Stretch" FontSize="14" Click="CreateCourseRecord_Click"/>
-            <Button Content="Update Course Record" HorizontalAlignment="Stretch" FontSize="14" Click="UpdateCourseRecord_Click"/>
+            <TextBox x:Name="course_searchBox" PlaceholderText="Search for a course" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" TextChanged="searchBox_TextChanged"/>
+            <Button Content="List all courses" HorizontalAlignment="Stretch" FontSize="14" Click="DisplayCourses_Click"/>
+            <ItemsControl x:Name="coursesList" HorizontalAlignment="Center" Margin="10" ItemsSource="{Binding Courses}" Visibility="Collapsed">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="Course_Info_Click">
+                            <TextBlock Margin="5">
+                                <Run Text="{Binding Code}"/>
+                                <Run Text="-"/>
+                                <Run Text="{Binding Name}"/>
+                            </TextBlock>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
             <Button Content="Add Student" HorizontalAlignment="Stretch" FontSize="14" Click="AddStudent_Click"/>
             <Button Content="Remove Student" HorizontalAlignment="Stretch" FontSize="14" Click="RemoveStudent_Click"/>
             <Button Content="Add Assignment" HorizontalAlignment="Stretch" FontSize="14" Click="AddAssignment_Click"/>
             <Button Content="Group Assignment" HorizontalAlignment="Stretch" FontSize="14" Click="GroupAssignment_Click"/>
             <Button Content="Update Assignment" HorizontalAlignment="Stretch" FontSize="14" Click="UpdateAssignment_Click"/>
             <Button Content="Remove Assignment" HorizontalAlignment="Stretch" FontSize="14" Click="RemoveAssignment_Click"/>
-            <Button Content="Search Courses" HorizontalAlignment="Stretch" FontSize="14" Click="SearchCourses_Click"/>
             <Button Content="CRUD Announcement" HorizontalAlignment="Stretch" FontSize="14" Click="CRUDAnnouncement_Click"/>
             <Button Content="CRUD Module" HorizontalAlignment="Stretch" FontSize="14" Click="CRUDModule_Click"/>
             <Button Content="Return to Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click"/>
-
         </StackPanel>
+        <Grid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                <Button Content="Add a new course " FontSize="24" Click="CreateCourseRecord_Click"/>
+                <Button Content=" Update a course" FontSize="24" Click="UpdateCourseRecord_Click"/>
+                <Button Content=" Delete a course" FontSize="24" Click="DeleteCourse_Click"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>
