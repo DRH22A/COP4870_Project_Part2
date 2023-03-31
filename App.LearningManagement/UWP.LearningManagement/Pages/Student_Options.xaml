@@ -10,6 +10,7 @@
 
     <Grid>
         <StackPanel x:Name="peopleMenu">
+            <ToggleButton x:Name="MyToggleButton" Content="Switch to TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Checked="MyToggleButton_Checked" Unchecked="MyToggleButton_Unchecked" Grid.Row="0" />
             <TextBox x:Name="searchBox" PlaceholderText="Search for a person" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" TextChanged="searchBox_TextChanged"/>
             <Button Content="List all students" HorizontalAlignment="Stretch" FontSize="14" Click="ListPeople_Click"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto">

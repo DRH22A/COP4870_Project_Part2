@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ToggleState.cs" />
     <Compile Include="Pages\Course_Options.xaml.cs">
       <DependentUpon>Course_Options.xaml</DependentUpon>
     </Compile>

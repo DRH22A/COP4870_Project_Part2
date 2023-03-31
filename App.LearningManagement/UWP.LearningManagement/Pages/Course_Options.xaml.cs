@@ -19,7 +19,21 @@ namespace UWP.LearningManagement.Pages
         {
             this.InitializeComponent();
             DataContext = new MainViewModel();
+            MyToggleButton.IsChecked = Toggle_State.IsChecked;
         }
+
+        private void MyToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            Toggle_State.IsChecked = true;
+            MyToggleButton.Content = "Switch to Student Mode";
+        }
+
+        private void MyToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Toggle_State.IsChecked = false;
+            MyToggleButton.Content = "Switch to TA/Instructor Mode";
+        }
+
         private async void CreateCourseRecord_Click(object sender, RoutedEventArgs e)
         {
             ContentDialog addCourseDialog = new ContentDialog

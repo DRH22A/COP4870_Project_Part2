@@ -15,11 +15,10 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ToggleButton x:ConnectionId='2' x:Name="modeToggleButton" Content="Switch to TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10"                                Grid.Row="0" />
+        <ToggleButton x:ConnectionId='2' x:Name="MyToggleButton" Content="Switch to TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10"                                                                       Grid.Row="0" />
         <Button x:ConnectionId='3' Content="Student Information" IsEnabled="True" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                              Grid.Row="1"/>
         <Button x:ConnectionId='4' Content="Courses Information" IsEnabled="True" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                               Grid.Row="2"/>
         <Button x:ConnectionId='5' Content="Exit" FontSize="24" IsEnabled="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                    Grid.Row="3"/>
-    </Grid>
-
+    </Grid> 
 </Page>
 

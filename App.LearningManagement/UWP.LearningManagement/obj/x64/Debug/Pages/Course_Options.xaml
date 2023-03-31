@@ -10,13 +10,14 @@
 
     <Grid>
         <StackPanel x:ConnectionId='2' x:Name="courseMenu">
-            <TextBox x:ConnectionId='6' x:Name="course_searchBox" PlaceholderText="Search for a course" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"                                    />
-            <Button x:ConnectionId='7' Content="List all courses" HorizontalAlignment="Stretch" FontSize="14"                             />
+            <ToggleButton x:ConnectionId='6' x:Name="MyToggleButton" Content="Switch to TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10"                                                                       Grid.Row="0" />
+            <TextBox x:ConnectionId='7' x:Name="course_searchBox" PlaceholderText="Search for a course" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"                                    />
+            <Button x:ConnectionId='8' Content="List all courses" HorizontalAlignment="Stretch" FontSize="14"                             />
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:ConnectionId='21' x:Name="coursesList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
+                <ItemsControl x:ConnectionId='22' x:Name="coursesList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button x:ConnectionId='22' HorizontalAlignment="Stretch" VerticalAlignment="Top"                          >
+                            <Button x:ConnectionId='23' HorizontalAlignment="Stretch" VerticalAlignment="Top"                          >
                                 <TextBlock Margin="5">
                                     <Run Text="{Binding Code}"/>
                                     <Run Text="-"/>
@@ -27,23 +28,23 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-            <ItemsControl x:ConnectionId='8' x:Name="navigationList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
+            <ItemsControl x:ConnectionId='9' x:Name="navigationList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                    <Button x:ConnectionId='17' Content="First Page" FontSize="20"                            />
-                    <Button x:ConnectionId='18' Content="Previous Page" FontSize="20"                            />
+                    <Button x:ConnectionId='18' Content="First Page" FontSize="20"                            />
+                    <Button x:ConnectionId='19' Content="Previous Page" FontSize="20"                            />
                     <TextBlock Text="{Binding CurrentPage}" FontSize="20" Margin="10"/>
-                    <Button x:ConnectionId='19' Content="Next Page" FontSize="20"                            />
-                    <Button x:ConnectionId='20' Content="Last Page" FontSize="20"                            />
+                    <Button x:ConnectionId='20' Content="Next Page" FontSize="20"                            />
+                    <Button x:ConnectionId='21' Content="Last Page" FontSize="20"                            />
                 </StackPanel>
             </ItemsControl>
-            <Button x:ConnectionId='9' Content="Add Student to a Course" HorizontalAlignment="Stretch" FontSize="14"                         />
-            <Button x:ConnectionId='10' Content="Remove Student from a Course" HorizontalAlignment="Stretch" FontSize="14"                            />
-            <Button x:ConnectionId='11' Content="Add Assignment to a Course" HorizontalAlignment="Stretch" FontSize="14"                            />
-            <Button x:ConnectionId='12' Content="Update Assignment for a Course" HorizontalAlignment="Stretch" FontSize="14"                               />
-            <Button x:ConnectionId='13' Content="Remove Assignment from a Course" HorizontalAlignment="Stretch" FontSize="14"                               />
-            <Button x:ConnectionId='14' Content="CRUD Announcement" HorizontalAlignment="Stretch" FontSize="14"                               />
-            <Button x:ConnectionId='15' Content="CRUD Module" HorizontalAlignment="Stretch" FontSize="14"                         />
-            <Button x:ConnectionId='16' Content="Return to Main Menu" HorizontalAlignment="Stretch" FontSize="14"                     />
+            <Button x:ConnectionId='10' Content="Add Student to a Course" HorizontalAlignment="Stretch" FontSize="14"                         />
+            <Button x:ConnectionId='11' Content="Remove Student from a Course" HorizontalAlignment="Stretch" FontSize="14"                            />
+            <Button x:ConnectionId='12' Content="Add Assignment to a Course" HorizontalAlignment="Stretch" FontSize="14"                            />
+            <Button x:ConnectionId='13' Content="Update Assignment for a Course" HorizontalAlignment="Stretch" FontSize="14"                               />
+            <Button x:ConnectionId='14' Content="Remove Assignment from a Course" HorizontalAlignment="Stretch" FontSize="14"                               />
+            <Button x:ConnectionId='15' Content="CRUD Announcement" HorizontalAlignment="Stretch" FontSize="14"                               />
+            <Button x:ConnectionId='16' Content="CRUD Module" HorizontalAlignment="Stretch" FontSize="14"                         />
+            <Button x:ConnectionId='17' Content="Return to Main Menu" HorizontalAlignment="Stretch" FontSize="14"                     />
         </StackPanel>
         <Grid>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
