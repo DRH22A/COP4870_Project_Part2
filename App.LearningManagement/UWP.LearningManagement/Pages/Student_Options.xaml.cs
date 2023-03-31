@@ -27,13 +27,25 @@ namespace UWP.LearningManagement.Pages
         private void MyToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = true;
-            MyToggleButton.Content = "Switch to Student Mode";
+            MyToggleButton.Content = "Switch To Student Mode";
+            addPerson.Visibility = Visibility.Visible;
+            updatePerson.Visibility = Visibility.Visible;
+            deletePerson.Visibility = Visibility.Visible;
+            searchBox.Visibility = Visibility.Visible;
+            listingStudents.Visibility = Visibility.Visible;
+            gradeAssignment.Visibility = Visibility.Visible;
         }
 
         private void MyToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = false;
-            MyToggleButton.Content = "Switch to TA/Instructor Mode";
+            MyToggleButton.Content = "Switch To TA/Instructor Mode";
+            addPerson.Visibility = Visibility.Collapsed;
+            updatePerson.Visibility = Visibility.Collapsed;
+            deletePerson.Visibility = Visibility.Collapsed;
+            searchBox.Visibility = Visibility.Collapsed;
+            listingStudents.Visibility = Visibility.Collapsed;
+            gradeAssignment.Visibility =(Visibility) Visibility.Collapsed;
         }
 
         private async void AddPerson_Click(object sender, RoutedEventArgs e)

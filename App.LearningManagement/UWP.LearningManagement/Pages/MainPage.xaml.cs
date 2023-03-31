@@ -22,13 +22,17 @@ namespace UWP.LearningManagement
         private void MyToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = true;
-            MyToggleButton.Content = "Switch to Student Mode";
+            MyToggleButton.Content = "Switch To Student Mode";
+            studentInfo.Content = "View All Student Information";
+            courseInfo.Content = "Manage All Courses";
         }
 
         private void MyToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = false;
-            MyToggleButton.Content = "Switch to TA/Instructor Mode";
+            MyToggleButton.Content = "Switch To TA/Instructor Mode";
+            studentInfo.Content = "Check Your Student Information";
+            courseInfo.Content = "Manage Your Courses";
         }
 
         private void StudentOptions_Click(object sender, RoutedEventArgs e)

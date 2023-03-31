@@ -10,9 +10,9 @@
 
     <Grid>
         <StackPanel x:ConnectionId='2' x:Name="peopleMenu">
-            <ToggleButton x:ConnectionId='6' x:Name="MyToggleButton" Content="Switch to TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10"                                                                       Grid.Row="0" />
-            <TextBox x:ConnectionId='7' x:Name="searchBox" PlaceholderText="Search for a person" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"                                    />
-            <Button x:ConnectionId='8' Content="List all students" HorizontalAlignment="Stretch" FontSize="14"                         />
+            <ToggleButton x:ConnectionId='6' x:Name="MyToggleButton" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10"                                                                       Grid.Row="0" />
+            <TextBox x:ConnectionId='7' x:Name="searchBox" PlaceholderText="Search For A Person" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"                                     Visibility="Collapsed"/>
+            <Button x:ConnectionId='8' x:Name="listingStudents" Content="List All Students" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed"                         />
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:ConnectionId='19' x:Name="peopleList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
                     <ItemsControl.ItemTemplate>
@@ -37,17 +37,17 @@
                     <Button x:ConnectionId='18' Content="Last Page" FontSize="20"                              />
                 </StackPanel>
             </ItemsControl>
-            <Button x:ConnectionId='10' Content="Provide a grade for a specific assignment" HorizontalAlignment="Stretch" FontSize="14"                              />
-            <Button x:ConnectionId='11' Content="Calculate a weighted average" HorizontalAlignment="Stretch" FontSize="14"                              />
-            <Button x:ConnectionId='12' Content="View current courses" HorizontalAlignment="Stretch" FontSize="14"                              />
-            <Button x:ConnectionId='13' Content="View previous courses" HorizontalAlignment="Stretch" FontSize="14"                              />
-            <Button x:ConnectionId='14' Content="Return to Main Menu" HorizontalAlignment="Stretch" FontSize="14"                     />
+            <Button x:ConnectionId='10' x:Name="gradeAssignment" Content="Provide A Grade For A Specific Assignment" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed"                              />
+            <Button x:ConnectionId='11' x:Name="calcAvg" Content="Calculate A Weighted Average" HorizontalAlignment="Stretch" FontSize="14"                              />
+            <Button x:ConnectionId='12' x:Name="viewYourCourses" Content="View Current Courses" HorizontalAlignment="Stretch" FontSize="14"                              />
+            <Button x:ConnectionId='13' x:Name="viewPrevCourses" Content="View Previous Courses" HorizontalAlignment="Stretch" FontSize="14"                              />
+            <Button x:ConnectionId='14' Content="Return To Main Menu" HorizontalAlignment="Stretch" FontSize="14"                     />
         </StackPanel>
         <Grid>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                <Button x:ConnectionId='3' Content="Add a new person " FontSize="24"                        />
-                <Button x:ConnectionId='4' Content=" Update a person" FontSize="24"                           />
-                <Button x:ConnectionId='5' Content=" Delete a person" FontSize="24"                            />
+                <Button x:ConnectionId='3' x:Name="addPerson" Content="Add A New Person " FontSize="24"                         Visibility="Collapsed"/>
+                <Button x:ConnectionId='4' x:Name="updatePerson" Content=" Update A Person" FontSize="24"                            Visibility="Collapsed"/>
+                <Button x:ConnectionId='5' x:Name="deletePerson" Content=" Delete A Person" FontSize="24"                             Visibility="Collapsed"/>
             </StackPanel>
         </Grid>
     </Grid>

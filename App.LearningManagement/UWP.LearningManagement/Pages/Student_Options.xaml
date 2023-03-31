@@ -10,9 +10,9 @@
 
     <Grid>
         <StackPanel x:Name="peopleMenu">
-            <ToggleButton x:Name="MyToggleButton" Content="Switch to TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Checked="MyToggleButton_Checked" Unchecked="MyToggleButton_Unchecked" Grid.Row="0" />
-            <TextBox x:Name="searchBox" PlaceholderText="Search for a person" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" TextChanged="searchBox_TextChanged"/>
-            <Button Content="List all students" HorizontalAlignment="Stretch" FontSize="14" Click="ListPeople_Click"/>
+            <ToggleButton x:Name="MyToggleButton" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Checked="MyToggleButton_Checked" Unchecked="MyToggleButton_Unchecked" Grid.Row="0" />
+            <TextBox x:Name="searchBox" PlaceholderText="Search For A Person" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" TextChanged="searchBox_TextChanged" Visibility="Collapsed"/>
+            <Button x:Name="listingStudents" Content="List All Students" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed" Click="ListPeople_Click"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:Name="peopleList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
                     <ItemsControl.ItemTemplate>
@@ -37,17 +37,17 @@
                     <Button Content="Last Page" FontSize="20" Click="GradeAssignment_Click"/>
                 </StackPanel>
             </ItemsControl>
-            <Button Content="Provide a grade for a specific assignment" HorizontalAlignment="Stretch" FontSize="14" Click="GradeAssignment_Click"/>
-            <Button Content="Calculate a weighted average" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
-            <Button Content="View current courses" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
-            <Button Content="View previous courses" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
-            <Button Content="Return to Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click"/>
+            <Button x:Name="gradeAssignment" Content="Provide A Grade For A Specific Assignment" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed" Click="GradeAssignment_Click"/>
+            <Button x:Name="calcAvg" Content="Calculate A Weighted Average" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
+            <Button x:Name="viewYourCourses" Content="View Current Courses" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
+            <Button x:Name="viewPrevCourses" Content="View Previous Courses" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
+            <Button Content="Return To Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click"/>
         </StackPanel>
         <Grid>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                <Button Content="Add a new person " FontSize="24" Click="AddPerson_Click"/>
-                <Button Content=" Update a person" FontSize="24" Click="UpdatePerson_Click"/>
-                <Button Content=" Delete a person" FontSize="24" Click="Delete_Person_Click"/>
+                <Button x:Name="addPerson" Content="Add A New Person " FontSize="24" Click="AddPerson_Click" Visibility="Collapsed"/>
+                <Button x:Name="updatePerson" Content=" Update A Person" FontSize="24" Click="UpdatePerson_Click" Visibility="Collapsed"/>
+                <Button x:Name="deletePerson" Content=" Delete A Person" FontSize="24" Click="Delete_Person_Click" Visibility="Collapsed"/>
             </StackPanel>
         </Grid>
     </Grid>

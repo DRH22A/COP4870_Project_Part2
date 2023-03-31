@@ -25,13 +25,33 @@ namespace UWP.LearningManagement.Pages
         private void MyToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = true;
-            MyToggleButton.Content = "Switch to Student Mode";
+            MyToggleButton.Content = "Switch To Student Mode";
+            addToCourse.Content = "Add A Student To A Course";
+            removeFromCourse.Content = "Remove A Student From A Course";
+            addAssignment.Visibility = Visibility.Visible;
+            updateAssignment.Visibility = Visibility.Visible;
+            removeAssignment.Visibility = Visibility.Visible;
+            crudAnnouncement.Visibility = Visibility.Visible;
+            crudModule.Visibility = Visibility.Visible;
+            addCourse.Visibility = Visibility.Visible;
+            updateCourse.Visibility = Visibility.Visible;
+            deleteCourse.Visibility = Visibility.Visible;
         }
 
         private void MyToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = false;
-            MyToggleButton.Content = "Switch to TA/Instructor Mode";
+            MyToggleButton.Content = "Switch To TA/Instructor Mode";
+            addToCourse.Content = "Add Yourself To A Course";
+            removeFromCourse.Content = "Remove Yourself From A Course";
+            addAssignment.Visibility = Visibility.Collapsed;
+            updateAssignment.Visibility = Visibility.Collapsed;
+            removeAssignment.Visibility = Visibility.Collapsed;
+            crudAnnouncement.Visibility= Visibility.Collapsed;
+            crudModule.Visibility = Visibility.Collapsed;
+            addCourse.Visibility = Visibility.Collapsed;
+            updateCourse.Visibility = Visibility.Collapsed;
+            deleteCourse.Visibility = Visibility.Collapsed;
         }
 
         private async void CreateCourseRecord_Click(object sender, RoutedEventArgs e)

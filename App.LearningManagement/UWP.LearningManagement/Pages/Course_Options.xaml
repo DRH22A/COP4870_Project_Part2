@@ -10,9 +10,9 @@
 
     <Grid>
         <StackPanel x:Name="courseMenu">
-            <ToggleButton x:Name="MyToggleButton" Content="Switch to TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Checked="MyToggleButton_Checked" Unchecked="MyToggleButton_Unchecked" Grid.Row="0" />
-            <TextBox x:Name="course_searchBox" PlaceholderText="Search for a course" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" TextChanged="searchBox_TextChanged"/>
-            <Button Content="List all courses" HorizontalAlignment="Stretch" FontSize="14" Click="DisplayCourses_Click"/>
+            <ToggleButton x:Name="MyToggleButton" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Checked="MyToggleButton_Checked" Unchecked="MyToggleButton_Unchecked" Grid.Row="0" />
+            <TextBox x:Name="course_searchBox" PlaceholderText="Search For A Course" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" TextChanged="searchBox_TextChanged"/>
+            <Button x:Name="allCourses" Content="List All Courses" HorizontalAlignment="Stretch" FontSize="14" Click="DisplayCourses_Click"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl x:Name="coursesList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
                     <ItemsControl.ItemTemplate>
@@ -37,20 +37,20 @@
                     <Button Content="Last Page" FontSize="20" Click="AddAssignment_Click"/>
                 </StackPanel>
             </ItemsControl>
-            <Button Content="Add Student to a Course" HorizontalAlignment="Stretch" FontSize="14" Click="AddStudent_Click"/>
-            <Button Content="Remove Student from a Course" HorizontalAlignment="Stretch" FontSize="14" Click="RemoveStudent_Click"/>
-            <Button Content="Add Assignment to a Course" HorizontalAlignment="Stretch" FontSize="14" Click="AddAssignment_Click"/>
-            <Button Content="Update Assignment for a Course" HorizontalAlignment="Stretch" FontSize="14" Click="UpdateAssignment_Click"/>
-            <Button Content="Remove Assignment from a Course" HorizontalAlignment="Stretch" FontSize="14" Click="RemoveAssignment_Click"/>
-            <Button Content="CRUD Announcement" HorizontalAlignment="Stretch" FontSize="14" Click="CRUDAnnouncement_Click"/>
-            <Button Content="CRUD Module" HorizontalAlignment="Stretch" FontSize="14" Click="CRUDModule_Click"/>
-            <Button Content="Return to Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click"/>
+            <Button x:Name="addToCourse"  Content="Add Yourself To A Course" HorizontalAlignment="Stretch" FontSize="14" Click="AddStudent_Click"/>
+            <Button x:Name="removeFromCourse" Content="Remove Yourself From A Course" HorizontalAlignment="Stretch" FontSize="14" Click="RemoveStudent_Click"/>
+            <Button x:Name="addAssignment" Content="Add Assignment To A Course" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed" Click="AddAssignment_Click"/>
+            <Button x:Name="updateAssignment" Content="Update Assignment For A Course" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed" Click="UpdateAssignment_Click"/>
+            <Button x:Name="removeAssignment" Content="Remove Assignment From A Course" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed" Click="RemoveAssignment_Click"/>
+            <Button x:Name="crudAnnouncement" Content="CRUD Announcement" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed" Click="CRUDAnnouncement_Click"/>
+            <Button x:Name="crudModule" Content="CRUD Module" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed" Click="CRUDModule_Click"/>
+            <Button Content="Return To Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click"/>
         </StackPanel>
         <Grid>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                <Button Content="Add a new course " FontSize="24" Click="CreateCourseRecord_Click"/>
-                <Button Content=" Update a course" FontSize="24" Click="UpdateCourseRecord_Click"/>
-                <Button Content=" Delete a course" FontSize="24" Click="DeleteCourse_Click"/>
+                <Button x:Name="addCourse" Content="Add A New Course " FontSize="24" Visibility="Collapsed" Click="CreateCourseRecord_Click"/>
+                <Button x:Name="updateCourse" Content=" Update A Course" FontSize="24" Visibility="Collapsed" Click="UpdateCourseRecord_Click"/>
+                <Button x:Name="deleteCourse" Content=" Delete A Course" FontSize="24" Visibility="Collapsed" Click="DeleteCourse_Click"/>
             </StackPanel>
         </Grid>
     </Grid>
