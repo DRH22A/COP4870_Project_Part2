@@ -36,12 +36,11 @@
                     <Button Content="Last Page" FontSize="20" Click="AddAssignment_Click"/>
                 </StackPanel>
             </ItemsControl>
-            <Button Content="Add Student" HorizontalAlignment="Stretch" FontSize="14" Click="AddStudent_Click"/>
-            <Button Content="Remove Student" HorizontalAlignment="Stretch" FontSize="14" Click="RemoveStudent_Click"/>
-            <Button Content="Add Assignment" HorizontalAlignment="Stretch" FontSize="14" Click="AddAssignment_Click"/>
-            <Button Content="Group Assignment" HorizontalAlignment="Stretch" FontSize="14" Click="GroupAssignment_Click"/>
-            <Button Content="Update Assignment" HorizontalAlignment="Stretch" FontSize="14" Click="UpdateAssignment_Click"/>
-            <Button Content="Remove Assignment" HorizontalAlignment="Stretch" FontSize="14" Click="RemoveAssignment_Click"/>
+            <Button Content="Add Student to a Course" HorizontalAlignment="Stretch" FontSize="14" Click="AddStudent_Click"/>
+            <Button Content="Remove Student from a Course" HorizontalAlignment="Stretch" FontSize="14" Click="RemoveStudent_Click"/>
+            <Button Content="Add Assignment to a Course" HorizontalAlignment="Stretch" FontSize="14" Click="AddAssignment_Click"/>
+            <Button Content="Update Assignment for a Course" HorizontalAlignment="Stretch" FontSize="14" Click="UpdateAssignment_Click"/>
+            <Button Content="Remove Assignment from a Course" HorizontalAlignment="Stretch" FontSize="14" Click="RemoveAssignment_Click"/>
             <Button Content="CRUD Announcement" HorizontalAlignment="Stretch" FontSize="14" Click="CRUDAnnouncement_Click"/>
             <Button Content="CRUD Module" HorizontalAlignment="Stretch" FontSize="14" Click="CRUDModule_Click"/>
             <Button Content="Return to Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click"/>

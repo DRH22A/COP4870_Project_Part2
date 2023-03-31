@@ -55,6 +55,19 @@ namespace Library.LearningManagement.Services
         {
             courseList.Remove(course);
         }
+        public void RemoveAssignment(Assignment assignment)
+        {
+            foreach (var course in courseList)
+            {
+                if (course.Assignments.Contains(assignment))
+                {
+                    course.Assignments.Remove(assignment);
+                    break;
+                }
+            }
+        }
+
+
 
         public IEnumerable<Course> Search(string query)
         {

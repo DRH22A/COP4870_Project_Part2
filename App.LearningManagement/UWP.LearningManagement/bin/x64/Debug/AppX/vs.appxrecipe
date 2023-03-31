@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-03-30T18:42:12.392</Modified>
+      <Modified>2023-03-31T01:05:03.018</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\UWP.LearningManagement.exe">
       <PackagePath>entrypoint\UWP.LearningManagement.exe</PackagePath>
-      <Modified>2023-03-30T18:42:11.929</Modified>
+      <Modified>2023-03-31T01:05:02.532</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.14\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
       <PackagePath>System.Runtime.dll</PackagePath>
@@ -44,7 +44,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.Library.LearningManagement\bin\Debug\netstandard2.0\UWP.Library.LearningManagement.dll">
       <PackagePath>UWP.Library.LearningManagement.dll</PackagePath>
-      <Modified>2023-03-30T17:54:09.065</Modified>
+      <Modified>2023-03-31T00:34:13.881</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
@@ -90,23 +90,23 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\UWP.LearningManagement.xr.xml">
       <PackagePath>UWP.LearningManagement.xr.xml</PackagePath>
-      <Modified>2023-03-30T18:32:51.412</Modified>
+      <Modified>2023-03-31T01:05:02.360</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2023-03-30T18:42:11.838</Modified>
+      <Modified>2023-03-31T01:05:02.370</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Course_Options.xbf">
       <PackagePath>Pages\Course_Options.xbf</PackagePath>
-      <Modified>2023-03-30T18:42:11.838</Modified>
+      <Modified>2023-03-31T01:05:02.370</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\MainPage.xbf">
       <PackagePath>Pages\MainPage.xbf</PackagePath>
-      <Modified>2023-03-30T18:42:11.838</Modified>
+      <Modified>2023-03-31T01:05:02.370</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Student_Options.xbf">
       <PackagePath>Pages\Student_Options.xbf</PackagePath>
-      <Modified>2023-03-30T18:42:11.838</Modified>
+      <Modified>2023-03-31T01:05:02.370</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -114,11 +114,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2023-03-29T04:04:09.866</Modified>
+      <Modified>2023-03-31T00:39:11.125</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Core\UWP.LearningManagement.exe">
       <PackagePath>UWP.LearningManagement.exe</PackagePath>
-      <Modified>2023-03-30T18:42:12.387</Modified>
+      <Modified>2023-03-31T01:05:03.014</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

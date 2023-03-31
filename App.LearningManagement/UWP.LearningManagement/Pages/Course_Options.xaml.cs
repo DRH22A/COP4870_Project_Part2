@@ -1,6 +1,7 @@
 ﻿using Library.LearningManagement.Models;
 using Library.LearningManagement.Services;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using UWP.LearningManagement.ViewModels;
@@ -98,7 +99,6 @@ namespace UWP.LearningManagement.Pages
 
         private async void UpdateCourseRecord_Click(object sender, RoutedEventArgs e)
         {
-            // Show a dialog to select the course to update
             var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
             var courseDialog = new ContentDialog
             {
@@ -113,19 +113,18 @@ namespace UWP.LearningManagement.Pages
                 var selectedCourse = courseComboBox.SelectedItem as Course;
                 if (selectedCourse != null)
                 {
-                    // Show a dialog to edit the course information
                     ContentDialog editCourseDialog = new ContentDialog
                     {
                         Title = "Edit Course Information",
                         Content = new StackPanel
                         {
                             Children =
-                    {
-                        new TextBox { PlaceholderText = "Enter course name here", Name = "CourseNameTextBox", Text = selectedCourse.Name },
-                        new TextBox { PlaceholderText = "Enter course code here", Name = "CourseCodeTextBox", Text = selectedCourse.Code },
-                        new TextBox { PlaceholderText = "Enter course description here", Name = "CourseDescriptionTextBox", Text = selectedCourse.Description },
-                        new TextBlock { Foreground = new SolidColorBrush(Colors.Red), Name = "ErrorTextBlock" }
-                    }
+                            {
+                                new TextBox { PlaceholderText = "Enter course name here", Name = "CourseNameTextBox", Text = selectedCourse.Name },
+                                new TextBox { PlaceholderText = "Enter course code here", Name = "CourseCodeTextBox", Text = selectedCourse.Code },
+                                new TextBox { PlaceholderText = "Enter course description here", Name = "CourseDescriptionTextBox", Text = selectedCourse.Description },
+                                new TextBlock { Foreground = new SolidColorBrush(Colors.Red), Name = "ErrorTextBlock" }
+                            }
                         },
                         PrimaryButtonText = "Save",
                         SecondaryButtonText = "Cancel"
@@ -209,19 +208,17 @@ namespace UWP.LearningManagement.Pages
         bool isListOpen = false;
         private void DisplayCourses_Click(object sender, RoutedEventArgs e)
         {
-            // Set the items source of the peopleList control to the list of people in the StudentService
             coursesList.ItemsSource = CourseService.Current.Courses;
-
             if (!isListOpen)
             {
                 coursesList.Visibility = Visibility.Visible;
-                navigationList.Visibility = Visibility.Visible; // set the visibility of the navigation buttons
+                navigationList.Visibility = Visibility.Visible;
                 isListOpen = true;
             }
             else
             {
                 coursesList.Visibility = Visibility.Collapsed;
-                navigationList.Visibility = Visibility.Collapsed; // hide the navigation buttons
+                navigationList.Visibility = Visibility.Collapsed;
                 isListOpen = false;
             }
         }
@@ -309,7 +306,6 @@ namespace UWP.LearningManagement.Pages
         private async void RemoveStudent_Click(object sender, RoutedEventArgs e)
         {
             var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
-
             var courseDialog = new ContentDialog
             {
                 Title = "Which course would you like to remove a student from?",
@@ -345,45 +341,394 @@ namespace UWP.LearningManagement.Pages
             }
         }
 
-        void AddAssignment_Click(object sender, RoutedEventArgs e)
+        private bool TryParseDateTime(string input, out DateTime result)
         {
-            // implementation
+            string format = "MM/dd/yyyy";
+            bool time = DateTime.TryParseExact(input, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out result);
+            return time;
         }
 
-        // GroupAssignment function
-        void GroupAssignment_Click(object sender, RoutedEventArgs e)
+        int check = 0;
+        private async void AddAssignment_Click(object sender, RoutedEventArgs e)
         {
-            // implementation
+            var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
+            var courseDialog = new ContentDialog
+            {
+                Title = "Which course would you like to add an assignment to?",
+                Content = courseComboBox,
+                PrimaryButtonText = "Next",
+                SecondaryButtonText = "Cancel"
+            };
+
+            while (check == 0)
+            {
+                if (await courseDialog.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var selectedCourse = courseComboBox.SelectedItem as Course;
+                    if (selectedCourse != null)
+                    {
+                        var groupNames = selectedCourse.AssignmentGroups.Select(g => g.group_name).ToList();
+                        var assignmentGroupComboBox = new ComboBox { PlaceholderText = "Select a group", ItemsSource = groupNames };
+                        var assignmentGroupDialog = new ContentDialog
+                        {
+                            Title = "Which group would you like to add the assignment to?",
+                            Content = assignmentGroupComboBox,
+                            PrimaryButtonText = "Next",
+                            SecondaryButtonText = "Create New Group"
+                        };
+
+                        if (await assignmentGroupDialog.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            var selectedAssignment = assignmentGroupComboBox.SelectedItem as Assignment;
+                            if (selectedAssignment != null)
+                            {
+                                var assignmentNameTextBox = new TextBox { Text = selectedAssignment.Name, PlaceholderText = "Enter Assignment Name" };
+                                var assignmentDescriptionTextBox = new TextBox { Text = selectedAssignment.Description, PlaceholderText = "Enter Assignment Description" };
+                                var assignmentIdTextBox = new TextBox { Text = selectedAssignment.Id.ToString(), PlaceholderText = "Enter Assignment ID" };
+                                var assignmentPointsTextBox = new TextBox { PlaceholderText = "Enter Assignment Points", Name = "Selected Course Assignment Points" };
+                                var assignmentDueDateTextBox = new TextBox { Text = selectedAssignment.DueDate.ToString("MM/dd/yyyy"), PlaceholderText = "Enter Assignment Due Date (MM/DD/YYYY)" };
+
+                                var editAssignmentDialog = new ContentDialog
+                                {
+                                    Title = "Edit Assignment",
+                                    Content = new StackPanel
+                                    {
+                                        Children =
+                                {
+                                    new TextBlock { Text = "Name" },
+                                    assignmentNameTextBox,
+                                    new TextBlock { Text = "Description" },
+                                    assignmentDescriptionTextBox,
+                                    new TextBlock { Text = "ID" },
+                                    assignmentIdTextBox,
+                                    new TextBlock { Text = "Points" },
+                                    assignmentPointsTextBox,
+                                    new TextBlock { Text = "Due Date (MM/DD/YYYY)" },
+                                    assignmentDueDateTextBox
+                                }
+                                    },
+                                    PrimaryButtonText = "Save",
+                                    SecondaryButtonText = "Cancel"
+                                };
+
+                                if (await editAssignmentDialog.ShowAsync() == ContentDialogResult.Primary)
+                                {
+                                    double points = double.Parse(assignmentPointsTextBox.Text);
+                                    if (int.TryParse(assignmentIdTextBox.Text, out int id)
+                                        && TryParseDateTime(assignmentDueDateTextBox.Text, out DateTime dueDate))
+                                    {
+                                        selectedAssignment.Name = assignmentNameTextBox.Text;
+                                        selectedAssignment.Description = assignmentDescriptionTextBox.Text;
+                                        selectedAssignment.Id = id;
+                                        selectedAssignment.TotalAvailablePoints = points;
+                                        selectedAssignment.DueDate = dueDate;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // Create new assignment
+                                var assignmentNameTextBox = new TextBox { PlaceholderText = "Enter Assignment Name" };
+                                var assignmentDescriptionTextBox = new TextBox { PlaceholderText = "Enter Assignment Description" };
+                                var assignmentIdTextBox = new TextBox { PlaceholderText = "Enter Assignment ID" };
+                                var assignmentPointsTextBox = new TextBox { PlaceholderText = "Enter Assignment Points" };
+                                var assignmentDueDateTextBox = new TextBox { PlaceholderText = "Enter Assignment Due Date (MM/DD/YYYY)" };
+                                var createAssignmentDialog = new ContentDialog
+                                {
+                                    Title = "Create Assignment",
+                                    Content = new StackPanel
+                                    {
+                                        Children =
+                                        {
+                                            new TextBlock { Text = "Name" },
+                                            assignmentNameTextBox,
+                                            new TextBlock { Text = "Description" },
+                                            assignmentDescriptionTextBox,
+                                            new TextBlock { Text = "ID" },
+                                            assignmentIdTextBox,
+                                            new TextBlock { Text = "Points" },
+                                            assignmentPointsTextBox,
+                                            new TextBlock { Text = "Due Date (MM/DD/YYYY)" },
+                                            assignmentDueDateTextBox
+                                        }
+                                    },
+                                    PrimaryButtonText = "Create",
+                                    SecondaryButtonText = "Cancel"
+                                };
+
+                                if (await createAssignmentDialog.ShowAsync() == ContentDialogResult.Primary)
+                                {
+                                    double points = double.Parse(assignmentPointsTextBox.Text);
+                                    if (int.TryParse(assignmentIdTextBox.Text, out int id)
+                                        && TryParseDateTime(assignmentDueDateTextBox.Text, out DateTime dueDate))
+                                    {
+                                        var newAssignment = new Assignment
+                                        {
+                                            Name = assignmentNameTextBox.Text,
+                                            Description = assignmentDescriptionTextBox.Text,
+                                            Id = id,
+                                            TotalAvailablePoints = points,
+                                            DueDate = dueDate
+                                        };
+
+                                        selectedCourse.Assignments.Add(newAssignment);
+                                    }
+                                }
+                            }
+
+                            check = 1;
+                        }
+                        else
+                        {
+                            var assignmentGroupNameTextBox = new TextBox { PlaceholderText = "Enter Assignment Group Name", Name = "Group Assignment Name" };
+                            var assignmentGroupWorthTextBox = new TextBox { PlaceholderText = "Enter Assignment Group Percentage", Name = "Group Assignment Worth" };
+                            double weight;
+                            double.TryParse(assignmentGroupWorthTextBox.Text, out weight);
+                            var groupNameDialog = new ContentDialog
+                            {
+                                Title = "What is the name of the assignment group?",
+                                Content = assignmentGroupNameTextBox,
+                                PrimaryButtonText = "Next",
+                                SecondaryButtonText = "Cancel"
+                            };
+
+                            var groupWorthDialog = new ContentDialog
+                            {
+                                Title = "What is the weight of this group?(20 = 20%)",
+                                Content = assignmentGroupWorthTextBox,
+                                PrimaryButtonText = "Done",
+                                SecondaryButtonText = "Cancel"
+                            };
+                            if (await groupNameDialog.ShowAsync() == ContentDialogResult.Primary)
+                            {
+                                if (await groupWorthDialog.ShowAsync() == ContentDialogResult.Primary)
+                                {
+                                    AssignmentGroup assignmentGroup = new AssignmentGroup
+                                    {
+                                        group_name = assignmentGroupNameTextBox.Text,
+                                        weight = weight
+                                    };
+                                    selectedCourse.AddAssignmentGroup(new AssignmentGroup { group_name = assignmentGroupNameTextBox.Text, weight = weight });
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    check = 0;
+                    return;
+                }
+            }
+            check = 0;
         }
 
         // UpdateAssignment function
-        void UpdateAssignment_Click(object sender, RoutedEventArgs e)
+        private async void UpdateAssignment_Click(object sender, RoutedEventArgs e)
         {
-            // implementation
+            var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
+            var courseDialog = new ContentDialog
+            {
+                Title = "Which course would you like to update an assignment in?",
+                Content = courseComboBox,
+                PrimaryButtonText = "Next",
+                SecondaryButtonText = "Cancel"
+            };
+
+            if (await courseDialog.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var selectedCourse = courseComboBox.SelectedItem as Course;
+                if (selectedCourse != null)
+                {
+                    var assignmentsComboBox = new ComboBox { PlaceholderText = "Select an assignment", ItemsSource = selectedCourse.Assignments };
+                    var assignmentsDialog = new ContentDialog
+                    {
+                        Title = "Which assignment would you like to update?",
+                        Content = assignmentsComboBox,
+                        PrimaryButtonText = "Next",
+                        SecondaryButtonText = "Cancel"
+                    };
+
+                    if (await assignmentsDialog.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        var selectedAssignment = assignmentsComboBox.SelectedItem as Assignment;
+                        if (selectedAssignment != null)
+                        {
+                            var assignmentNameTextBox = new TextBox { Text = selectedAssignment.Name, PlaceholderText = "Enter Assignment Name" };
+                            var assignmentDescriptionTextBox = new TextBox { Text = selectedAssignment.Description, PlaceholderText = "Enter Assignment Description" };
+                            var assignmentIdTextBox = new TextBox { Text = selectedAssignment.Id.ToString(), PlaceholderText = "Enter Assignment ID" };
+                            var assignmentPointsTextBox = new TextBox { PlaceholderText = "Enter Assignment Points", Name = "Selected Course Assignment Points" };
+                            var assignmentDueDateTextBox = new TextBox { Text = selectedAssignment.DueDate.ToString("MM/dd/yyyy"), PlaceholderText = "Enter Assignment Due Date (MM/DD/YYYY)" };
+
+                            var editAssignmentDialog = new ContentDialog
+                            {
+                                Title = "Edit Assignment",
+                                Content = new StackPanel
+                                {
+                                    Children =
+                                    {
+                                        new TextBlock { Text = "Name" },
+                                        assignmentNameTextBox,
+                                        new TextBlock { Text = "Description" },
+                                        assignmentDescriptionTextBox,
+                                        new TextBlock { Text = "ID" },
+                                        assignmentIdTextBox,
+                                        new TextBlock { Text = "Points" },
+                                        assignmentPointsTextBox,
+                                        new TextBlock { Text = "Due Date (MM/DD/YYYY)" },
+                                        assignmentDueDateTextBox
+                                    }
+                                },
+                                PrimaryButtonText = "Save",
+                                SecondaryButtonText = "Cancel"
+                            };
+
+                            if (await editAssignmentDialog.ShowAsync() == ContentDialogResult.Primary)
+                            {
+                                double points = double.Parse(assignmentPointsTextBox.Text);
+                                if (int.TryParse(assignmentIdTextBox.Text, out int id)
+                                    && TryParseDateTime(assignmentDueDateTextBox.Text, out DateTime dueDate))
+                                {
+                                    selectedAssignment.Name = assignmentNameTextBox.Text;
+                                    selectedAssignment.Description = assignmentDescriptionTextBox.Text;
+                                    selectedAssignment.Id = id;
+                                    selectedAssignment.TotalAvailablePoints = points;
+                                    selectedAssignment.DueDate = dueDate;
+                                }
+                                else
+                                {
+                                    var errorDialog = new ContentDialog
+                                    {
+                                        Title = "Error",
+                                        Content = "Invalid input. Please enter valid values for ID, Points, and Due Date (MM/DD/YYYY).",
+                                        CloseButtonText = "Ok"
+                                    };
+                                    await errorDialog.ShowAsync();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            var errorDialog = new ContentDialog
+                            {
+                                Title = "Error",
+                                Content = "No assignment selected. Please select an assignment to update.",
+                                CloseButtonText = "Ok"
+                            };
+                            await errorDialog.ShowAsync();
+                        }
+                    }
+                }
+                else
+                {
+                    var errorDialog = new ContentDialog
+                    {
+                        Title = "Error",
+                        Content = "No course selected. Please select a course to update an assignment in.",
+                        CloseButtonText = "Ok"
+                    };
+                    await errorDialog.ShowAsync();
+                }
+            }
         }
 
-        // RemoveAssignment function
-        void RemoveAssignment_Click(object sender, RoutedEventArgs e)
+
+        private async void RemoveAssignment_Click(object sender, RoutedEventArgs e)
         {
-            // implementation
+            var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
+            var assignmentComboBox = new ComboBox { PlaceholderText = "Select an assignment" };
+            assignmentComboBox.ItemsSource = CourseService.Current.Courses.SelectMany(c => c.Assignments);
+            var chooseCourseDialog = new ContentDialog
+            {
+                Title = "Choose a course",
+                Content = courseComboBox,
+                PrimaryButtonText = "Next",
+                SecondaryButtonText = "Cancel"
+            };
+
+            var deleteAssignmentDialog = new ContentDialog
+            {
+                Title = "Delete an Assignment",
+                Content = assignmentComboBox,
+                PrimaryButtonText = "Remove",
+                SecondaryButtonText = "Cancel"
+            };
+
+            if (await chooseCourseDialog.ShowAsync() == ContentDialogResult.Primary)
+            {
+                if (await deleteAssignmentDialog.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var selectedAssignment = assignmentComboBox.SelectedItem as Assignment;
+                    if (selectedAssignment != null)
+                    {
+                        CourseService.Current.RemoveAssignment(selectedAssignment);
+                    }
+                }
+            }
         }
 
-        // SearchCourses function
-        void SearchCourses_Click(object sender, RoutedEventArgs e)
+        private async void CRUDAnnouncement_Click(object sender, RoutedEventArgs e)
         {
-            // implementation
+            var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
+            var chooseCourseDialog = new ContentDialog
+            {
+                Title = "Choose a course",
+                Content = courseComboBox,
+                PrimaryButtonText = "Next",
+                SecondaryButtonText = "Cancel"
+            };
+            var result = await chooseCourseDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                var course = (Course)courseComboBox.SelectedItem;
+                chooseCourseDialog.Hide();
+
+                var createButton = new Button { Content = "Create" };
+                var readButton = new Button { Content = "Read" };
+                var updateButton = new Button { Content = "Update" };
+                var deleteButton = new Button { Content = "Delete" };
+
+                var announcementDialog = new ContentDialog
+                {
+                    Title = "Create, Read, Update, or Delete Announcements",
+                    Content = new StackPanel { Children = { createButton, readButton, updateButton, deleteButton } },
+                    CloseButtonText = "Cancel"
+                };
+                await announcementDialog.ShowAsync();
+            }
         }
 
-        // CRUDAnnouncement function
-        void CRUDAnnouncement_Click(object sender, RoutedEventArgs e)
+        private async void CRUDModule_Click(object sender, RoutedEventArgs e)
         {
-            // implementation
-        }
+            var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
+            var chooseCourseDialog = new ContentDialog
+            {
+                Title = "Choose a course",
+                Content = courseComboBox,
+                PrimaryButtonText = "Next",
+                SecondaryButtonText = "Cancel"
+            };
+            var result = await chooseCourseDialog.ShowAsync();
 
-        // CRUDModule function
-        void CRUDModule_Click(object sender, RoutedEventArgs e)
-        {
-            // implementation
+            if (result == ContentDialogResult.Primary)
+            {
+                var course = (Course)courseComboBox.SelectedItem;
+                chooseCourseDialog.Hide();
+
+                var createButton = new Button { Content = "Create" };
+                var readButton = new Button { Content = "Read" };
+                var updateButton = new Button { Content = "Update" };
+                var deleteButton = new Button { Content = "Delete" };
+
+                var modulesDialog = new ContentDialog
+                {
+                    Title = "Create, Read, Update, or Delete Modules",
+                    Content = new StackPanel { Children = { createButton, readButton, updateButton, deleteButton } },
+                    CloseButtonText = "Cancel"
+                };
+                await modulesDialog.ShowAsync();
+            }
         }
         private void Return_Click(object sender, RoutedEventArgs e)
         {

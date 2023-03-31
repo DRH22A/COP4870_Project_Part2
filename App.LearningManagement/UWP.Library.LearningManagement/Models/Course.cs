@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Library.LearningManagement.Models.Assignment;
+using static Library.LearningManagement.Models.Module;
+
 
 namespace Library.LearningManagement.Models
 {
@@ -54,16 +56,20 @@ namespace Library.LearningManagement.Models
             {
                 Assignments.Add(assignment);
             }
-            else
+        }
+
+        public void AddAssignmentGroup(AssignmentGroup assignmentGroup)
+        {
+            var group = AssignmentGroups.FirstOrDefault(g => g.group_name == assignmentGroup.group_name);
+            if (group == null)
             {
-                var group = AssignmentGroups.FirstOrDefault(g => g.group_name == groupName);
-                if (group == null)
-                {
-                    group = new AssignmentGroup() { group_name = groupName, assignments = new List<Assignment>(), weight = Weight };
-                    AssignmentGroups.Add(group);
-                }
-                group.assignments.Add(assignment);
+                AssignmentGroups.Add(assignmentGroup);
             }
+        }
+
+        public void RemoveAssignment(Assignment assignment)
+        {
+            Assignments.Remove(assignment);
         }
     }
     public class AssignmentGroup

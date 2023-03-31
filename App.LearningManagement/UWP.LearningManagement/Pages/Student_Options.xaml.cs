@@ -9,6 +9,7 @@ using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 
 namespace UWP.LearningManagement.Pages
@@ -148,7 +149,6 @@ namespace UWP.LearningManagement.Pages
                     string newName = nameTextBox.Text.Trim();
                     if (string.IsNullOrEmpty(newName))
                     {
-                        // Display an error message if the user didn't enter a new name
                         ContentDialog errorDialog = new ContentDialog
                         {
                             Title = "Invalid Name",
@@ -175,7 +175,6 @@ namespace UWP.LearningManagement.Pages
                         {
                             if (newId == selectedPerson.Id && newId != selectedPerson.Id)
                             {
-                                // Display an error message if the user didn't enter a new ID
                                 ContentDialog errorDialog = new ContentDialog
                                 {
                                     Title = "Invalid ID",
@@ -323,8 +322,9 @@ namespace UWP.LearningManagement.Pages
 
         private void GradeAssignment_Click(object sender, RoutedEventArgs e)
         {
-            // Handle the "Provide a grade for a specific assignment" button click
+
         }
+
 
         private void WeightedAverage_Click(object sender, RoutedEventArgs e)
         {
@@ -334,5 +334,6 @@ namespace UWP.LearningManagement.Pages
         {
             Frame.Navigate(typeof(MainPage));
         }
+
     }
 }

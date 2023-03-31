@@ -38,6 +38,8 @@
             </ItemsControl>
             <Button Content="Provide a grade for a specific assignment" HorizontalAlignment="Stretch" FontSize="14" Click="GradeAssignment_Click"/>
             <Button Content="Calculate a weighted average" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
+            <Button Content="View current courses" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
+            <Button Content="View previous courses" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
             <Button Content="Return to Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click"/>
         </StackPanel>
         <Grid>
