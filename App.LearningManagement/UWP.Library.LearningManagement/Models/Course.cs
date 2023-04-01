@@ -14,6 +14,8 @@ namespace Library.LearningManagement.Models
         public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Room { get; set; }
+        public Semester Semester { get; set; }
         public List<Person> Roster { get; set; }
         public List<Assignment> Assignments { get; set; }
         public List<Module> Modules { get; set; }
@@ -27,7 +29,9 @@ namespace Library.LearningManagement.Models
             Code = string.Empty;
             Name = string.Empty;
             Description = string.Empty;
-            Roster= new List<Person>();
+            Room = string.Empty;
+            Semester = new Semester { Season = SeasonEnum.Fall, Year = YearEnum.Year_2023 };
+            Roster = new List<Person>();
             Assignments= new List<Assignment>();
             Modules= new List<Module>();
             AssignmentGroups = new List<AssignmentGroup>();

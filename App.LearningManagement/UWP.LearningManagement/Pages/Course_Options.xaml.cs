@@ -19,13 +19,13 @@ namespace UWP.LearningManagement.Pages
         {
             this.InitializeComponent();
             DataContext = new MainViewModel();
-            MyToggleButton.IsChecked = Toggle_State.IsChecked;
+            ViewToggle.IsChecked = Toggle_State.IsChecked;
         }
 
-        private void MyToggleButton_Checked(object sender, RoutedEventArgs e)
+        private void ViewToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = true;
-            MyToggleButton.Content = "Switch To Student Mode";
+            ViewToggle.Content = "Switch To Student Mode";
             addToCourse.Content = "Add A Student To A Course";
             removeFromCourse.Content = "Remove A Student From A Course";
             addAssignment.Visibility = Visibility.Visible;
@@ -38,10 +38,10 @@ namespace UWP.LearningManagement.Pages
             deleteCourse.Visibility = Visibility.Visible;
         }
 
-        private void MyToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        private void ViewToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = false;
-            MyToggleButton.Content = "Switch To TA/Instructor Mode";
+            ViewToggle.Content = "Switch To TA/Instructor Mode";
             addToCourse.Content = "Add Yourself To A Course";
             removeFromCourse.Content = "Remove Yourself From A Course";
             addAssignment.Visibility = Visibility.Collapsed;
@@ -59,7 +59,6 @@ namespace UWP.LearningManagement.Pages
             ContentDialog addCourseDialog = new ContentDialog
             {
                 Title = "Add a New Course",
-
                 Content = new StackPanel
                 {
                     Children =
@@ -67,10 +66,14 @@ namespace UWP.LearningManagement.Pages
                         new TextBox { PlaceholderText = "Enter course name here", Name = "CourseNameTextBox" },
                         new TextBox { PlaceholderText = "Enter course code here", Name = "CourseCodeTextBox" },
                         new TextBox { PlaceholderText = "Enter course description here", Name = "CourseDescriptionTextBox" },
+                        new TextBox { PlaceholderText = "Enter course room here", Name = "CourseRoomTextBox" },
+                        new ComboBox { PlaceholderText = "Select season", Name = "SeasonComboBox",
+                        ItemsSource = Enum.GetValues(typeof(SeasonEnum)).Cast<SeasonEnum>() },
+                        new ComboBox { PlaceholderText = "Select year", Name = "YearComboBox",
+                        ItemsSource = Enum.GetValues(typeof(YearEnum)).Cast<YearEnum>() },
                         new TextBlock { Foreground = new SolidColorBrush(Colors.Red), Name = "ErrorTextBlock" }
                     }
                 },
-
                 PrimaryButtonText = "Add",
                 SecondaryButtonText = "Cancel"
             };
@@ -80,10 +83,17 @@ namespace UWP.LearningManagement.Pages
                 TextBox nameTextBox = (TextBox)((StackPanel)addCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseNameTextBox");
                 TextBox codeTextBox = (TextBox)((StackPanel)addCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseCodeTextBox");
                 TextBox descriptionTextBox = (TextBox)((StackPanel)addCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseDescriptionTextBox");
+                TextBox roomTextBox = (TextBox)((StackPanel)addCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseRoomTextBox");
+                ComboBox seasonComboBox = (ComboBox)((StackPanel)addCourseDialog.Content).Children.First(c => c is ComboBox && ((ComboBox)c).Name == "SeasonComboBox");
+                ComboBox yearComboBox = (ComboBox)((StackPanel)addCourseDialog.Content).Children.First(c => c is ComboBox && ((ComboBox)c).Name == "YearComboBox");
                 TextBlock errorTextBlock = (TextBlock)((StackPanel)addCourseDialog.Content).Children.First(c => c is TextBlock && ((TextBlock)c).Name == "ErrorTextBlock");
+
                 string name = nameTextBox.Text.Trim();
                 string code = codeTextBox.Text.Trim();
                 string description = descriptionTextBox.Text.Trim();
+                string room = roomTextBox.Text.Trim();
+                SeasonEnum season = (SeasonEnum)seasonComboBox.SelectedItem;
+                YearEnum year = (YearEnum)yearComboBox.SelectedItem;
 
                 if (string.IsNullOrEmpty(name))
                 {
@@ -95,7 +105,7 @@ namespace UWP.LearningManagement.Pages
                 Course newCourse;
                 if (nameTextBox.SelectedText != null)
                 {
-                    newCourse = new Course { Code = code, Name = name, Description = description };
+                    newCourse = new Course { Code = code, Name = name, Description = description, Room = room, Semester = new Semester { Season = SeasonEnum.Fall, Year = YearEnum.Year_2023 } };
                 }
                 else
                 {
@@ -157,6 +167,11 @@ namespace UWP.LearningManagement.Pages
                                 new TextBox { PlaceholderText = "Enter course name here", Name = "CourseNameTextBox", Text = selectedCourse.Name },
                                 new TextBox { PlaceholderText = "Enter course code here", Name = "CourseCodeTextBox", Text = selectedCourse.Code },
                                 new TextBox { PlaceholderText = "Enter course description here", Name = "CourseDescriptionTextBox", Text = selectedCourse.Description },
+                                new TextBox { PlaceholderText = "Enter course room here", Name = "CourseRoomTextBox", Text = selectedCourse.Room},
+                                new ComboBox { PlaceholderText = "Select season", Name = "SeasonComboBox", SelectedItem = selectedCourse.Semester.Season,
+                                ItemsSource = Enum.GetValues(typeof(SeasonEnum)).Cast<SeasonEnum>() },
+                                new ComboBox { PlaceholderText = "Select year", Name = "YearComboBox", SelectedItem = selectedCourse.Semester.Year,
+                                ItemsSource = Enum.GetValues(typeof(YearEnum)).Cast<YearEnum>() },
                                 new TextBlock { Foreground = new SolidColorBrush(Colors.Red), Name = "ErrorTextBlock" }
                             }
                         },
@@ -169,10 +184,17 @@ namespace UWP.LearningManagement.Pages
                         TextBox nameTextBox = (TextBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseNameTextBox");
                         TextBox codeTextBox = (TextBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseCodeTextBox");
                         TextBox descriptionTextBox = (TextBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseDescriptionTextBox");
+                        TextBox roomTextBox = (TextBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseRoomTextBox");
+                        ComboBox seasonComboBox = (ComboBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is ComboBox && ((ComboBox)c).Name == "SeasonComboBox");
+                        ComboBox yearComboBox = (ComboBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is ComboBox && ((ComboBox)c).Name == "YearComboBox");
                         TextBlock errorTextBlock = (TextBlock)((StackPanel)editCourseDialog.Content).Children.First(c => c is TextBlock && ((TextBlock)c).Name == "ErrorTextBlock");
+
                         string name = nameTextBox.Text.Trim();
                         string code = codeTextBox.Text.Trim();
                         string description = descriptionTextBox.Text.Trim();
+                        string room = roomTextBox.Text.Trim();
+                        SeasonEnum season = (SeasonEnum)seasonComboBox.SelectedItem;
+                        YearEnum year = (YearEnum)yearComboBox.SelectedItem;
 
                         if (string.IsNullOrEmpty(name))
                         {
@@ -184,7 +206,7 @@ namespace UWP.LearningManagement.Pages
                         Course updatedCourse;
                         if (nameTextBox.SelectedText != null)
                         {
-                            updatedCourse = new Course { Code = code, Name = name, Description = description };
+                            updatedCourse = new Course { Code = code, Name = name, Description = description, Room = room, Semester = new Semester { Season = SeasonEnum.Fall, Year = YearEnum.Year_2023 } };
                         }
                         else
                         {
@@ -230,7 +252,7 @@ namespace UWP.LearningManagement.Pages
             var course = ((FrameworkElement)sender).DataContext as Course;
             if (course != null)
             {
-                var dialog = new MessageDialog($"Name: {course.Name}\nCode: {course.Code}\nDescription: {course.Description}");
+                var dialog = new MessageDialog($"Name: {course.Name}\nCode: {course.Code}\nDescription: {course.Description}\nRoom: {course.Room}\nSemester: {course.Semester}");
                 await dialog.ShowAsync();
             }
             else

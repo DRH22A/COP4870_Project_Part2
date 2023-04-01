@@ -16,21 +16,21 @@ namespace UWP.LearningManagement
         {
             this.InitializeComponent();
             DataContext = new MainViewModel();
-            MyToggleButton.IsChecked = Toggle_State.IsChecked;
+            ViewToggle.IsChecked = Toggle_State.IsChecked;
         }
 
-        private void MyToggleButton_Checked(object sender, RoutedEventArgs e)
+        private void ViewToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = true;
-            MyToggleButton.Content = "Switch To Student Mode";
+            ViewToggle.Content = "Switch To Student Mode";
             studentInfo.Content = "View All Student Information";
             courseInfo.Content = "Manage All Courses";
         }
 
-        private void MyToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        private void ViewToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = false;
-            MyToggleButton.Content = "Switch To TA/Instructor Mode";
+            ViewToggle.Content = "Switch To TA/Instructor Mode";
             studentInfo.Content = "Check Your Student Information";
             courseInfo.Content = "Manage Your Courses";
         }

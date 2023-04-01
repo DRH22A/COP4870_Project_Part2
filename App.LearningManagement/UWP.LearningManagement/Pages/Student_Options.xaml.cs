@@ -21,13 +21,13 @@ namespace UWP.LearningManagement.Pages
         {
             this.InitializeComponent();
             DataContext = new MainViewModel();
-            MyToggleButton.IsChecked = Toggle_State.IsChecked;
+            ViewToggle.IsChecked = Toggle_State.IsChecked;
         }
 
-        private void MyToggleButton_Checked(object sender, RoutedEventArgs e)
+        private void ViewToggleButton_Checked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = true;
-            MyToggleButton.Content = "Switch To Student Mode";
+            ViewToggle.Content = "Switch To Student Mode";
             addPerson.Visibility = Visibility.Visible;
             updatePerson.Visibility = Visibility.Visible;
             deletePerson.Visibility = Visibility.Visible;
@@ -36,10 +36,10 @@ namespace UWP.LearningManagement.Pages
             gradeAssignment.Visibility = Visibility.Visible;
         }
 
-        private void MyToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        private void ViewToggleButton_Unchecked(object sender, RoutedEventArgs e)
         {
             Toggle_State.IsChecked = false;
-            MyToggleButton.Content = "Switch To TA/Instructor Mode";
+            ViewToggle.Content = "Switch To TA/Instructor Mode";
             addPerson.Visibility = Visibility.Collapsed;
             updatePerson.Visibility = Visibility.Collapsed;
             deletePerson.Visibility = Visibility.Collapsed;

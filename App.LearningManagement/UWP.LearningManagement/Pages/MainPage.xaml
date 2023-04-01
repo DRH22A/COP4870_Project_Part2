@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ToggleButton x:Name="MyToggleButton" Content="Switch to TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Checked="MyToggleButton_Checked" Unchecked="MyToggleButton_Unchecked" Grid.Row="0" />
+        <ToggleButton x:Name="ViewToggle" Content="Switch to TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Checked="ViewToggleButton_Checked" Unchecked="ViewToggleButton_Unchecked" Grid.Row="0" />
         <Button x:Name="studentInfo" Content="Student Information" IsEnabled="True" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="StudentOptions_Click" Grid.Row="1"/>
         <Button x:Name="courseInfo" Content="Courses Information" IsEnabled="True" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="MaintainCourses_Click" Grid.Row="2"/>
         <Button Content="Exit" FontSize="24" IsEnabled="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Exit_Click" Grid.Row="3"/>

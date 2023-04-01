@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel x:ConnectionId='2' x:Name="courseMenu">
-            <ToggleButton x:ConnectionId='6' x:Name="MyToggleButton" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10"                                                                       Grid.Row="0" />
+            <ToggleButton x:ConnectionId='6' x:Name="ViewToggle" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10"                                                                           Grid.Row="0" />
             <TextBox x:ConnectionId='7' x:Name="course_searchBox" PlaceholderText="Search For A Course" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"                                    />
             <Button x:ConnectionId='8' x:Name="allCourses" Content="List All Courses" HorizontalAlignment="Stretch" FontSize="14"                             />
             <ScrollViewer VerticalScrollBarVisibility="Auto">
