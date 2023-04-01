@@ -7,20 +7,17 @@ namespace Library.LearningManagement.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public string Password { get; set; }
+
         public Person()
         {
             Name = string.Empty;
             Id= 0;
+            Password = string.Empty;
         }
-
         public override string ToString()
         {
             return $"[{Id}] {Name}";
-        }
-
-        public static object Where(Func<object, object> value)
-        {
-            throw new NotImplementedException();
         }
     }
 }

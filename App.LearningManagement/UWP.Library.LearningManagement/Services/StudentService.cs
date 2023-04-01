@@ -23,14 +23,15 @@ namespace Library.LearningManagement.Services
         {
             personList = new ObservableCollection<Person>()
             {
-                new Student{ Name = "Daniel Halterman", Id=1, Classification=PersonClassification.Freshman},
-                new Instructor{ Name = "Brian Ranner", Id=2},
+                new Student{ Name = "Daniel Halterman", Id=1, Classification=PersonClassification.Freshman, Password="123"},
+                new Instructor{ Name = "Brian Ranner", Id=2, Password="234"},
                 new TeachingAssistant{ Name = "Scott Reynolds", Id=3},
                 new Student{ Name = "Daniel Halterman2", Id=11, Classification=PersonClassification.Freshman},
                 new Student{ Name = "Daniel Halterman3", Id=111, Classification=PersonClassification.Freshman},
                 new Student{ Name = "Daniel Halterman4", Id=1111, Classification=PersonClassification.Freshman}
 
             };
+            courseList = new ObservableCollection<Course>();    
         }
 
         public static StudentService Current
@@ -44,6 +45,11 @@ namespace Library.LearningManagement.Services
 
                 return _instance;
             }
+        }
+
+        public Person GetPersonById(int id)
+        {
+            return personList.FirstOrDefault(p => p.Id == id);
         }
 
         public void Add(Person student)

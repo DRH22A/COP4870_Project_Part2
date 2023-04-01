@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel x:Name="peopleMenu">
-            <ToggleButton x:Name="ViewToggle" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Checked="ViewToggleButton_Checked" Unchecked="ViewToggleButton_Unchecked" Grid.Row="0" />
+            <ToggleButton x:Name="ViewToggle" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed" Checked="ViewToggleButton_Checked" Unchecked="ViewToggleButton_Unchecked" Grid.Row="0" />
             <TextBox x:Name="searchBox" PlaceholderText="Search For A Person" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14" TextChanged="searchBox_TextChanged" Visibility="Collapsed"/>
             <Button x:Name="listingStudents" Content="List All Students" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed" Click="ListPeople_Click"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto">

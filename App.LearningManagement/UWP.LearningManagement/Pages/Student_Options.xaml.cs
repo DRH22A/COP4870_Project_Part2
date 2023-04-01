@@ -53,7 +53,6 @@ namespace UWP.LearningManagement.Pages
             ContentDialog addPersonDialog = new ContentDialog
             {
                 Title = "Add a New Person",
-
                 Content = new StackPanel
                 {
                     Children =
