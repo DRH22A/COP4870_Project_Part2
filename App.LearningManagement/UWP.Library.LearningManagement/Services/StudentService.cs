@@ -47,11 +47,6 @@ namespace Library.LearningManagement.Services
             }
         }
 
-        public Person GetPersonById(int id)
-        {
-            return personList.FirstOrDefault(p => p.Id == id);
-        }
-
         public void Add(Person student)
         {
             personList.Add(student);

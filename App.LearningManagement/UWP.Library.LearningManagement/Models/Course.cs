@@ -95,8 +95,7 @@ namespace Library.LearningManagement.Models
         public int announcement_id { get; set; }
         public override string ToString()
         {
-            return announcement_name;
+            return announcement_name + ": " + announcement_description;
         }
-
     }
 }

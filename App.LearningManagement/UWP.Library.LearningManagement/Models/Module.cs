@@ -15,5 +15,9 @@ namespace Library.LearningManagement.Models
         public Module() { 
             Content= new List<ContentItem>();
         }
+        public override string ToString()
+        {
+            return Name + ": " + Description;
+        }
     }
 }

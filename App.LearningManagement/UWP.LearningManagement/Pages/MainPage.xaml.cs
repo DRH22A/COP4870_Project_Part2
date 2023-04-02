@@ -114,7 +114,7 @@ namespace UWP.LearningManagement
                     var dialog = new ContentDialog()
                     {
                         Title = "Success!",
-                        Content = "Welcome!",
+                        Content = "Welcome " + person.Name,
                         CloseButtonText = "OK"
                     };
                     studentInfo.Visibility = Visibility.Visible;
