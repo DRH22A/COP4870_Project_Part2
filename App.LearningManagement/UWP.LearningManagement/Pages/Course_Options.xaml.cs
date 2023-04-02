@@ -487,7 +487,6 @@ namespace UWP.LearningManagement.Pages
                             }
                             else
                             {
-                                // Create new assignment
                                 var assignmentNameTextBox = new TextBox { PlaceholderText = "Enter Assignment Name" };
                                 var assignmentDescriptionTextBox = new TextBox { PlaceholderText = "Enter Assignment Description" };
                                 var assignmentIdTextBox = new TextBox { PlaceholderText = "Enter Assignment ID" };
@@ -583,7 +582,6 @@ namespace UWP.LearningManagement.Pages
             check = 0;
         }
 
-        // UpdateAssignment function
         private async void UpdateAssignment_Click(object sender, RoutedEventArgs e)
         {
             var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };

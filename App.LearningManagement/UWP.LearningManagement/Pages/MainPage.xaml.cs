@@ -6,16 +6,13 @@ using UWP.LearningManagement.Pages;
 using UWP.LearningManagement.ViewModels;
 using Windows.Storage;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWP.LearningManagement
 {
     public sealed partial class MainPage : Page
     {
-        private string _authToken;
 
         public MainPage()
         {

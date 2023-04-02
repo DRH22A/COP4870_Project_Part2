@@ -1,16 +1,12 @@
 ﻿using Library.LearningManagement.Models;
 using Library.LearningManagement.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 using UWP.LearningManagement.ViewModels;
-using Windows.Devices.Enumeration;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 
 namespace UWP.LearningManagement.Pages
