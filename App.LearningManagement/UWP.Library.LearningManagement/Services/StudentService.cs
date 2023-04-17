@@ -7,6 +7,7 @@ namespace Library.LearningManagement.Services
 {
     public class StudentService
     {
+        private int loggedInUserId = -1;
         private ObservableCollection<Person> personList;
         private ObservableCollection<Course> courseList;
 
@@ -55,6 +56,11 @@ namespace Library.LearningManagement.Services
         public IEnumerable<Person> Search(string query)
         {
             return personList.Where(s => s.Name.ToUpper().Contains(query.ToUpper()));
+        }
+        public int LoggedInUserId
+        {
+            get { return loggedInUserId; }
+            set { loggedInUserId = value; }
         }
     }
 }

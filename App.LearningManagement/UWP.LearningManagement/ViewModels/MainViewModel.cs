@@ -1,5 +1,6 @@
 ﻿using Library.LearningManagement.Models;
 using Library.LearningManagement.Services;
+using System;
 using System.Collections.ObjectModel;
 
 namespace UWP.LearningManagement.ViewModels
@@ -8,7 +9,6 @@ namespace UWP.LearningManagement.ViewModels
     {
         private CourseService courseService;
         private StudentService studentService;
-
         public MainViewModel() {
             courseService = new CourseService();
             studentService = new StudentService();

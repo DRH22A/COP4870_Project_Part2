@@ -838,8 +838,6 @@ namespace UWP.LearningManagement.Pages
             }
         }
 
-
-
         private async void CRUDModule_Click(object sender, RoutedEventArgs e)
         {
             var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };

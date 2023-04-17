@@ -39,8 +39,8 @@
             </ItemsControl>
             <Button x:ConnectionId='10' x:Name="gradeAssignment" Content="Provide A Grade For A Specific Assignment" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed"                              />
             <Button x:ConnectionId='11' x:Name="calcAvg" Content="Calculate A Weighted Average" HorizontalAlignment="Stretch" FontSize="14"                              />
-            <Button x:ConnectionId='12' x:Name="viewYourCourses" Content="View Current Courses" HorizontalAlignment="Stretch" FontSize="14"                              />
-            <Button x:ConnectionId='13' x:Name="viewPrevCourses" Content="View Previous Courses" HorizontalAlignment="Stretch" FontSize="14"                              />
+            <Button x:ConnectionId='12' x:Name="viewYourCourses" Content="View Current Courses" HorizontalAlignment="Stretch" FontSize="14"                                 />
+            <Button x:ConnectionId='13' x:Name="viewPrevCourses" Content="View Previous Courses" HorizontalAlignment="Stretch" FontSize="14"                                  />
             <Button x:ConnectionId='14' Content="Return To Main Menu" HorizontalAlignment="Stretch" FontSize="14"                     />
         </StackPanel>
         <Grid>

@@ -1,9 +1,12 @@
 ﻿using Library.LearningManagement.Models;
 using Library.LearningManagement.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UWP.LearningManagement.Pages;
 using UWP.LearningManagement.ViewModels;
+using Windows.Security.Authentication.OnlineId;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,12 +16,15 @@ namespace UWP.LearningManagement
 {
     public sealed partial class MainPage : Page
     {
+        private int loggedInUserId = -1;
 
         public MainPage()
         {
             this.InitializeComponent();
             DataContext = new MainViewModel();
             ViewToggle.IsChecked = Toggle_State.IsChecked;
+            Semester.CurrentSemester.Season = SeasonEnum.Fall;
+            Semester.CurrentSemester.Year = YearEnum.Year_2023;
         }
 
         private void ViewToggleButton_Checked(object sender, RoutedEventArgs e)
@@ -60,20 +66,16 @@ namespace UWP.LearningManagement
             if (ApplicationData.Current.LocalSettings.Values.TryGetValue("LoggedInUserId", out object loggedInUserIdObject))
             {
                 loggedInUserId = (int)loggedInUserIdObject;
+
+                // Update the UI accordingly
                 Login.Visibility = Visibility.Collapsed;
                 studentInfo.Visibility = Visibility.Visible;
                 courseInfo.Visibility = Visibility.Visible;
+                SignOut.Visibility = Visibility.Visible;
                 ViewToggle.Visibility = StudentService.Current.People.FirstOrDefault(p => p.Id == loggedInUserId) is Instructor || StudentService.Current.People.FirstOrDefault(p => p.Id == loggedInUserId) is TeachingAssistant ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
-
-        private void SignUpButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private int loggedInUserId = -1;
         private async void Login_Click(object sender, RoutedEventArgs e)
         {
             ContentDialog loginDialog = new ContentDialog()
@@ -85,7 +87,6 @@ namespace UWP.LearningManagement
                     {
                         new TextBox { PlaceholderText = "Enter your ID", Name = "IdTextBox" },
                         new PasswordBox { PlaceholderText = "Enter your Password", Name = "PasswordBox" },
-                        new Button { Content = "Sign Up", Name = "SignUpButton" }
                     }
                 },
                 PrimaryButtonText = "Sign In",
@@ -107,6 +108,9 @@ namespace UWP.LearningManagement
                 {
                     // Store the logged-in user's ID
                     loggedInUserId = person.Id;
+                    ApplicationData.Current.LocalSettings.Values["LoggedInUserId"] = loggedInUserId;
+                    StudentService.Current.LoggedInUserId = person.Id;
+                    CourseService.Current.LoggedInUserId = person.Id;
 
                     var dialog = new ContentDialog()
                     {
@@ -117,6 +121,7 @@ namespace UWP.LearningManagement
                     studentInfo.Visibility = Visibility.Visible;
                     courseInfo.Visibility = Visibility.Visible;
                     Login.Visibility = Visibility.Collapsed;
+                    SignOut.Visibility = Visibility.Visible;
                     if (person is Instructor || person is TeachingAssistant)
                     {
                         studentInfo.Content = "View All Student Information";
@@ -140,11 +145,32 @@ namespace UWP.LearningManagement
             {
                 return;
             }
-            else
+        }
+        private async void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            // Clear the logged-in user's ID
+            loggedInUserId = -1;
+            StudentService.Current.LoggedInUserId = -1;
+            CourseService.Current.LoggedInUserId = -1;
+
+            // Hide the student and course info controls
+            studentInfo.Visibility = Visibility.Collapsed;
+            courseInfo.Visibility = Visibility.Collapsed;
+            ViewToggle.Visibility = Visibility.Collapsed;
+
+            // Show the login control and hide the sign out control
+            Login.Visibility = Visibility.Visible;
+            SignOut.Visibility = Visibility.Collapsed;
+
+            // Show a success message
+            var dialog = new ContentDialog()
             {
-                var signUpButton = (Button)loginDialog.FindName("SignUpButton");
-                signUpButton.Click += SignUpButton_Click;
-            }
+                Title = "Success!",
+                Content = "You have been logged out.",
+                CloseButtonText = "OK"
+            };
+            ApplicationData.Current.LocalSettings.Values.Remove("LoggedInUserId");
+            await dialog.ShowAsync();
         }
     }
 }

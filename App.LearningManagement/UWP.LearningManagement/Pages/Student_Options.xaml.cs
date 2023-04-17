@@ -3,6 +3,7 @@ using Library.LearningManagement.Services;
 using System;
 using System.Linq;
 using UWP.LearningManagement.ViewModels;
+using Windows.Security.Authentication.OnlineId;
 using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -341,10 +342,144 @@ namespace UWP.LearningManagement.Pages
             }
         }
 
-        private void GradeAssignment_Click(object sender, RoutedEventArgs e)
+        private async void ViewCurrentCourses_Click(object sender, RoutedEventArgs e)
         {
+            var student = StudentService.Current.People.OfType<Person>().FirstOrDefault(s => s.Id == StudentService.Current.LoggedInUserId);
 
+            string message = $"Current courses for {student.Name}:\n";
+            var courses = CourseService.Current.Courses.Where(c => c.Roster.Contains(student));
+            foreach (var course in courses)
+            {
+                message += $"{course.Code} - {course.Name}\n";
+            }
+
+            var resultDialog = new ContentDialog
+            {
+                Title = "Current Courses",
+                Content = message,
+                CloseButtonText = "OK"
+            };
+
+            await resultDialog.ShowAsync();
         }
+
+        private async void ViewPreviousCourses_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new ContentDialog
+            {
+                Title = "Select Semester",
+                PrimaryButtonText = "OK",
+                SecondaryButtonText = "Cancel",
+                Content = new StackPanel
+                {
+                    Children =
+                    {
+                        new ComboBox
+                        {
+                            PlaceholderText = "Select a season",
+                            ItemsSource = Enum.GetValues(typeof(SeasonEnum)),
+                            SelectedItem = SeasonEnum.Fall
+                        },
+                        new ComboBox
+                        {
+                            PlaceholderText = "Select a year",
+                            ItemsSource = Enum.GetValues(typeof(YearEnum)).Cast<YearEnum>().Where(y => y <= YearEnum.Year_2023).ToList(),
+                            SelectedItem = YearEnum.Year_2023
+                        }
+                    }
+                }
+            };
+
+            var result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                // Get the current student's ID
+                var currentStudentId = StudentService.Current.LoggedInUserId;
+
+                // Get the selected semester
+                var stackPanel = dialog.Content as StackPanel;
+                var seasonCombo = stackPanel.Children[0] as ComboBox;
+                var yearCombo = stackPanel.Children[1] as ComboBox;
+                var semester = new Semester { Season = (SeasonEnum)seasonCombo.SelectedItem, Year = (YearEnum)yearCombo.SelectedItem };
+
+                // Get a list of previous courses for the selected semester and the current student
+                var previousCourses = CourseService.Current.Courses.Where(c => c.Semester.Season == semester.Season &&
+                                c.Semester.Year == semester.Year &&
+                                c.Roster.Any(p => p.Id == currentStudentId)).ToList();
+
+
+                // Display the previous courses
+                var message = previousCourses.Any() ? string.Join("\n", previousCourses) : "No previous courses found for the selected semester.";
+                var dialog2 = new ContentDialog
+                {
+                    Title = "Previous Courses",
+                    PrimaryButtonText = "OK",
+                    Content = message
+                };
+                await dialog2.ShowAsync();
+            }
+        }
+
+
+        private async void GradeAssignment_Click(object sender, RoutedEventArgs e)
+        {
+            var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
+            var courseDialog = new ContentDialog
+            {
+                Title = "Which course would you like to add an assignment grade to?",
+                Content = courseComboBox,
+                PrimaryButtonText = "Next",
+                SecondaryButtonText = "Cancel"
+            };
+
+            if (await courseDialog.ShowAsync() == ContentDialogResult.Primary)
+            {
+                var selectedCourse = courseComboBox.SelectedItem as Course;
+                var assignmentsComboBox = new ComboBox { PlaceholderText = "Select an assignment", ItemsSource = selectedCourse.Assignments };
+                var assignmentDialog = new ContentDialog
+                {
+                    Title = "Which assignment would you like to add an assignment grade to?",
+                    Content = assignmentsComboBox,
+                    PrimaryButtonText = "Next",
+                    SecondaryButtonText = "Cancel"
+                };
+
+                if (await assignmentDialog.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var selectedAssignment = assignmentsComboBox.SelectedItem as Assignment;
+                    var studentComboBox = new ComboBox { PlaceholderText = "Select a student", ItemsSource = selectedCourse.Roster };
+                    var studentDialog = new ContentDialog
+                    {
+                        Title = "Which student would you like to add an assignment grade to?",
+                        Content = studentComboBox,
+                        PrimaryButtonText = "Next",
+                        SecondaryButtonText = "Cancel"
+                    };
+
+                    if (await studentDialog.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        var pointsDialog = new ContentDialog
+                        {
+                            Title = "How many points did this student earn on the assignment?",
+                            Content = new TextBox(),
+                            PrimaryButtonText = "Save",
+                            SecondaryButtonText = "Cancel"
+                        };
+
+                        if (await pointsDialog.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            if (double.TryParse((pointsDialog.Content as TextBox).Text, out double points))
+                            {
+                                var selectedStudent = studentComboBox.SelectedItem as Student;
+                                selectedStudent.Grades[selectedAssignment.Id] = points;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
 
         private void WeightedAverage_Click(object sender, RoutedEventArgs e)

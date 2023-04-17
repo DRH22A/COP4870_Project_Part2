@@ -7,6 +7,7 @@ namespace Library.LearningManagement.Services
 {
     public class CourseService
     {
+        private int loggedInUserId = -1;
         private ObservableCollection<Course> courseList;
         private static CourseService _instance;
 
@@ -63,13 +64,16 @@ namespace Library.LearningManagement.Services
             }
         }
 
-
-
         public IEnumerable<Course> Search(string query)
         {
             return Courses.Where(s => s.Name.ToUpper().Contains(query.ToUpper())
                 || s.Description.ToUpper().Contains(query.ToUpper())
                 || s.Code.ToUpper().Contains(query.ToUpper()));
+        }
+        public int LoggedInUserId
+        {
+            get { return loggedInUserId; }
+            set { loggedInUserId = value; }
         }
     }
 }
