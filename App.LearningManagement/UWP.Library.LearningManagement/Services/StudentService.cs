@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using static Library.LearningManagement.Models.Student;
 
 namespace Library.LearningManagement.Services
 {
@@ -28,7 +29,7 @@ namespace Library.LearningManagement.Services
                 new Student{ Name = "Daniel Halterman4", Id=1111, Classification=PersonClassification.Freshman}
 
             };
-            courseList = new ObservableCollection<Course>();    
+            courseList = new ObservableCollection<Course>();
         }
 
         public static StudentService Current

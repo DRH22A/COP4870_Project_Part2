@@ -8,7 +8,8 @@ namespace Library.LearningManagement.Models
 
         public PersonClassification Classification { get; set; }
 
-        public Student() {
+        public Student()
+        {
             Grades = new Dictionary<int, double>();
         }
 
@@ -64,7 +65,6 @@ namespace Library.LearningManagement.Models
             }
         }
     }
-
     public enum PersonClassification
     {
         Freshman, Sophomore, Junior, Senior, Instructor, TeachingAssistant
