@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+eajTk+IccNkByKb0Wmd42LTwSRWuI6FjDwA2G4XxvzwTB70C3wQgzhU19rDEd2ehUrVduACzba3EV2WMlrFRA==",
+  "dgSpecHash": "kJvJQWBrlmWFsfs+j1OG+GSG9e668m704Hqm9od411MAMYt24DzjfHoh4zCsFyWTi+h0Ss/D1ooTYQN1dNz9hQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\drhal\\source\\repos\\CSharpSpring23_StudentProject\\App.LearningManagement\\UWP.LearningManagement\\UWP.LearningManagement.csproj",
+  "projectFilePath": "C:\\Users\\drhal\\Source\\Repos\\COP4870_Project\\App.LearningManagement\\UWP.LearningManagement\\UWP.LearningManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.net.native.compiler\\2.2.12-rel-31116-00\\microsoft.net.native.compiler.2.2.12-rel-31116-00.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.net.uwpcoreruntimesdk\\2.2.14\\microsoft.net.uwpcoreruntimesdk.2.2.14.nupkg.sha512",

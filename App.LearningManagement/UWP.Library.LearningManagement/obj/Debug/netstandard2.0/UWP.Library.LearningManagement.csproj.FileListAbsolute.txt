@@ -8,3 +8,13 @@ C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement
 C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.Library.LearningManagement\obj\Debug\netstandard2.0\UWP.Library.LearningManagement.csproj.CoreCompileInputs.cache
 C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.Library.LearningManagement\obj\Debug\netstandard2.0\UWP.Library.LearningManagement.dll
 C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.Library.LearningManagement\obj\Debug\netstandard2.0\UWP.Library.LearningManagement.pdb
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\bin\Debug\netstandard2.0\UWP.Library.LearningManagement.deps.json
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\bin\Debug\netstandard2.0\UWP.Library.LearningManagement.dll
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\bin\Debug\netstandard2.0\UWP.Library.LearningManagement.pdb
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\obj\Debug\netstandard2.0\UWP.Library.LearningManagement.csproj.AssemblyReference.cache
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\obj\Debug\netstandard2.0\UWP.Library.LearningManagement.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\obj\Debug\netstandard2.0\UWP.Library.LearningManagement.AssemblyInfoInputs.cache
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\obj\Debug\netstandard2.0\UWP.Library.LearningManagement.AssemblyInfo.cs
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\obj\Debug\netstandard2.0\UWP.Library.LearningManagement.csproj.CoreCompileInputs.cache
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\obj\Debug\netstandard2.0\UWP.Library.LearningManagement.dll
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\obj\Debug\netstandard2.0\UWP.Library.LearningManagement.pdb

@@ -10348,11 +10348,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\drhal\\source\\repos\\CSharpSpring23_StudentProject\\App.LearningManagement\\UWP.LearningManagement\\UWP.LearningManagement.csproj",
+      "projectUniqueName": "C:\\Users\\drhal\\Source\\Repos\\COP4870_Project\\App.LearningManagement\\UWP.LearningManagement\\UWP.LearningManagement.csproj",
       "projectName": "UWP.LearningManagement",
-      "projectPath": "C:\\Users\\drhal\\source\\repos\\CSharpSpring23_StudentProject\\App.LearningManagement\\UWP.LearningManagement\\UWP.LearningManagement.csproj",
+      "projectPath": "C:\\Users\\drhal\\Source\\Repos\\COP4870_Project\\App.LearningManagement\\UWP.LearningManagement\\UWP.LearningManagement.csproj",
       "packagesPath": "C:\\Users\\drhal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\drhal\\source\\repos\\CSharpSpring23_StudentProject\\App.LearningManagement\\UWP.LearningManagement\\obj\\",
+      "outputPath": "C:\\Users\\drhal\\Source\\Repos\\COP4870_Project\\App.LearningManagement\\UWP.LearningManagement\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -10374,8 +10374,8 @@
       "frameworks": {
         "uap10.0.17763": {
           "projectReferences": {
-            "C:\\Users\\drhal\\source\\repos\\CSharpSpring23_StudentProject\\App.LearningManagement\\UWP.Library.LearningManagement\\UWP.Library.LearningManagement.csproj": {
-              "projectPath": "C:\\Users\\drhal\\source\\repos\\CSharpSpring23_StudentProject\\App.LearningManagement\\UWP.Library.LearningManagement\\UWP.Library.LearningManagement.csproj"
+            "C:\\Users\\drhal\\Source\\Repos\\COP4870_Project\\App.LearningManagement\\UWP.Library.LearningManagement\\UWP.Library.LearningManagement.csproj": {
+              "projectPath": "C:\\Users\\drhal\\Source\\Repos\\COP4870_Project\\App.LearningManagement\\UWP.Library.LearningManagement\\UWP.Library.LearningManagement.csproj"
             }
           }
         }

@@ -268,7 +268,7 @@ namespace UWP.LearningManagement.Pages
         bool isListOpen = false;
         private void DisplayCourses_Click(object sender, RoutedEventArgs e)
         {
-            coursesList.ItemsSource = CourseService.Current.Courses;
+            coursesList.ItemsSource = CourseService.Current.Courses.Take(5);
             if (!isListOpen)
             {
                 coursesList.Visibility = Visibility.Visible;
@@ -283,6 +283,51 @@ namespace UWP.LearningManagement.Pages
             }
         }
 
+        private int currentPage = 1;
+        private const int PageSize = 5;
+        private int totalPages;
+
+        private void FirstPage_Click(object sender, RoutedEventArgs e)
+        {
+            currentPage = 1;
+            UpdateCourseList();
+        }
+
+        private void PreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+            }
+            UpdateCourseList();
+        }
+
+        private void NextPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+            }
+            UpdateCourseList();
+        }
+
+
+        private void LastPage_Click(object sender, RoutedEventArgs e)
+        {
+            currentPage = totalPages;
+            UpdateCourseList();
+        }
+
+        private void UpdateCourseList()
+        {
+            var course = CourseService.Current.Courses.Skip((currentPage - 1) * PageSize).Take(PageSize);
+            coursesList.ItemsSource = course;
+
+            totalPages = (int)Math.Ceiling((double)StudentService.Current.People.Count / PageSize);
+
+            // Update the current page text block
+            currentPageTextBlock.Text = currentPage.ToString();
+        }
 
         private async void DeleteCourse_Click(object sender, RoutedEventArgs e)
         {

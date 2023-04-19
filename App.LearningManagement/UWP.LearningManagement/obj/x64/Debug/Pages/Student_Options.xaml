@@ -14,10 +14,10 @@
             <TextBox x:ConnectionId='7' x:Name="searchBox" PlaceholderText="Search For A Person" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"                                     Visibility="Collapsed"/>
             <Button x:ConnectionId='8' x:Name="listingStudents" Content="List All Students" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed"                         />
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:ConnectionId='19' x:Name="peopleList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
+                <ItemsControl x:ConnectionId='20' x:Name="peopleList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button x:ConnectionId='20' HorizontalAlignment="Stretch" VerticalAlignment="Top"                          >
+                            <Button x:ConnectionId='21' HorizontalAlignment="Stretch" VerticalAlignment="Top"                          >
                                 <TextBlock Margin="5">
                                     <Run Text="{Binding Name}"/>
                                     <Run Text="-"/>
@@ -30,11 +30,11 @@
             </ScrollViewer>
             <ItemsControl x:ConnectionId='9' x:Name="studentNavigationList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                    <Button x:ConnectionId='15' Content="First Page" FontSize="20"                              />
-                    <Button x:ConnectionId='16' Content="Previous Page" FontSize="20"                              />
-                    <TextBlock Text="{Binding CurrentPage}" FontSize="20" Margin="10"/>
-                    <Button x:ConnectionId='17' Content="Next Page" FontSize="20"                              />
-                    <Button x:ConnectionId='18' Content="Last Page" FontSize="20"                              />
+                    <Button x:ConnectionId='15' Content="First Page" FontSize="20"                        />
+                    <Button x:ConnectionId='16' Content="Previous Page" FontSize="20"                           />
+                    <TextBlock x:ConnectionId='17' x:Name="currentPageTextBlock" Text="{Binding CurrentPage}" FontSize="20" Margin="10"/>
+                    <Button x:ConnectionId='18' Content="Next Page" FontSize="20"                       />
+                    <Button x:ConnectionId='19' Content="Last Page" FontSize="20"                       />
                 </StackPanel>
             </ItemsControl>
             <Button x:ConnectionId='10' x:Name="gradeAssignment" Content="Provide A Grade For A Specific Assignment" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed"                              />

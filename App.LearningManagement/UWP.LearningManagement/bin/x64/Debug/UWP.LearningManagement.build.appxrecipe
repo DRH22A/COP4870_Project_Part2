@@ -10,85 +10,85 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>603d6ae2-2874-4080-87ab-a8ae920a99a4</PackageIdentityName>
     <PackageIdentityPublisher>CN=drhal</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\UWP.LearningManagement.exe">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\UWP.LearningManagement.exe">
       <PackagePath>entrypoint\UWP.LearningManagement.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.14\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
       <PackagePath>System.Runtime.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.Library.LearningManagement\bin\Debug\netstandard2.0\UWP.Library.LearningManagement.dll">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\bin\Debug\netstandard2.0\UWP.Library.LearningManagement.dll">
       <PackagePath>UWP.Library.LearningManagement.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\UWP.LearningManagement.xr.xml">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\UWP.LearningManagement.xr.xml">
       <PackagePath>UWP.LearningManagement.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Course_Options.xbf">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Course_Options.xbf">
       <PackagePath>Pages\Course_Options.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\MainPage.xbf">
       <PackagePath>Pages\MainPage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Student_Options.xbf">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Student_Options.xbf">
       <PackagePath>Pages\Student_Options.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Core\UWP.LearningManagement.exe">
+    <AppxPackagedFile Include="C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Core\UWP.LearningManagement.exe">
       <PackagePath>UWP.LearningManagement.exe</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>

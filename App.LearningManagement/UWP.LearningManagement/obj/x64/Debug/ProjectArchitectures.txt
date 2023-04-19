@@ -1,1 +1,1 @@
-C:\Users\drhal\source\repos\CSharpSpring23_StudentProject\App.LearningManagement\UWP.LearningManagement\UWP.LearningManagement.csproj;x64
+C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\UWP.LearningManagement.csproj;x64

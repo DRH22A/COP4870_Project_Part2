@@ -30,11 +30,11 @@
             </ScrollViewer>
             <ItemsControl x:Name="studentNavigationList" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                    <Button Content="First Page" FontSize="20" Click="GradeAssignment_Click"/>
-                    <Button Content="Previous Page" FontSize="20" Click="GradeAssignment_Click"/>
-                    <TextBlock Text="{Binding CurrentPage}" FontSize="20" Margin="10"/>
-                    <Button Content="Next Page" FontSize="20" Click="GradeAssignment_Click"/>
-                    <Button Content="Last Page" FontSize="20" Click="GradeAssignment_Click"/>
+                    <Button Content="First Page" FontSize="20" Click="FirstPage_Click"/>
+                    <Button Content="Previous Page" FontSize="20" Click="PreviousPage_Click"/>
+                    <TextBlock x:Name="currentPageTextBlock" Text="{Binding CurrentPage}" FontSize="20" Margin="10"/>
+                    <Button Content="Next Page" FontSize="20" Click="NextPage_Click"/>
+                    <Button Content="Last Page" FontSize="20" Click="LastPage_Click"/>
                 </StackPanel>
             </ItemsControl>
             <Button x:Name="gradeAssignment" Content="Provide A Grade For A Specific Assignment" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed" Click="GradeAssignment_Click"/>
