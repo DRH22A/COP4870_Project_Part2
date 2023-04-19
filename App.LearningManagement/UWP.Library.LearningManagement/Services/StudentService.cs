@@ -22,11 +22,10 @@ namespace Library.LearningManagement.Services
             {
                 new Student{ Name = "Daniel Halterman", Id=1, Classification=PersonClassification.Freshman, Password="123"},
                 new Instructor{ Name = "Brian Ranner", Id=2, Password="234"},
-                new TeachingAssistant{ Name = "Scott Reynolds", Id=3},
-                new Student{ Name = "Daniel Halterman2", Id=11, Classification=PersonClassification.Freshman},
-                new Student{ Name = "Daniel Halterman3", Id=111, Classification=PersonClassification.Freshman},
-                new Student{ Name = "Daniel Halterman4", Id=1111, Classification=PersonClassification.Freshman}
-
+                new TeachingAssistant{ Name = "Scott Reynolds", Id=3, Password="345"},
+                new Student{ Name = "Daniel Halterman2", Id=33, Classification=PersonClassification.Freshman},
+                new Student{ Name = "Daniel Halterman3", Id=44, Classification=PersonClassification.Freshman},
+                new Student{ Name = "Daniel Halterman4", Id=55, Classification=PersonClassification.Freshman, Password="123"}
             };
             courseList = new ObservableCollection<Course>();    
         }

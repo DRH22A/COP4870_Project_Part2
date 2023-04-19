@@ -372,33 +372,64 @@ namespace UWP.LearningManagement.Pages
 
         private async void AddStudent_Click(object sender, RoutedEventArgs e)
         {
-            var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
-            var studentComboBox = new ComboBox { PlaceholderText = "Select a student", ItemsSource = StudentService.Current.People };
-
-            var courseDialog = new ContentDialog
+            var loggedInUser = StudentService.Current.People.FirstOrDefault(p => p.Id == StudentService.Current.LoggedInUserId);
+            int loggedInUserIndex = StudentService.Current.People.IndexOf(loggedInUser);
+            if (loggedInUser is Instructor || loggedInUser is TeachingAssistant)
             {
-                Title = "Which course would you like to add a student to?",
-                Content = courseComboBox,
-                PrimaryButtonText = "Next",
-                SecondaryButtonText = "Cancel"
-            };
+                var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
+                var studentComboBox = new ComboBox { PlaceholderText = "Select a student", ItemsSource = StudentService.Current.People };
 
-            var studentDialog = new ContentDialog
-            {
-                Title = "Which student would you like to add to this course?",
-                Content = studentComboBox,
-                PrimaryButtonText = "Add",
-                SecondaryButtonText = "Cancel"
-            };
-
-            if (await courseDialog.ShowAsync() == ContentDialogResult.Primary)
-            {
-                var selectedCourse = courseComboBox.SelectedItem as Course;
-                if (selectedCourse != null)
+                var courseDialog = new ContentDialog
                 {
-                    if (await studentDialog.ShowAsync() == ContentDialogResult.Primary)
+                    Title = "Which course would you like to add a student to?",
+                    Content = courseComboBox,
+                    PrimaryButtonText = "Next",
+                    SecondaryButtonText = "Cancel"
+                };
+
+                var studentDialog = new ContentDialog
+                {
+                    Title = "Which student would you like to add to this course?",
+                    Content = studentComboBox,
+                    PrimaryButtonText = "Add",
+                    SecondaryButtonText = "Cancel"
+                };
+
+                if (await courseDialog.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var selectedCourse = courseComboBox.SelectedItem as Course;
+                    if (selectedCourse != null)
                     {
-                        var selectedStudent = studentComboBox.SelectedItem as Student;
+                        if (await studentDialog.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            var selectedStudent = studentComboBox.SelectedItem as Student;
+                            if (selectedStudent != null)
+                            {
+                                selectedCourse.Roster.Add(selectedStudent);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (loggedInUser is Student)
+            {
+                var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
+                var student = StudentService.Current.People.OfType<Person>().FirstOrDefault(s => s.Id == StudentService.Current.LoggedInUserId);
+                var courseDialog = new ContentDialog
+                {
+                    Title = "Which course would you like to add yourself to?",
+                    Content = courseComboBox,
+                    PrimaryButtonText = "Ok",
+                    SecondaryButtonText = "Cancel"
+                };
+
+                if (await courseDialog.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var selectedCourse = courseComboBox.SelectedItem as Course;
+                    var student1 = StudentService.Current.People.OfType<Person>().FirstOrDefault(s => s.Id == StudentService.Current.LoggedInUserId);
+                    if (selectedCourse != null)
+                    {
+                        var selectedStudent = student1 as Student;
                         if (selectedStudent != null)
                         {
                             selectedCourse.Roster.Add(selectedStudent);
@@ -410,33 +441,64 @@ namespace UWP.LearningManagement.Pages
 
         private async void RemoveStudent_Click(object sender, RoutedEventArgs e)
         {
-            var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
-            var courseDialog = new ContentDialog
+            var loggedInUser = StudentService.Current.People.FirstOrDefault(p => p.Id == StudentService.Current.LoggedInUserId);
+            int loggedInUserIndex = StudentService.Current.People.IndexOf(loggedInUser);
+            if (loggedInUser is Instructor || loggedInUser is TeachingAssistant)
             {
-                Title = "Which course would you like to remove a student from?",
-                Content = courseComboBox,
-                PrimaryButtonText = "Next",
-                SecondaryButtonText = "Cancel"
-            };
-
-            if (await courseDialog.ShowAsync() == ContentDialogResult.Primary)
-            {
-                var selectedCourse = courseComboBox.SelectedItem as Course;
-                if (selectedCourse != null)
+                var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
+                var courseDialog = new ContentDialog
                 {
-                    var studentComboBox = new ComboBox { PlaceholderText = "Select a student", ItemsSource = selectedCourse.Roster };
+                    Title = "Which course would you like to remove a student from?",
+                    Content = courseComboBox,
+                    PrimaryButtonText = "Next",
+                    SecondaryButtonText = "Cancel"
+                };
 
-                    var studentDialog = new ContentDialog
+                if (await courseDialog.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var selectedCourse = courseComboBox.SelectedItem as Course;
+                    if (selectedCourse != null)
                     {
-                        Title = "Which student would you like to remove from this course?",
-                        Content = studentComboBox,
-                        PrimaryButtonText = "Remove",
-                        SecondaryButtonText = "Cancel"
-                    };
+                        var studentComboBox = new ComboBox { PlaceholderText = "Select a student", ItemsSource = selectedCourse.Roster };
 
-                    if (await studentDialog.ShowAsync() == ContentDialogResult.Primary)
+                        var studentDialog = new ContentDialog
+                        {
+                            Title = "Which student would you like to remove from this course?",
+                            Content = studentComboBox,
+                            PrimaryButtonText = "Remove",
+                            SecondaryButtonText = "Cancel"
+                        };
+
+                        if (await studentDialog.ShowAsync() == ContentDialogResult.Primary)
+                        {
+                            var selectedStudent = studentComboBox.SelectedItem as Student;
+                            if (selectedStudent != null)
+                            {
+                                selectedCourse.Roster.Remove(selectedStudent);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (loggedInUser is Student)
+            {
+                var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
+                var student = StudentService.Current.People.OfType<Person>().FirstOrDefault(s => s.Id == StudentService.Current.LoggedInUserId);
+                var courseDialog = new ContentDialog
+                {
+                    Title = "Which course would you like to remove yourself from?",
+                    Content = courseComboBox,
+                    PrimaryButtonText = "Ok",
+                    SecondaryButtonText = "Cancel"
+                };
+
+                if (await courseDialog.ShowAsync() == ContentDialogResult.Primary)
+                {
+                    var selectedCourse = courseComboBox.SelectedItem as Course;
+                    var student1 = StudentService.Current.People.OfType<Person>().FirstOrDefault(s => s.Id == StudentService.Current.LoggedInUserId);
+                    if (selectedCourse != null)
                     {
-                        var selectedStudent = studentComboBox.SelectedItem as Student;
+                        var selectedStudent = student1 as Student;
                         if (selectedStudent != null)
                         {
                             selectedCourse.Roster.Remove(selectedStudent);

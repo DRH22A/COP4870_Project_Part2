@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kJvJQWBrlmWFsfs+j1OG+GSG9e668m704Hqm9od411MAMYt24DzjfHoh4zCsFyWTi+h0Ss/D1ooTYQN1dNz9hQ==",
+  "dgSpecHash": "FCR0cChWNkk2D2vsCa+CygdiAI3fT3A5keFUyqN0PkqbA2Al9ymTypPGKH2kBfN+s0c2cU0HYVv2Ry13FzuuAg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\drhal\\Source\\Repos\\COP4870_Project\\App.LearningManagement\\UWP.LearningManagement\\UWP.LearningManagement.csproj",
+  "projectFilePath": "C:\\Users\\drhal\\source\\repos\\COP4870_Project\\App.LearningManagement\\UWP.LearningManagement\\UWP.LearningManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.net.native.compiler\\2.2.12-rel-31116-00\\microsoft.net.native.compiler.2.2.12-rel-31116-00.nupkg.sha512",
     "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\microsoft.net.uwpcoreruntimesdk\\2.2.14\\microsoft.net.uwpcoreruntimesdk.2.2.14.nupkg.sha512",

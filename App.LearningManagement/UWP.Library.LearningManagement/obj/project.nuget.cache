@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cwjARrV00+e6bxxdq5lI9M7e0rhQ5cj3o6ymbzfpTtoPoB0dgoh2CChIANDJT9thAlBeHcwu9T29RD8nfIze5w==",
+  "dgSpecHash": "UNY23JKHcgrFdN0O9I+rYzfoXGDOHhvkwvCrMAtu9rA/P/WjOihEZLSaEfkZgQGVNg7ujXoJT70rCyCY3BEUvA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\drhal\\Source\\Repos\\COP4870_Project\\App.LearningManagement\\UWP.Library.LearningManagement\\UWP.Library.LearningManagement.csproj",
+  "projectFilePath": "C:\\Users\\drhal\\source\\repos\\COP4870_Project\\App.LearningManagement\\UWP.Library.LearningManagement\\UWP.Library.LearningManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\drhal\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\drhal\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

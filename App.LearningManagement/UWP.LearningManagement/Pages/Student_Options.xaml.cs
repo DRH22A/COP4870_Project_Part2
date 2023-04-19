@@ -324,7 +324,7 @@ namespace UWP.LearningManagement.Pages
 
         private int currentPage = 1;
         private const int PageSize = 5;
-        private int totalPages;
+        private int totalPages = 100;
 
         private void FirstPage_Click(object sender, RoutedEventArgs e)
         {
@@ -538,9 +538,7 @@ namespace UWP.LearningManagement.Pages
         class ConsoleDialog : ContentDialog
         {
             public TextBox TextBox { get; }
-
             public string Text => TextBox.Text;
-
             public ConsoleDialog(string message)
             {
                 TextBox = new TextBox();
