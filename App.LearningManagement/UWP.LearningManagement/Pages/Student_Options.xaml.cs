@@ -490,44 +490,56 @@ namespace UWP.LearningManagement.Pages
                     PrimaryButtonText = "Next",
                     SecondaryButtonText = "Cancel"
                 };
-
                 if (await studentDialog.ShowAsync() == ContentDialogResult.Primary)
                 {
-                    var selectedStudent = studentComboBox.SelectedItem as Student;
-                    ConsoleDialog gradeDialog = new ConsoleDialog("Enter the grade for the student (0-100):");
-                    if (await gradeDialog.ShowAsync() == ContentDialogResult.Primary)
+
+                    var assignmentComboBox = new ComboBox { PlaceholderText = "Select an assignment", ItemsSource = selectedCourse.Assignments };
+                    var assignmentDialog = new ContentDialog
                     {
-                        if (double.TryParse(gradeDialog.Text, out double grade) && grade >= 0)
+                        Title = "Which assignment would you like to grade for this student?",
+                        Content = assignmentComboBox,
+                        PrimaryButtonText = "Next",
+                        SecondaryButtonText = "Cancel"
+                    };
+
+                    if (await assignmentDialog.ShowAsync() == ContentDialogResult.Primary)
+                    {
+                        var selectedStudent = studentComboBox.SelectedItem as Student;
+                        ConsoleDialog gradeDialog = new ConsoleDialog("Enter the grade for the student (0-100):");
+                        if (await gradeDialog.ShowAsync() == ContentDialogResult.Primary)
                         {
-                            string grade_letter = "";
-                            if (grade >= 90)
+                            if (double.TryParse(gradeDialog.Text, out double grade) && grade >= 0)
                             {
-                                grade_letter = "A";
+                                string grade_letter = "";
+                                if (grade >= 90)
+                                {
+                                    grade_letter = "A";
+                                }
+                                else if (grade >= 80 && grade < 90)
+                                {
+                                    grade_letter = "B";
+                                }
+                                else if (grade >= 70 && grade < 80)
+                                {
+                                    grade_letter = "C";
+                                }
+                                else if (grade >= 60 && grade < 70)
+                                {
+                                    grade_letter = "D";
+                                }
+                                else if (grade < 60 && grade >= 0)
+                                {
+                                    grade_letter = "F";
+                                }
+                                selectedStudent.SetGrade(selectedCourse.Assignments[0].Id, grade);
+                                MessageDialog messageDialog = new MessageDialog($"Grade '{grade}' {grade_letter} added for student '{selectedStudent.Name}' in course '{selectedCourse.Name}'.");
+                                await messageDialog.ShowAsync();
                             }
-                            else if (grade >= 80 && grade < 90)
+                            else
                             {
-                                grade_letter = "B";
+                                MessageDialog messageDialog = new MessageDialog("Invalid grade value.");
+                                await messageDialog.ShowAsync();
                             }
-                            else if (grade >= 70 && grade < 80)
-                            {
-                                grade_letter = "C";
-                            }
-                            else if (grade >= 60 && grade < 70)
-                            {
-                                grade_letter = "D";
-                            }
-                            else if (grade < 60 && grade >= 0)
-                            {
-                                grade_letter = "F";
-                            }
-                            selectedStudent.SetGrade(selectedCourse.Assignments[0].Id, grade);
-                            MessageDialog messageDialog = new MessageDialog($"Grade '{grade}' {grade_letter} added for student '{selectedStudent.Name}' in course '{selectedCourse.Name}'.");
-                            await messageDialog.ShowAsync();
-                        }
-                        else
-                        {
-                            MessageDialog messageDialog = new MessageDialog("Invalid grade value.");
-                            await messageDialog.ShowAsync();
                         }
                     }
                 }

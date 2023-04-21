@@ -1,6 +1,7 @@
 ﻿using Library.LearningManagement.Models;
 using Library.LearningManagement.Services;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -553,6 +554,11 @@ namespace UWP.LearningManagement.Pages
 
                         if (await assignmentGroupDialog.ShowAsync() == ContentDialogResult.Primary)
                         {
+                            AssignmentGroup result = null;
+                            if (assignmentGroupComboBox.SelectedValue != null)
+                            {
+                                result = selectedCourse.AssignmentGroups.FirstOrDefault(x => x.group_name == assignmentGroupComboBox.SelectedValue.ToString());
+                            }
                             var selectedAssignment = assignmentGroupComboBox.SelectedItem as Assignment;
                             if (selectedAssignment != null)
                             {
@@ -643,12 +649,14 @@ namespace UWP.LearningManagement.Pages
                                             TotalAvailablePoints = points,
                                             DueDate = dueDate
                                         };
-
+                                        if(result != null)
+                                        {
+                                            result.assignments.Add(newAssignment);
+                                        }
                                         selectedCourse.Assignments.Add(newAssignment);
                                     }
                                 }
                             }
-
                             check = 1;
                         }
                         else
@@ -682,7 +690,7 @@ namespace UWP.LearningManagement.Pages
                                         weight = weight
                                     };
                                     selectedCourse.AddAssignmentGroup(new AssignmentGroup { group_name = assignmentGroupNameTextBox.Text, weight = weight });
-                                }
+                                   }
                             }
                         }
                     }
