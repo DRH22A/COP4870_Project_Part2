@@ -172,6 +172,7 @@ namespace UWP.LearningManagement.Pages
                                 new TextBox { PlaceholderText = "Enter course code here", Name = "CourseCodeTextBox", Text = selectedCourse.Code },
                                 new TextBox { PlaceholderText = "Enter course description here", Name = "CourseDescriptionTextBox", Text = selectedCourse.Description },
                                 new TextBox { PlaceholderText = "Enter course room here", Name = "CourseRoomTextBox", Text = selectedCourse.Room},
+                                new TextBox { PlaceholderText = "Enter credit hours here", Name = "CourseCreditTextBox", Text = selectedCourse.CreditHours.ToString()},
                                 new ComboBox { PlaceholderText = "Select season", Name = "SeasonComboBox", SelectedItem = selectedCourse.Semester.Season,
                                 ItemsSource = Enum.GetValues(typeof(SeasonEnum)).Cast<SeasonEnum>() },
                                 new ComboBox { PlaceholderText = "Select year", Name = "YearComboBox", SelectedItem = selectedCourse.Semester.Year,
@@ -189,6 +190,7 @@ namespace UWP.LearningManagement.Pages
                         TextBox codeTextBox = (TextBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseCodeTextBox");
                         TextBox descriptionTextBox = (TextBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseDescriptionTextBox");
                         TextBox roomTextBox = (TextBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseRoomTextBox");
+                        TextBox creditTextBox = (TextBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "CourseCreditTextBox");
                         ComboBox seasonComboBox = (ComboBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is ComboBox && ((ComboBox)c).Name == "SeasonComboBox");
                         ComboBox yearComboBox = (ComboBox)((StackPanel)editCourseDialog.Content).Children.First(c => c is ComboBox && ((ComboBox)c).Name == "YearComboBox");
                         TextBlock errorTextBlock = (TextBlock)((StackPanel)editCourseDialog.Content).Children.First(c => c is TextBlock && ((TextBlock)c).Name == "ErrorTextBlock");
@@ -197,6 +199,8 @@ namespace UWP.LearningManagement.Pages
                         string code = codeTextBox.Text.Trim();
                         string description = descriptionTextBox.Text.Trim();
                         string room = roomTextBox.Text.Trim();
+                        string creditString = creditTextBox.Text.Trim();
+                        int credit = int.Parse(creditString);
                         SeasonEnum season = (SeasonEnum)seasonComboBox.SelectedItem;
                         YearEnum year = (YearEnum)yearComboBox.SelectedItem;
 
@@ -210,7 +214,7 @@ namespace UWP.LearningManagement.Pages
                         Course updatedCourse;
                         if (nameTextBox.SelectedText != null)
                         {
-                            updatedCourse = new Course { Code = code, Name = name, Description = description, Room = room, Semester = new Semester { Season = SeasonEnum.Fall, Year = YearEnum.Year_2023 } };
+                            updatedCourse = new Course { Code = code, Name = name, Description = description, Room = room, CreditHours = credit, Semester = new Semester { Season = SeasonEnum.Fall, Year = YearEnum.Year_2023 } };
                         }
                         else
                         {
@@ -236,6 +240,9 @@ namespace UWP.LearningManagement.Pages
                         selectedCourse.Code = codeTextBox.Text;
                         selectedCourse.Name= nameTextBox.Text;
                         selectedCourse.Description= descriptionTextBox.Text;
+                        selectedCourse.CreditHours = credit;
+                        selectedCourse.Room = roomTextBox.Text;
+                        selectedCourse.Semester = new Semester { Season = season, Year = year };
                         if (!string.IsNullOrWhiteSpace(course_searchBox.Text))
                         {
                             coursesList.ItemsSource = CourseService.Current.Search(course_searchBox.Text);
@@ -899,46 +906,74 @@ namespace UWP.LearningManagement.Pages
 
                 updateButton.Click += async (s, args) =>
                 {
-                    announcementDialog.Hide();
-                    var selectedAnnouncement = new ListBox { ItemsSource = course.Announcements };
-                    var nameBox = new TextBox { PlaceholderText = "Announcement Name" };
-                    var descriptionBox = new TextBox { PlaceholderText = "Announcement Description" };
-                    var content = new StackPanel { Children = { selectedAnnouncement, nameBox, descriptionBox } };
-                    var dialog = new ContentDialog
+                    if (course.Announcements.Count > 0)
                     {
-                        Title = "Update Announcement",
-                        Content = content,
-                        PrimaryButtonText = "Save",
-                        SecondaryButtonText = "Cancel"
-                    };
+                        announcementDialog.Hide();
+                        var selectedAnnouncement = new ListBox { ItemsSource = course.Announcements };
+                        var nameBox = new TextBox { PlaceholderText = "Announcement Name" };
+                        var descriptionBox = new TextBox { PlaceholderText = "Announcement Description" };
+                        var content = new StackPanel { Children = { selectedAnnouncement, nameBox, descriptionBox } };
+                        var dialog = new ContentDialog
+                        {
+                            Title = "Update Announcement",
+                            Content = content,
+                            PrimaryButtonText = "Save",
+                            SecondaryButtonText = "Cancel"
+                        };
 
-                    var dialogResult = await dialog.ShowAsync();
-                    if (dialogResult == ContentDialogResult.Primary)
+                        var dialogResult = await dialog.ShowAsync();
+                        if (dialogResult == ContentDialogResult.Primary)
+                        {
+                            var announcement = selectedAnnouncement.SelectedItem as Announcement;
+                            announcement.announcement_name = nameBox.Text;
+                            announcement.announcement_description = descriptionBox.Text;
+                        }
+                    }
+                    else
                     {
-                        var announcement = selectedAnnouncement.SelectedItem as Announcement;
-                        announcement.announcement_name = nameBox.Text;
-                        announcement.announcement_description = descriptionBox.Text;
+                        announcementDialog.Hide();
+                        var errorDialog = new ContentDialog
+                        {
+                            Title = "Error",
+                            Content = "No announcements have been created yet.",
+                            CloseButtonText = "Ok"
+                        };
+                        await errorDialog.ShowAsync();
                     }
                 };
 
                 deleteButton.Click += async (s, args) =>
                 {
-                    announcementDialog.Hide();
-                    var selectedAnnouncement = new ListBox { ItemsSource = course.Announcements };
-                    var content = new StackPanel { Children = { new TextBlock { Text = "Are you sure you want to delete this announcement?" }, selectedAnnouncement } };
-                    var dialog = new ContentDialog
+                    if (course.Announcements.Count > 0)
                     {
-                        Title = "Delete Announcement",
-                        Content = content,
-                        PrimaryButtonText = "Delete",
-                        SecondaryButtonText = "Cancel"
-                    };
+                        announcementDialog.Hide();
+                        var selectedAnnouncement = new ListBox { ItemsSource = course.Announcements };
+                        var content = new StackPanel { Children = { new TextBlock { Text = "Are you sure you want to delete this announcement?" }, selectedAnnouncement } };
+                        var dialog = new ContentDialog
+                        {
+                            Title = "Delete Announcement",
+                            Content = content,
+                            PrimaryButtonText = "Delete",
+                            SecondaryButtonText = "Cancel"
+                        };
 
-                    var dialogResult = await dialog.ShowAsync();
-                    if (dialogResult == ContentDialogResult.Primary)
+                        var dialogResult = await dialog.ShowAsync();
+                        if (dialogResult == ContentDialogResult.Primary)
+                        {
+                            var announcement = selectedAnnouncement.SelectedItem as Announcement;
+                            course.Announcements.Remove(announcement);
+                        }
+                    }
+                    else
                     {
-                        var announcement = selectedAnnouncement.SelectedItem as Announcement;
-                        course.Announcements.Remove(announcement);
+                        announcementDialog.Hide();
+                        var errorDialog = new ContentDialog
+                        {
+                            Title = "Error",
+                            Content = "No announcements have been created yet.",
+                            CloseButtonText = "Ok"
+                        };
+                        await errorDialog.ShowAsync();
                     }
                 };
                 await announcementDialog.ShowAsync();
@@ -1012,46 +1047,74 @@ namespace UWP.LearningManagement.Pages
 
                 updateButton.Click += async (s, args) =>
                 {
-                    moduleDialog.Hide();
-                    var selectedModule = new ListBox { ItemsSource = course.Modules };
-                    var nameBox = new TextBox { PlaceholderText = "Module Name" };
-                    var descriptionBox = new TextBox { PlaceholderText = "Module Description" };
-                    var content = new StackPanel { Children = { selectedModule, nameBox, descriptionBox } };
-                    var dialog = new ContentDialog
+                    if (course.Modules.Count > 0)
                     {
-                        Title = "Update Module",
-                        Content = content,
-                        PrimaryButtonText = "Save",
-                        SecondaryButtonText = "Cancel"
-                    };
+                        moduleDialog.Hide();
+                        var selectedModule = new ListBox { ItemsSource = course.Modules };
+                        var nameBox = new TextBox { PlaceholderText = "Module Name" };
+                        var descriptionBox = new TextBox { PlaceholderText = "Module Description" };
+                        var content = new StackPanel { Children = { selectedModule, nameBox, descriptionBox } };
+                        var dialog = new ContentDialog
+                        {
+                            Title = "Update Module",
+                            Content = content,
+                            PrimaryButtonText = "Save",
+                            SecondaryButtonText = "Cancel"
+                        };
 
-                    var dialogResult = await dialog.ShowAsync();
-                    if (dialogResult == ContentDialogResult.Primary)
+                        var dialogResult = await dialog.ShowAsync();
+                        if (dialogResult == ContentDialogResult.Primary)
+                        {
+                            var module = selectedModule.SelectedItem as Module;
+                            module.Name = nameBox.Text;
+                            module.Description = descriptionBox.Text;
+                        }
+                    }
+                    else
                     {
-                        var module = selectedModule.SelectedItem as Module;
-                        module.Name = nameBox.Text;
-                        module.Description = descriptionBox.Text;
+                        moduleDialog.Hide();
+                        var errorDialog = new ContentDialog
+                        {
+                            Title = "Error",
+                            Content = "No modules have been created yet.",
+                            CloseButtonText = "Ok"
+                        };
+                        await errorDialog.ShowAsync();
                     }
                 };
 
                 deleteButton.Click += async (s, args) =>
                 {
-                    moduleDialog.Hide();
-                    var selectedModule = new ListBox { ItemsSource = course.Modules };
-                    var content = new StackPanel { Children = { new TextBlock { Text = "Are you sure you want to delete this module?" }, selectedModule } };
-                    var dialog = new ContentDialog
+                    if (course.Modules.Count > 0)
                     {
-                        Title = "Delete Module",
-                        Content = content,
-                        PrimaryButtonText = "Delete",
-                        SecondaryButtonText = "Cancel"
-                    };
+                        moduleDialog.Hide();
+                        var selectedModule = new ListBox { ItemsSource = course.Modules };
+                        var content = new StackPanel { Children = { new TextBlock { Text = "Are you sure you want to delete this module?" }, selectedModule } };
+                        var dialog = new ContentDialog
+                        {
+                            Title = "Delete Module",
+                            Content = content,
+                            PrimaryButtonText = "Delete",
+                            SecondaryButtonText = "Cancel"
+                        };
 
-                    var dialogResult = await dialog.ShowAsync();
-                    if (dialogResult == ContentDialogResult.Primary)
+                        var dialogResult = await dialog.ShowAsync();
+                        if (dialogResult == ContentDialogResult.Primary)
+                        {
+                            var module = selectedModule.SelectedItem as Module;
+                            course.Modules.Remove(module);
+                        }
+                    }
+                    else
                     {
-                        var module = selectedModule.SelectedItem as Module;
-                        course.Modules.Remove(module);
+                        moduleDialog.Hide();
+                        var errorDialog = new ContentDialog
+                        {
+                            Title = "Error",
+                            Content = "No modules have been created yet.",
+                            CloseButtonText = "Ok"
+                        };
+                        await errorDialog.ShowAsync();
                     }
                 };
                 await moduleDialog.ShowAsync();

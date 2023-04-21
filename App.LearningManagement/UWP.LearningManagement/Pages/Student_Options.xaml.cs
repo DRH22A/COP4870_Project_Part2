@@ -583,7 +583,7 @@ namespace UWP.LearningManagement.Pages
                         var selectedCourse = courseListBox.SelectedItem as Course;
                         if (selectedCourse != null)
                         {
-                            selectedCourse.TotalGPAPoints = 0; // Reset TotalGPAPoints to 0 before calculating the weighted average for the selected course
+                            selectedCourse.TotalGPAPoints = 0;
                             double totalWeightedAverage = 0;
                             double totalWeight = 0;
 
