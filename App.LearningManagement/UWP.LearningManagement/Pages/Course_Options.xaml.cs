@@ -663,8 +663,6 @@ namespace UWP.LearningManagement.Pages
                         {
                             var assignmentGroupNameTextBox = new TextBox { PlaceholderText = "Enter Assignment Group Name", Name = "Group Assignment Name" };
                             var assignmentGroupWorthTextBox = new TextBox { PlaceholderText = "Enter Assignment Group Percentage", Name = "Group Assignment Worth" };
-                            double weight;
-                            double.TryParse(assignmentGroupWorthTextBox.Text, out weight);
                             var groupNameDialog = new ContentDialog
                             {
                                 Title = "What is the name of the assignment group?",
@@ -672,25 +670,39 @@ namespace UWP.LearningManagement.Pages
                                 PrimaryButtonText = "Next",
                                 SecondaryButtonText = "Cancel"
                             };
-
-                            var groupWorthDialog = new ContentDialog
-                            {
-                                Title = "What is the weight of this group?(20 = 20%)",
-                                Content = assignmentGroupWorthTextBox,
-                                PrimaryButtonText = "Done",
-                                SecondaryButtonText = "Cancel"
-                            };
                             if (await groupNameDialog.ShowAsync() == ContentDialogResult.Primary)
                             {
+                                var groupWorthDialog = new ContentDialog
+                                {
+                                    Title = "What is the weight of this group?(20 = 20%)",
+                                    Content = assignmentGroupWorthTextBox,
+                                    PrimaryButtonText = "Done",
+                                    SecondaryButtonText = "Cancel"
+                                };
                                 if (await groupWorthDialog.ShowAsync() == ContentDialogResult.Primary)
                                 {
-                                    AssignmentGroup assignmentGroup = new AssignmentGroup
+                                    double weight;
+                                    if (double.TryParse(assignmentGroupWorthTextBox.Text, out weight))
                                     {
-                                        group_name = assignmentGroupNameTextBox.Text,
-                                        weight = weight
-                                    };
-                                    selectedCourse.AddAssignmentGroup(new AssignmentGroup { group_name = assignmentGroupNameTextBox.Text, weight = weight });
-                                   }
+                                        if (weight != 0)
+                                        {
+                                            AssignmentGroup assignmentGroup = new AssignmentGroup
+                                            {
+                                                group_name = assignmentGroupNameTextBox.Text,
+                                                weight = weight
+                                            };
+                                            selectedCourse.AddAssignmentGroup(new AssignmentGroup { group_name = assignmentGroupNameTextBox.Text, weight = weight });
+                                        }
+                                        else
+                                        {
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        return;
+                                    }
+                                }
                             }
                         }
                     }

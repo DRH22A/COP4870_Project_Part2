@@ -467,7 +467,7 @@ namespace UWP.LearningManagement.Pages
                 await dialog2.ShowAsync();
             }
         }
-
+        int id_checker=-1;
         private async void GradeAssignment_Click(object sender, RoutedEventArgs e)
         {
             var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
@@ -492,7 +492,6 @@ namespace UWP.LearningManagement.Pages
                 };
                 if (await studentDialog.ShowAsync() == ContentDialogResult.Primary)
                 {
-
                     var assignmentComboBox = new ComboBox { PlaceholderText = "Select an assignment", ItemsSource = selectedCourse.Assignments };
                     var assignmentDialog = new ContentDialog
                     {
@@ -504,6 +503,7 @@ namespace UWP.LearningManagement.Pages
 
                     if (await assignmentDialog.ShowAsync() == ContentDialogResult.Primary)
                     {
+                        var selectedAssignment = assignmentComboBox.SelectedItem as Assignment;
                         var selectedStudent = studentComboBox.SelectedItem as Student;
                         ConsoleDialog gradeDialog = new ConsoleDialog("Enter the grade for the student (0-100):");
                         if (await gradeDialog.ShowAsync() == ContentDialogResult.Primary)
@@ -531,9 +531,17 @@ namespace UWP.LearningManagement.Pages
                                 {
                                     grade_letter = "F";
                                 }
-                                selectedStudent.SetGrade(selectedCourse.Assignments[0].Id, grade);
-                                MessageDialog messageDialog = new MessageDialog($"Grade '{grade}' {grade_letter} added for student '{selectedStudent.Name}' in course '{selectedCourse.Name}'.");
-                                await messageDialog.ShowAsync();
+                                if(selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id == id_checker)
+                                {
+                                    selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id++;
+                                }
+                                while (selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id != id_checker)
+                                {
+                                    selectedStudent.SetGrade(selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id, grade);
+                                    MessageDialog messageDialog = new MessageDialog($"Grade '{grade}' {grade_letter} added for student '{selectedStudent.Name}' in course '{selectedCourse.Name}' and assignment `{selectedAssignment.Name}`.");
+                                    id_checker = selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id;
+                                    await messageDialog.ShowAsync();
+                                }
                             }
                             else
                             {
@@ -568,8 +576,6 @@ namespace UWP.LearningManagement.Pages
 
         private async void WeightedAverage_Click(object sender, RoutedEventArgs e)
         {
-            double gpa_storage = 0;
-            int coursesGraded = 0;
             var currentStudentId = StudentService.Current.LoggedInUserId;
             var currentStudent = StudentService.Current.People.FirstOrDefault(p => p.Id == currentStudentId) as Student;
             var currentStudentName = currentStudent?.Name;
@@ -577,99 +583,116 @@ namespace UWP.LearningManagement.Pages
             var courseService = CourseService.Current;
             if (currentStudentId != null)
             {
-                bool addMoreCourses = true;
-                while (addMoreCourses)
+                var studentCourses = courseService.Courses.Where(c => c.Roster.Any(p => p.Id == currentStudentId)).ToList();
+                var courseListBox = new ListBox { ItemsSource = studentCourses, SelectionMode = SelectionMode.Multiple };
+                var courseDialog = new ContentDialog
                 {
-                    var studentCourses = courseService.Courses.Where(c => c.Roster.Any(p => p.Id == currentStudentId)).ToList();
-                    var courseListBox = new ListBox { ItemsSource = studentCourses, SelectionMode = SelectionMode.Multiple };
-                    var courseDialog = new ContentDialog
+                    Title = "Select a Course for a weighted average, or select multiple to calculate your GPA",
+                    Content = courseListBox,
+                    PrimaryButtonText = "Calculate Weighted Average",
+                    SecondaryButtonText = "Calculate GPA"
+                };
+                var courseResult = await courseDialog.ShowAsync();
+                if (courseResult == ContentDialogResult.Primary)
+                {
+                    var selectedCourse = courseListBox.SelectedItem as Course;
+                    if (selectedCourse != null)
                     {
-                        Title = "Select Courses",
-                        Content = courseListBox,
-                        PrimaryButtonText = "Calculate Weighted Average",
-                        SecondaryButtonText = "Cancel"
-                    };
-                    var courseResult = await courseDialog.ShowAsync();
-                    if (courseResult == ContentDialogResult.Primary)
-                    {
-                        var selectedCourse = courseListBox.SelectedItem as Course;
-                        if (selectedCourse != null)
+                        double totalWeightedAverage = 0;
+                        double totalWeight = 0;
+
+                        foreach (var assignmentGroup in selectedCourse.AssignmentGroups)
                         {
-                            selectedCourse.TotalGPAPoints = 0;
-                            double totalWeightedAverage = 0;
-                            double totalWeight = 0;
-
-                            foreach (var assignmentGroup in selectedCourse.AssignmentGroups)
-                            {
-                                double weightedAverage = currentStudent.GetWeightedAverage(new List<AssignmentGroup> { assignmentGroup });
-                                totalWeightedAverage += weightedAverage * assignmentGroup.weight;
-                                totalWeight += assignmentGroup.weight;
-                            }
-
-                            string letterGrade = "";
-                            double finalGrade = totalWeightedAverage / totalWeight;
-
-                            if (finalGrade >= 90)
-                            {
-                                letterGrade = "A";
-                                selectedCourse.TotalGPAPoints += 4 * selectedCourse.CreditHours;
-                                coursesGraded++;
-                            }
-                            else if (finalGrade >= 80 && finalGrade < 90)
-                            {
-                                letterGrade = "B";
-                                selectedCourse.TotalGPAPoints += 3 * selectedCourse.CreditHours;
-                                coursesGraded++;
-                            }
-                            else if (finalGrade >= 70 && finalGrade < 80)
-                            {
-                                letterGrade = "C";
-                                selectedCourse.TotalGPAPoints += 2 * selectedCourse.CreditHours;
-                                coursesGraded++;
-                            }
-                            else if (finalGrade >= 60 && finalGrade < 70)
-                            {
-                                letterGrade = "D";
-                                selectedCourse.TotalGPAPoints += selectedCourse.CreditHours;
-                                coursesGraded++;
-                            }
-                            else
-                            {
-                                letterGrade = "F";
-                                coursesGraded++;
-                            }
-
-                            gpa_storage += (selectedCourse.TotalGPAPoints / selectedCourse.CreditHours); // use the counter variable in the calculation
-                            var messageDialog = new ContentDialog
-                            {
-                                Title = $"Weighted Average for {currentStudentName} in {selectedCourse.Name}",
-                                Content = $"{Math.Round(finalGrade, 2)}% ({letterGrade})",
-                                PrimaryButtonText = "Add Another Course",
-                                SecondaryButtonText = "Print GPA"
-                            };
-                            var messageResult = await messageDialog.ShowAsync();
-                            if (messageResult == ContentDialogResult.Primary)
-                            {
-                                addMoreCourses = true;
-                            }
-                            else
-                            {
-                                addMoreCourses = false;
-                            }
+                            double weightedAverage = currentStudent.GetWeightedAverage(new List<AssignmentGroup> { assignmentGroup });
+                            totalWeightedAverage += weightedAverage * assignmentGroup.weight;
+                            totalWeight += assignmentGroup.weight;
                         }
-                        double gpa = gpa_storage / coursesGraded;
-                        var gpaDialog = new ContentDialog
+
+                        string letterGrade = "";
+                        double finalGrade = totalWeightedAverage / totalWeight;
+
+                        if (finalGrade >= 90)
                         {
-                            Title = $"{currentStudentName}'s GPA",
-                            Content = $"Your GPA is {Math.Round(gpa, 2)}",
-                            CloseButtonText = "Ok"
+                            letterGrade = "A";
+                        }
+                        else if (finalGrade >= 80 && finalGrade < 90)
+                        {
+                            letterGrade = "B";
+                        }
+                        else if (finalGrade >= 70 && finalGrade < 80)
+                        {
+                            letterGrade = "C";
+                        }
+                        else if (finalGrade >= 60 && finalGrade < 70)
+                        {
+                            letterGrade = "D";
+                        }
+                        else
+                        {
+                            letterGrade = "F";
+                        }
+
+                        var messageDialog = new ContentDialog
+                        {
+                            Title = $"Weighted Average for {currentStudentName} in {selectedCourse.Name}",
+                            Content = $"{Math.Round(finalGrade, 2)}% ({letterGrade})",
+                            PrimaryButtonText = "Ok"
                         };
-                        await gpaDialog.ShowAsync();
+                        await messageDialog.ShowAsync();
+                    }
+                }
+                else
+                {
+                    double totalWeightedAverage = 0;
+                    double totalWeight = 0;
+                    double totalCreditHours = 0;
+                    foreach (Course selectedCourse in courseListBox.SelectedItems)
+                    {
+                        foreach (var assignmentGroup in selectedCourse.AssignmentGroups)
+                        {
+                            double weightedAverage = currentStudent.GetWeightedAverage(new List<AssignmentGroup> { assignmentGroup });
+                            totalWeightedAverage += weightedAverage * assignmentGroup.weight;
+                            totalWeight += assignmentGroup.weight;
+                        }
+                        totalCreditHours += selectedCourse.CreditHours;
+                    }
+                    double finalGrade = totalWeightedAverage / totalWeight;
+                    double gpa_storage = 0;
+                    int coursesGraded = 0;
+
+                    if (finalGrade >= 90)
+                    {
+                        gpa_storage += 4 * totalCreditHours;
+                        coursesGraded = courseListBox.SelectedItems.Count;
+                    }
+                    else if (finalGrade >= 80 && finalGrade < 90)
+                    {
+                        gpa_storage += 3 * totalCreditHours;
+                        coursesGraded = courseListBox.SelectedItems.Count;
+                    }
+                    else if (finalGrade >= 70 && finalGrade < 80)
+                    {
+                        gpa_storage += 2 * totalCreditHours;
+                        coursesGraded = courseListBox.SelectedItems.Count;
+                    }
+                    else if (finalGrade >= 60 && finalGrade < 70)
+                    {
+                        gpa_storage += 1 * totalCreditHours;
+                        coursesGraded = courseListBox.SelectedItems.Count;
                     }
                     else
                     {
-                        return;
+                        coursesGraded = 0;
                     }
+
+                    double gpa = gpa_storage / totalCreditHours;
+                    var gpaDialog = new ContentDialog
+                    {
+                        Title = $"{currentStudentName}'s GPA",
+                        Content = $"Your GPA is {Math.Round(gpa, 2)}",
+                        CloseButtonText = "Ok"
+                    };
+                    await gpaDialog.ShowAsync();
                 }
             }
         }

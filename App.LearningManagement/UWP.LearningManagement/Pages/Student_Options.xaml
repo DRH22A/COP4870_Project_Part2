@@ -38,7 +38,7 @@
                 </StackPanel>
             </ItemsControl>
             <Button x:Name="gradeAssignment" Content="Provide A Grade For A Specific Assignment" HorizontalAlignment="Stretch" FontSize="14" Visibility="Collapsed" Click="GradeAssignment_Click"/>
-            <Button x:Name="calcAvg" Content="Calculate A Weighted Average" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
+            <Button x:Name="calcAvg" Content="Calculate A Weighted Average/GPA" HorizontalAlignment="Stretch" FontSize="14" Click="WeightedAverage_Click"/>
             <Button x:Name="viewYourCourses" Content="View Current Courses" HorizontalAlignment="Stretch" FontSize="14" Click="ViewCurrentCourses_Click"/>
             <Button x:Name="viewPrevCourses" Content="View Previous Courses" HorizontalAlignment="Stretch" FontSize="14" Click="ViewPreviousCourses_Click"/>
             <Button Content="Return To Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click"/>
