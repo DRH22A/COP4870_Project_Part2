@@ -3,6 +3,7 @@ using Library.LearningManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UWP.LearningManagement.ViewModels;
 using Windows.Security.Authentication.OnlineId;
 using Windows.UI;
@@ -55,59 +56,53 @@ namespace UWP.LearningManagement.Pages
                 {
                     Children =
                     {
-                        new TextBox { PlaceholderText = "Enter name here", Name = "NameTextBox" },
-                        new TextBox { PlaceholderText = "Enter ID here", Name = "IdTextBox" },
-                        new ComboBox { Header = "Classification", Name = "ClassificationComboBox", ItemsSource = Enum.GetValues(typeof(PersonClassification)) },
+                        new TextBox { PlaceholderText = "Enter the person's name here", Name = "PersonNameTextBox" },
+                        new TextBox { PlaceholderText = "Enter person's ID here", Name = "PersonIdTextBox" },
+                        new ComboBox { PlaceholderText = "Select a classification", Name = "ClassificationComboBox",
+                        ItemsSource = Enum.GetValues(typeof(PersonClassification)).Cast<PersonClassification>() },
                         new TextBlock { Foreground = new SolidColorBrush(Colors.Red), Name = "ErrorTextBlock" }
                     }
                 },
-
                 PrimaryButtonText = "Add",
                 SecondaryButtonText = "Cancel"
             };
 
             addPersonDialog.PrimaryButtonClick += async (contentDialog, contentDialogArgs) =>
             {
-                TextBox nameTextBox = (TextBox)((StackPanel)addPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "NameTextBox");
-                TextBox idTextBox = (TextBox)((StackPanel)addPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "IdTextBox");
+                TextBox nameTextBox = (TextBox)((StackPanel)addPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "PersonNameTextBox");
+                TextBox idTextBox = (TextBox)((StackPanel)addPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "PersonIdTextBox");
                 ComboBox classificationComboBox = (ComboBox)((StackPanel)addPersonDialog.Content).Children.First(c => c is ComboBox && ((ComboBox)c).Name == "ClassificationComboBox");
                 TextBlock errorTextBlock = (TextBlock)((StackPanel)addPersonDialog.Content).Children.First(c => c is TextBlock && ((TextBlock)c).Name == "ErrorTextBlock");
+
                 string name = nameTextBox.Text.Trim();
+                string idString = idTextBox.Text.Trim();
+                int id = int.Parse(idString);
+                PersonClassification classification = (PersonClassification)classificationComboBox.SelectedItem;
+
                 if (string.IsNullOrEmpty(name))
                 {
-                    errorTextBlock.Text = "Please enter a name.";
+                    errorTextBlock.Text = "Please enter the person's name.";
                     contentDialogArgs.Cancel = true;
                     return;
                 }
 
                 Person newPerson;
-                if (classificationComboBox.SelectedIndex == 0)
+                if (nameTextBox.SelectedText != null && (classificationComboBox.SelectedIndex == 0 || classificationComboBox.SelectedIndex == 1 || classificationComboBox.SelectedIndex == 2 || classificationComboBox.SelectedIndex == 3))
                 {
-                    newPerson = new Student { Id = int.Parse(idTextBox.Text.Trim()), Name = name, Classification=PersonClassification.Freshman };
+                    newPerson = new Student { Name = name, Id = id, Classification = classification };
                 }
-                else if (classificationComboBox.SelectedIndex == 1)
+                else if (nameTextBox.SelectedText != null && classificationComboBox.SelectedIndex == 4)
                 {
-                    newPerson = new Student { Id = int.Parse(idTextBox.Text.Trim()), Name = name, Classification = PersonClassification.Sophomore };
+                    newPerson = new Instructor { Name = name, Id = id };
                 }
-                else if (classificationComboBox.SelectedIndex == 2)
+                else if (nameTextBox.SelectedText != null && classificationComboBox.SelectedIndex == 5)
                 {
-                    newPerson = new Student { Id = int.Parse(idTextBox.Text.Trim()), Name = name, Classification = PersonClassification.Junior };
+                    newPerson = new TeachingAssistant { Name = name, Id = id };
                 }
-                else if (classificationComboBox.SelectedIndex == 3)
-                {
-                    newPerson = new Student { Id = int.Parse(idTextBox.Text.Trim()), Name = name, Classification = PersonClassification.Freshman };
-                }
-                else if (classificationComboBox.SelectedIndex == 4)
-                {
-                    newPerson = new Instructor { Id = int.Parse(idTextBox.Text.Trim()), Name = name };
-                }
-                else if (classificationComboBox.SelectedIndex == 5)
-                {
-                    newPerson = new TeachingAssistant { Id = int.Parse(idTextBox.Text.Trim()), Name = name };
-                }
+
                 else
-                {
-                    errorTextBlock.Text = "Please select a classification.";
+                        {
+                    errorTextBlock.Text = "Please enter a person.";
                     contentDialogArgs.Cancel = true;
                     return;
                 }
@@ -119,13 +114,12 @@ namespace UWP.LearningManagement.Pages
                     return;
                 }
 
-                if (StudentService.Current.People.Any(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+                if (StudentService.Current.People.Any(s => s.Name == newPerson.Name))
                 {
                     errorTextBlock.Text = "A person with the same name already exists. Please enter a unique name.";
                     contentDialogArgs.Cancel = true;
                     return;
                 }
-
                 StudentService.Current.Add(newPerson);
 
                 if (!string.IsNullOrWhiteSpace(searchBox.Text))
@@ -137,120 +131,180 @@ namespace UWP.LearningManagement.Pages
                     peopleList.ItemsSource = StudentService.Current.People;
                 }
             };
-
             await addPersonDialog.ShowAsync();
         }
 
         private async void UpdatePerson_Click(object sender, RoutedEventArgs e)
         {
-            ContentDialog updatePersonDialog = new ContentDialog
+            var personComboBox = new ComboBox { PlaceholderText = "Select a person", ItemsSource = StudentService.Current.People };
+            var personDialog = new ContentDialog
             {
-                Title = "Update a Person",
-                Content = new ComboBox { PlaceholderText = "Select a person", ItemsSource = StudentService.Current.People },
-                PrimaryButtonText = "Update",
+                Title = "Which person would you like to update?",
+                Content = personComboBox,
+                PrimaryButtonText = "Next",
                 SecondaryButtonText = "Cancel"
             };
 
-            ContentDialogResult result = await updatePersonDialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
+            if (await personDialog.ShowAsync() == ContentDialogResult.Primary)
             {
-                ComboBox personComboBox = (ComboBox)updatePersonDialog.Content;
-                Person selectedPerson = (Person)personComboBox.SelectedItem;
-
-                ContentDialog editNameDialog = new ContentDialog
+                var selectedStudent = personComboBox.SelectedItem as Student;
+                var selectedInstructor = personComboBox.SelectedItem as Instructor;
+                var selectedTA = personComboBox.SelectedItem as TeachingAssistant;
+                if (selectedStudent != null)
                 {
-                    Title = "Edit Name",
-                    Content = new TextBox { PlaceholderText = "Enter new name here", Text = selectedPerson.Name },
-                    PrimaryButtonText = "Save",
-                    SecondaryButtonText = "Cancel"
-                };
-
-                ContentDialogResult editNameDialogResult = await editNameDialog.ShowAsync();
-                if (editNameDialogResult == ContentDialogResult.Primary)
-                {
-                    TextBox nameTextBox = (TextBox)editNameDialog.Content;
-                    string newName = nameTextBox.Text.Trim();
-                    if (string.IsNullOrEmpty(newName))
+                    ContentDialog editPersonDialog = new ContentDialog
                     {
-                        ContentDialog errorDialog = new ContentDialog
+                        Title = "Edit Person Information",
+                        Content = new StackPanel
                         {
-                            Title = "Invalid Name",
-                            Content = "Please enter a valid name.",
-                            CloseButtonText = "OK"
-                        };
-                        _ = errorDialog.ShowAsync();
-                        return;
-                    }
-
-                    ContentDialog editIdDialog = new ContentDialog
-                    {
-                        Title = "Edit ID",
-                        Content = new TextBox { PlaceholderText = "Enter new ID here", Text = selectedPerson.Id.ToString() },
+                            Children =
+                            {
+                                new TextBox { PlaceholderText = "Enter the person's name here", Name = "PersonNameTextBox", Text = selectedStudent.Name },
+                                new TextBox { PlaceholderText = "Enter person's ID here", Name = "PersonIdTextBox", Text = selectedStudent.Id.ToString() },
+                                new ComboBox { PlaceholderText = "Select classification", Name = "ClassificationComboBox", SelectedItem = selectedStudent.Classification,
+                                ItemsSource = Enum.GetValues(typeof(PersonClassification)).Cast<PersonClassification>() },
+                                new TextBlock { Foreground = new SolidColorBrush(Colors.Red), Name = "ErrorTextBlock" }
+                            }
+                        },
                         PrimaryButtonText = "Save",
                         SecondaryButtonText = "Cancel"
                     };
 
-                    ContentDialogResult editIdDialogResult = await editIdDialog.ShowAsync();
-                    if (editIdDialogResult == ContentDialogResult.Primary)
+                    editPersonDialog.PrimaryButtonClick += async (contentDialog, contentDialogArgs) =>
                     {
-                        TextBox idTextBox = (TextBox)editIdDialog.Content;
-                        if (int.TryParse(idTextBox.Text.Trim(), out int newId))
+                        TextBox nameTextBox = (TextBox)((StackPanel)editPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "PersonNameTextBox");
+                        TextBox idTextBox = (TextBox)((StackPanel)editPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "PersonIdTextBox");
+                        ComboBox classificationComboBox = (ComboBox)((StackPanel)editPersonDialog.Content).Children.First(c => c is ComboBox && ((ComboBox)c).Name == "ClassificationComboBox");
+                        TextBlock errorTextBlock = (TextBlock)((StackPanel)editPersonDialog.Content).Children.First(c => c is TextBlock && ((TextBlock)c).Name == "ErrorTextBlock");
+
+                        string name = nameTextBox.Text.Trim();
+                        string idString = idTextBox.Text.Trim();
+                        int id = int.Parse(idString); 
+                        PersonClassification classification = (PersonClassification)classificationComboBox.SelectedItem;
+
+                        if (string.IsNullOrEmpty(name))
                         {
-                            if (newId == selectedPerson.Id && newId != selectedPerson.Id)
-                            {
-                                ContentDialog errorDialog = new ContentDialog
-                                {
-                                    Title = "Invalid ID",
-                                    Content = "Please enter a different ID.",
-                                    CloseButtonText = "OK"
-                                };
-                                _ = errorDialog.ShowAsync();
-                                return;
-                            }
-                            if (StudentService.Current.People.Any(s => s.Id == newId) && newId != selectedPerson.Id)
-                            {
-                                ContentDialog errorDialog = new ContentDialog
-                                {
-                                    Title = "Duplicate ID",
-                                    Content = "A student with the same ID already exists. Please enter a unique ID.",
-                                    CloseButtonText = "OK"
-                                };
-                                _ = errorDialog.ShowAsync();
-                                return;
-                            }
+                            errorTextBlock.Text = "Please enter the person's name.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
 
-                            selectedPerson.Id = newId;
-                            selectedPerson.Name = newName;
+                        Person newPerson;
+                        if (nameTextBox.SelectedText != null && (classificationComboBox.SelectedIndex == 0 || classificationComboBox.SelectedIndex == 1 || classificationComboBox.SelectedIndex == 2 || classificationComboBox.SelectedIndex == 3))
+                        {
+                            newPerson = new Student { Name = name, Id = id, Classification = classification };
+                        }
 
-                            if (!string.IsNullOrWhiteSpace(searchBox.Text))
-                            {
-                                peopleList.ItemsSource = StudentService.Current.Search(searchBox.Text);
-                            }
-                            else
-                            {
-                                peopleList.ItemsSource = StudentService.Current.People;
-                            }
+                        else
+                        {
+                            errorTextBlock.Text = "Please enter a person.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        if (StudentService.Current.People.Any(s => s.Id == newPerson.Id && s.Id != selectedStudent.Id))
+                        {
+                            errorTextBlock.Text = "A person with the same ID already exists. Please enter a unique ID.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        if (StudentService.Current.People.Any(s => s.Name == newPerson.Name && s.Name != selectedStudent.Name))
+                        {
+                            errorTextBlock.Text = "A person with the same name already exists. Please enter a unique name.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        selectedStudent.Name = nameTextBox.Text;
+                        selectedStudent.Id = id;
+                        selectedStudent.Classification = classification;
+                        if (!string.IsNullOrWhiteSpace(searchBox.Text))
+                        {
+                            peopleList.ItemsSource = StudentService.Current.Search(searchBox.Text);
                         }
                         else
                         {
-                            ContentDialog errorDialog = new ContentDialog
-                            {
-                                Title = "Invalid ID",
-                                Content = "Please enter a valid integer ID.",
-                                CloseButtonText = "OK"
-                            };
-                            _ = errorDialog.ShowAsync();
+                            peopleList.ItemsSource = StudentService.Current.People;
                         }
-                    }
+                        await Task.CompletedTask;
+                    };
+                    await editPersonDialog.ShowAsync();
+                }
+                else if(selectedInstructor != null){
+                    ContentDialog editPersonDialog = new ContentDialog
+                    {
+                        Title = "Edit Instructor Information",
+                        Content = new StackPanel
+                        {
+                            Children =
+                            {
+                                new TextBox { PlaceholderText = "Enter the instructor's name here", Name = "PersonNameTextBox", Text = selectedInstructor.Name },
+                                new TextBox { PlaceholderText = "Enter instructor's ID here", Name = "PersonIdTextBox", Text = selectedInstructor.Id.ToString() },
+                                new TextBlock { Foreground = new SolidColorBrush(Colors.Red), Name = "ErrorTextBlock" }
+                            }
+                        },
+                        PrimaryButtonText = "Save",
+                        SecondaryButtonText = "Cancel"
+                    };
 
-                    if (!string.IsNullOrWhiteSpace(searchBox.Text))
+                    editPersonDialog.PrimaryButtonClick += async (contentDialog, contentDialogArgs) =>
                     {
-                        peopleList.ItemsSource = StudentService.Current.Search(searchBox.Text);
-                    }
-                    else
-                    {
-                        peopleList.ItemsSource = StudentService.Current.People;
-                    }
+                        TextBox nameTextBox = (TextBox)((StackPanel)editPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "PersonNameTextBox");
+                        TextBox idTextBox = (TextBox)((StackPanel)editPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "PersonIdTextBox");
+                        TextBlock errorTextBlock = (TextBlock)((StackPanel)editPersonDialog.Content).Children.First(c => c is TextBlock && ((TextBlock)c).Name == "ErrorTextBlock");
+
+                        string name = nameTextBox.Text.Trim();
+                        string idString = idTextBox.Text.Trim();
+                        int id = int.Parse(idString);
+
+                        if (string.IsNullOrEmpty(name))
+                        {
+                            errorTextBlock.Text = "Please enter the instructor's name.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        Person newPerson;
+                        if (nameTextBox.SelectedText != null)
+                        {
+                            newPerson = new Instructor { Name = name, Id = id };
+                        }
+
+                        else
+                        {
+                            errorTextBlock.Text = "Please enter a person.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        if (StudentService.Current.People.Any(s => s.Id == newPerson.Id && s.Id != selectedInstructor.Id))
+                        {
+                            errorTextBlock.Text = "A person with the same ID already exists. Please enter a unique ID.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        if (StudentService.Current.People.Any(s => s.Name == newPerson.Name && s.Name != selectedInstructor.Name))
+                        {
+                            errorTextBlock.Text = "A person with the same name already exists. Please enter a unique name.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        selectedInstructor.Name = nameTextBox.Text;
+                        selectedInstructor.Id = id;
+                        if (!string.IsNullOrWhiteSpace(searchBox.Text))
+                        {
+                            peopleList.ItemsSource = StudentService.Current.Search(searchBox.Text);
+                        }
+                        else
+                        {
+                            peopleList.ItemsSource = StudentService.Current.People;
+                        }
+                        await Task.CompletedTask;
+                    };
+                    await editPersonDialog.ShowAsync();
                 }
             }
         }
@@ -281,7 +335,7 @@ namespace UWP.LearningManagement.Pages
             var student = ((FrameworkElement)sender).DataContext as Student;
             if (student != null)
             {
-                var dialog = new MessageDialog($"Name: {student.Name}\nId: {student.Id}\nClassification: {student.Classification}");
+                var dialog = new MessageDialog($"Name: {student.Name}\nId: {student.Id}\nClassification: {student.Classification} - Student");
                 await dialog.ShowAsync();
             }
             else
@@ -289,7 +343,7 @@ namespace UWP.LearningManagement.Pages
                 var instructor = ((FrameworkElement)sender).DataContext as Instructor;
                 if (instructor != null)
                 {
-                    var dialog = new MessageDialog($"Name: {instructor.Name}\nId: {instructor.Id}");
+                    var dialog = new MessageDialog($"Name: {instructor.Name}\nId: {instructor.Id}\nClassification: Instructor");
                     await dialog.ShowAsync();
                 }
                 else
@@ -297,7 +351,7 @@ namespace UWP.LearningManagement.Pages
                     var teachingAssistant = ((FrameworkElement)sender).DataContext as TeachingAssistant;
                     if (teachingAssistant != null)
                     {
-                        var dialog = new MessageDialog($"Name: {teachingAssistant.Name}\nId: {teachingAssistant.Id}");
+                        var dialog = new MessageDialog($"Name: {teachingAssistant.Name}\nId: {teachingAssistant.Id}\nClassification: TeachingAssistant");
                         await dialog.ShowAsync();
                     }
                 }
@@ -361,10 +415,7 @@ namespace UWP.LearningManagement.Pages
         {
             var people = StudentService.Current.People.Skip((currentPage - 1) * PageSize).Take(PageSize);
             peopleList.ItemsSource = people;
-
             totalPages = (int)Math.Ceiling((double)StudentService.Current.People.Count / PageSize);
-
-            // Update the current page text block
             currentPageTextBlock.Text = currentPage.ToString();
         }
 
@@ -441,22 +492,14 @@ namespace UWP.LearningManagement.Pages
 
             if (result == ContentDialogResult.Primary)
             {
-                // Get the current student's ID
                 var currentStudentId = StudentService.Current.LoggedInUserId;
-
-                // Get the selected semester
                 var stackPanel = dialog.Content as StackPanel;
                 var seasonCombo = stackPanel.Children[0] as ComboBox;
                 var yearCombo = stackPanel.Children[1] as ComboBox;
                 var semester = new Semester { Season = (SeasonEnum)seasonCombo.SelectedItem, Year = (YearEnum)yearCombo.SelectedItem };
-
-                // Get a list of previous courses for the selected semester and the current student
                 var previousCourses = CourseService.Current.Courses.Where(c => c.Semester.Season == semester.Season &&
                                 c.Semester.Year == semester.Year &&
                                 c.Roster.Any(p => p.Id == currentStudentId)).ToList();
-
-
-                // Display the previous courses
                 var message = previousCourses.Any() ? string.Join("\n", previousCourses) : "No previous courses found for the selected semester.";
                 var dialog2 = new ContentDialog
                 {
@@ -467,7 +510,6 @@ namespace UWP.LearningManagement.Pages
                 await dialog2.ShowAsync();
             }
         }
-        int id_checker=-1;
         private async void GradeAssignment_Click(object sender, RoutedEventArgs e)
         {
             var courseComboBox = new ComboBox { PlaceholderText = "Select a course", ItemsSource = CourseService.Current.Courses };
@@ -478,11 +520,11 @@ namespace UWP.LearningManagement.Pages
                 PrimaryButtonText = "Next",
                 SecondaryButtonText = "Cancel"
             };
-
             if (await courseDialog.ShowAsync() == ContentDialogResult.Primary)
             {
                 var selectedCourse = courseComboBox.SelectedItem as Course;
-                var studentComboBox = new ComboBox { PlaceholderText = "Select a student", ItemsSource = selectedCourse.Roster };
+                var studentComboBox = new ComboBox { PlaceholderText = "Select a student", ItemsSource = selectedCourse.Roster.OfType<Student>().ToList()
+                };
                 var studentDialog = new ContentDialog
                 {
                     Title = "Which student would you like to add an assignment grade to?",
@@ -531,17 +573,10 @@ namespace UWP.LearningManagement.Pages
                                 {
                                     grade_letter = "F";
                                 }
-                                if(selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id == id_checker)
-                                {
-                                    selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id++;
-                                }
-                                while (selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id != id_checker)
-                                {
-                                    selectedStudent.SetGrade(selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id, grade);
-                                    MessageDialog messageDialog = new MessageDialog($"Grade '{grade}' {grade_letter} added for student '{selectedStudent.Name}' in course '{selectedCourse.Name}' and assignment `{selectedAssignment.Name}`.");
-                                    id_checker = selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id;
-                                    await messageDialog.ShowAsync();
-                                }
+
+                                selectedStudent.SetGrade(selectedCourse.Assignments[selectedCourse.Assignments.Count - 1].Id, grade);
+                                MessageDialog messageDialog = new MessageDialog($"Grade '{grade}' {grade_letter} added for student '{selectedStudent.Name}' in course '{selectedCourse.Name}' and assignment `{selectedAssignment.Name}`.");
+                                await messageDialog.ShowAsync();
                             }
                             else
                             {
@@ -643,59 +678,79 @@ namespace UWP.LearningManagement.Pages
                 }
                 else
                 {
-                    double totalWeightedAverage = 0;
-                    double totalWeight = 0;
-                    double totalCreditHours = 0;
+                    double totalGPA = 0;
+                    double totalPossibleGPA = 0;
+                    int coursesGraded = 0;
+
                     foreach (Course selectedCourse in courseListBox.SelectedItems)
                     {
+                        double totalWeightedAverage = 0;
+                        double totalWeight = 0;
+
                         foreach (var assignmentGroup in selectedCourse.AssignmentGroups)
                         {
                             double weightedAverage = currentStudent.GetWeightedAverage(new List<AssignmentGroup> { assignmentGroup });
                             totalWeightedAverage += weightedAverage * assignmentGroup.weight;
                             totalWeight += assignmentGroup.weight;
                         }
-                        totalCreditHours += selectedCourse.CreditHours;
-                    }
-                    double finalGrade = totalWeightedAverage / totalWeight;
-                    double gpa_storage = 0;
-                    int coursesGraded = 0;
 
-                    if (finalGrade >= 90)
-                    {
-                        gpa_storage += 4 * totalCreditHours;
-                        coursesGraded = courseListBox.SelectedItems.Count;
+                        double finalGrade = totalWeightedAverage / totalWeight;
+                        double gpa = 0;
+
+                        if (finalGrade >= 90)
+                        {
+                            gpa = 4;
+                            totalGPA += gpa * selectedCourse.CreditHours;
+                        }
+                        else if (finalGrade >= 80 && finalGrade < 90)
+                        {
+                            gpa = 3;
+                            totalGPA += gpa * selectedCourse.CreditHours;
+                        }
+                        else if (finalGrade >= 70 && finalGrade < 80)
+                        {
+                            gpa = 2;
+                            totalGPA += gpa * selectedCourse.CreditHours;
+                        }
+                        else if (finalGrade >= 60 && finalGrade < 70)
+                        {
+                            gpa = 1;
+                            totalGPA += gpa * selectedCourse.CreditHours;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+
+                        totalPossibleGPA += 4 * selectedCourse.CreditHours;
+                        coursesGraded++;
                     }
-                    else if (finalGrade >= 80 && finalGrade < 90)
+
+                    if (coursesGraded == 0)
                     {
-                        gpa_storage += 3 * totalCreditHours;
-                        coursesGraded = courseListBox.SelectedItems.Count;
-                    }
-                    else if (finalGrade >= 70 && finalGrade < 80)
-                    {
-                        gpa_storage += 2 * totalCreditHours;
-                        coursesGraded = courseListBox.SelectedItems.Count;
-                    }
-                    else if (finalGrade >= 60 && finalGrade < 70)
-                    {
-                        gpa_storage += 1 * totalCreditHours;
-                        coursesGraded = courseListBox.SelectedItems.Count;
+                        var noCourseDialog = new ContentDialog
+                        {
+                            Title = "No Course Graded",
+                            Content = "You have no graded courses.",
+                            CloseButtonText = "Ok"
+                        };
+                        await noCourseDialog.ShowAsync();
                     }
                     else
                     {
-                        coursesGraded = 0;
+                        double gpa = (totalGPA / totalPossibleGPA) * 4;
+                        var gpaDialog = new ContentDialog
+                        {
+                            Title = $"{currentStudentName}'s GPA",
+                            Content = $"Your GPA is {Math.Round(gpa, 2)}",
+                            CloseButtonText = "Ok"
+                        };
+                        await gpaDialog.ShowAsync();
                     }
-
-                    double gpa = gpa_storage / totalCreditHours;
-                    var gpaDialog = new ContentDialog
-                    {
-                        Title = $"{currentStudentName}'s GPA",
-                        Content = $"Your GPA is {Math.Round(gpa, 2)}",
-                        CloseButtonText = "Ok"
-                    };
-                    await gpaDialog.ShowAsync();
                 }
             }
         }
+
         private void Return_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));

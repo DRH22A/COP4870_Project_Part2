@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2023-04-22T21:42:40.980</Modified>
+      <Modified>2023-04-25T00:15:18.764</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\UWP.LearningManagement.exe">
       <PackagePath>entrypoint\UWP.LearningManagement.exe</PackagePath>
-      <Modified>2023-04-22T21:42:40.518</Modified>
+      <Modified>2023-04-25T00:15:18.281</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\UWPNuGetPackages\runtime.win10-x64.microsoft.netcore.universalwindowsplatform\6.2.14\runtimes\win10-x64\lib\uap10.0.15138\System.Runtime.dll">
       <PackagePath>System.Runtime.dll</PackagePath>
@@ -44,7 +44,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.Library.LearningManagement\bin\Debug\netstandard2.0\UWP.Library.LearningManagement.dll">
       <PackagePath>UWP.Library.LearningManagement.dll</PackagePath>
-      <Modified>2023-04-22T20:45:09.620</Modified>
+      <Modified>2023-04-24T20:06:56.520</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
@@ -94,19 +94,19 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2023-04-22T21:42:40.342</Modified>
+      <Modified>2023-04-25T00:15:18.101</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Course_Options.xbf">
       <PackagePath>Pages\Course_Options.xbf</PackagePath>
-      <Modified>2023-04-22T21:42:40.342</Modified>
+      <Modified>2023-04-25T00:15:18.101</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\MainPage.xbf">
       <PackagePath>Pages\MainPage.xbf</PackagePath>
-      <Modified>2023-04-22T21:42:40.342</Modified>
+      <Modified>2023-04-25T00:15:18.101</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Student_Options.xbf">
       <PackagePath>Pages\Student_Options.xbf</PackagePath>
-      <Modified>2023-04-22T21:42:40.342</Modified>
+      <Modified>2023-04-25T00:15:18.101</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -118,7 +118,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Core\UWP.LearningManagement.exe">
       <PackagePath>UWP.LearningManagement.exe</PackagePath>
-      <Modified>2023-04-22T21:42:40.976</Modified>
+      <Modified>2023-04-25T00:15:18.760</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

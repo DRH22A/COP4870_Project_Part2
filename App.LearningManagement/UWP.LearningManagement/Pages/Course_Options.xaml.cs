@@ -264,7 +264,7 @@ namespace UWP.LearningManagement.Pages
             var course = ((FrameworkElement)sender).DataContext as Course;
             if (course != null)
             {
-                var dialog = new MessageDialog($"Name: {course.Name}\nCode: {course.Code}\nDescription: {course.Description}\nRoom: {course.Room}\nSemester: {course.Semester}");
+                var dialog = new MessageDialog($"Name: {course.Name}\nCode: {course.Code}\nDescription: {course.Description}\nRoom: {course.Room}\nCredits: {course.CreditHours}\nSemester: {course.Semester}");
                 await dialog.ShowAsync();
             }
             else
@@ -330,10 +330,7 @@ namespace UWP.LearningManagement.Pages
         {
             var course = CourseService.Current.Courses.Skip((currentPage - 1) * PageSize).Take(PageSize);
             coursesList.ItemsSource = course;
-
             totalPages = (int)Math.Ceiling((double)StudentService.Current.People.Count / PageSize);
-
-            // Update the current page text block
             currentPageTextBlock.Text = currentPage.ToString();
         }
 
@@ -410,7 +407,7 @@ namespace UWP.LearningManagement.Pages
                     {
                         if (await studentDialog.ShowAsync() == ContentDialogResult.Primary)
                         {
-                            var selectedStudent = studentComboBox.SelectedItem as Student;
+                            var selectedStudent = studentComboBox.SelectedItem as Person;
                             if (selectedStudent != null)
                             {
                                 selectedCourse.Roster.Add(selectedStudent);
@@ -565,7 +562,7 @@ namespace UWP.LearningManagement.Pages
                                 var assignmentNameTextBox = new TextBox { Text = selectedAssignment.Name, PlaceholderText = "Enter Assignment Name" };
                                 var assignmentDescriptionTextBox = new TextBox { Text = selectedAssignment.Description, PlaceholderText = "Enter Assignment Description" };
                                 var assignmentIdTextBox = new TextBox { Text = selectedAssignment.Id.ToString(), PlaceholderText = "Enter Assignment ID" };
-                                var assignmentPointsTextBox = new TextBox { PlaceholderText = "Enter Assignment Points", Name = "Selected Course Assignment Points" };
+                                var assignmentPointsTextBox = new TextBox { Text = selectedAssignment.TotalAvailablePoints.ToString(), PlaceholderText = "Enter Assignment Points" };
                                 var assignmentDueDateTextBox = new TextBox { Text = selectedAssignment.DueDate.ToString("MM/dd/yyyy"), PlaceholderText = "Enter Assignment Due Date (MM/DD/YYYY)" };
 
                                 var editAssignmentDialog = new ContentDialog
@@ -574,18 +571,18 @@ namespace UWP.LearningManagement.Pages
                                     Content = new StackPanel
                                     {
                                         Children =
-                                {
-                                    new TextBlock { Text = "Name" },
-                                    assignmentNameTextBox,
-                                    new TextBlock { Text = "Description" },
-                                    assignmentDescriptionTextBox,
-                                    new TextBlock { Text = "ID" },
-                                    assignmentIdTextBox,
-                                    new TextBlock { Text = "Points" },
-                                    assignmentPointsTextBox,
-                                    new TextBlock { Text = "Due Date (MM/DD/YYYY)" },
-                                    assignmentDueDateTextBox
-                                }
+                                        {
+                                            new TextBlock { Text = "Name" },
+                                            assignmentNameTextBox,
+                                            new TextBlock { Text = "Description" },
+                                            assignmentDescriptionTextBox,
+                                            new TextBlock { Text = "ID" },
+                                            assignmentIdTextBox,
+                                            new TextBlock { Text = "Points" },
+                                            assignmentPointsTextBox,
+                                            new TextBlock { Text = "Due Date (MM/DD/YYYY)" },
+                                            assignmentDueDateTextBox
+                                        }
                                     },
                                     PrimaryButtonText = "Save",
                                     SecondaryButtonText = "Cancel"
@@ -749,7 +746,7 @@ namespace UWP.LearningManagement.Pages
                             var assignmentNameTextBox = new TextBox { Text = selectedAssignment.Name, PlaceholderText = "Enter Assignment Name" };
                             var assignmentDescriptionTextBox = new TextBox { Text = selectedAssignment.Description, PlaceholderText = "Enter Assignment Description" };
                             var assignmentIdTextBox = new TextBox { Text = selectedAssignment.Id.ToString(), PlaceholderText = "Enter Assignment ID" };
-                            var assignmentPointsTextBox = new TextBox { PlaceholderText = "Enter Assignment Points", Name = "Selected Course Assignment Points" };
+                            var assignmentPointsTextBox = new TextBox { Text = selectedAssignment.TotalAvailablePoints.ToString(), PlaceholderText = "Enter Assignment Points" };
                             var assignmentDueDateTextBox = new TextBox { Text = selectedAssignment.DueDate.ToString("MM/dd/yyyy"), PlaceholderText = "Enter Assignment Due Date (MM/DD/YYYY)" };
 
                             var editAssignmentDialog = new ContentDialog

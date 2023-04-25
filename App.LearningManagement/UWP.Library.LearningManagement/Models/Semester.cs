@@ -25,7 +25,6 @@ namespace Library.LearningManagement.Models
         Year_2025 = 2025
     }
 
-
     public class Semester
     {
         public SeasonEnum Season { get; set; }
