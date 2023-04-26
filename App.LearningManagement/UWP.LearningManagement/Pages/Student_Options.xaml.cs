@@ -306,6 +306,82 @@ namespace UWP.LearningManagement.Pages
                     };
                     await editPersonDialog.ShowAsync();
                 }
+                else if (selectedTA != null)
+                {
+                    ContentDialog editPersonDialog = new ContentDialog
+                    {
+                        Title = "Edit Teaching Assistant Information",
+                        Content = new StackPanel
+                        {
+                            Children =
+                            {
+                                new TextBox { PlaceholderText = "Enter the TA's name here", Name = "PersonNameTextBox", Text = selectedTA.Name },
+                                new TextBox { PlaceholderText = "Enter TA's ID here", Name = "PersonIdTextBox", Text = selectedTA.Id.ToString() },
+                                new TextBlock { Foreground = new SolidColorBrush(Colors.Red), Name = "ErrorTextBlock" }
+                            }
+                        },
+                        PrimaryButtonText = "Save",
+                        SecondaryButtonText = "Cancel"
+                    };
+
+                    editPersonDialog.PrimaryButtonClick += async (contentDialog, contentDialogArgs) =>
+                    {
+                        TextBox nameTextBox = (TextBox)((StackPanel)editPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "PersonNameTextBox");
+                        TextBox idTextBox = (TextBox)((StackPanel)editPersonDialog.Content).Children.First(c => c is TextBox && ((TextBox)c).Name == "PersonIdTextBox");
+                        TextBlock errorTextBlock = (TextBlock)((StackPanel)editPersonDialog.Content).Children.First(c => c is TextBlock && ((TextBlock)c).Name == "ErrorTextBlock");
+
+                        string name = nameTextBox.Text.Trim();
+                        string idString = idTextBox.Text.Trim();
+                        int id = int.Parse(idString);
+
+                        if (string.IsNullOrEmpty(name))
+                        {
+                            errorTextBlock.Text = "Please enter the selected TA's name.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        Person newPerson;
+                        if (nameTextBox.SelectedText != null)
+                        {
+                            newPerson = new TeachingAssistant { Name = name, Id = id };
+                        }
+
+                        else
+                        {
+                            errorTextBlock.Text = "Please enter a person.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        if (StudentService.Current.People.Any(s => s.Id == newPerson.Id && s.Id != selectedTA.Id))
+                        {
+                            errorTextBlock.Text = "A person with the same ID already exists. Please enter a unique ID.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        if (StudentService.Current.People.Any(s => s.Name == newPerson.Name && s.Name != selectedTA.Name))
+                        {
+                            errorTextBlock.Text = "A person with the same name already exists. Please enter a unique name.";
+                            contentDialogArgs.Cancel = true;
+                            return;
+                        }
+
+                        selectedTA.Name = nameTextBox.Text;
+                        selectedTA.Id = id;
+                        if (!string.IsNullOrWhiteSpace(searchBox.Text))
+                        {
+                            peopleList.ItemsSource = StudentService.Current.Search(searchBox.Text);
+                        }
+                        else
+                        {
+                            peopleList.ItemsSource = StudentService.Current.People;
+                        }
+                        await Task.CompletedTask;
+                    };
+                    await editPersonDialog.ShowAsync();
+                }
             }
         }
 
