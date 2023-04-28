@@ -14,13 +14,15 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ToggleButton x:ConnectionId='2' x:Name="ViewToggle" Content="Switch to TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10"                                                                           Visibility="Collapsed" Grid.Row="0" />
         <Button x:ConnectionId='3' x:Name="Login" Content="Login" IsEnabled="True" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"                     Grid.Row="0"/>
         <Button x:ConnectionId='4' x:Name="SignOut" Content="Sign Out" IsEnabled="True" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Top"                      Grid.Row="0" Visibility="Collapsed"/>
         <Button x:ConnectionId='5' x:Name="studentInfo" Content="Student Information" IsEnabled="True" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                              Visibility="Collapsed" Grid.Row="1"/>
         <Button x:ConnectionId='6' x:Name="courseInfo" Content="Courses Information" IsEnabled="True" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                               Visibility="Collapsed" Grid.Row="2"/>
-        <Button x:ConnectionId='7' Content="Exit" FontSize="24" IsEnabled="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                    Grid.Row="3"/>
+        <Button x:ConnectionId='7' x:Name="databaseInfo" Content="Database Information" IsEnabled="True" FontSize="24" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                            Visibility="Collapsed" Grid.Row="3"/>
+        <Button x:ConnectionId='8' Content="Exit" FontSize="24" IsEnabled="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                    Grid.Row="4"/>
     </Grid> 
 </Page>
 

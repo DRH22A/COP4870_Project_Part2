@@ -53,6 +53,11 @@ namespace UWP.LearningManagement
             Frame.Navigate(typeof(Course_Options));
         }
 
+        private void DatabaseInfo_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Database_Options));
+        }
+
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             Windows.UI.Xaml.Application.Current.Exit();
@@ -122,6 +127,7 @@ namespace UWP.LearningManagement
                     courseInfo.Visibility = Visibility.Visible;
                     Login.Visibility = Visibility.Collapsed;
                     SignOut.Visibility = Visibility.Visible;
+                    databaseInfo.Visibility = Visibility.Visible;
                     if (person is Instructor || person is TeachingAssistant)
                     {
                         studentInfo.Content = "View All Student Information";

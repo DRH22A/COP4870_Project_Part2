@@ -4,6 +4,7 @@
     <RootPropertyPathName Name="CurrentPage" />
     <RootPropertyPathName Name="Name" />
     <RootPropertyPathName Name="Code" />
+    <RootPropertyPathName Name="CoursesDTOs" />
     <RootPropertyPathName Name="Id" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
@@ -68,7 +69,10 @@
       <RootProperty Name="Margin" />
       <RootProperty Name="Inlines" />
     </RootType>
-    <RootType FullName="Windows.UI.Xaml.Data.Binding" />
+    <RootType FullName="Windows.UI.Xaml.Data.Binding">
+      <RootProperty Name="Mode" />
+      <RootProperty Name="UpdateSourceTrigger" />
+    </RootType>
     <RootType FullName="Windows.UI.Xaml.DataTemplate">
       <RootProperty Name="Template" />
     </RootType>
@@ -76,6 +80,10 @@
       <RootProperty Name="Text" />
     </RootType>
     <RootType FullName="UWP.LearningManagement.Pages.Course_Options" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ListBox">
+      <RootProperty Name="ItemsSource" />
+    </RootType>
+    <RootType FullName="UWP.LearningManagement.Pages.Database_Options" />
     <RootType FullName="Windows.UI.Xaml.Controls.RowDefinition">
       <RootProperty Name="Height" />
     </RootType>

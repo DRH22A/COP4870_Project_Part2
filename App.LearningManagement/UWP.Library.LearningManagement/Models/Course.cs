@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UWP.Library.LearningManagement.DTO;
 using static Library.LearningManagement.Models.Assignment;
 using static Library.LearningManagement.Models.Module;
 
@@ -38,6 +39,16 @@ namespace Library.LearningManagement.Models
             Announcements = new List<Announcement>();
             CreditHours = 0;
             TotalGPAPoints = 0;
+        }
+
+        public Course(CoursesDTO dto)
+        {
+            Code = dto.Code;
+            Name = dto.Name;
+            Description = dto.Description;
+            Room = dto.Room;
+            Semester = dto.Semester;
+            CreditHours = dto.CreditHours;
         }
 
         public override string ToString()

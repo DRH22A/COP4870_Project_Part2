@@ -112,3 +112,9 @@ C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningM
 C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\MultipleQualifiersPerDimensionFound.txt
 C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\ProjectArchitectures.txt
 C:\Users\drhal\Source\Repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\.winmd_cache\$Microsoft.UI.Xaml.Markup.winmd_637424959200000000.json
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Newtonsoft.Json.dll
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Database_Options.xbf
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Pages\Database_Options.g.i.cs
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Pages\Database_Options.g.cs
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Pages\Database_Options.xaml
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Pages\Database_Options.xbf
