@@ -136,6 +136,7 @@
     <Compile Include="Util\WebRequestHandler.cs" />
     <Compile Include="ViewModels\CoursesVM.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\PeopleVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

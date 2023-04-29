@@ -13,7 +13,10 @@
 
             <ToggleButton x:Name="ViewToggle" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed" Checked="ViewToggleButton_Checked" Unchecked="ViewToggleButton_Unchecked" Grid.Row="0" />
             <ListBox
-            ItemsSource="{Binding CoursesDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4"
+            ItemsSource="{Binding Courses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            />
+            <ListBox
+            ItemsSource="{Binding People, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             />
         </StackPanel>
     </Grid>

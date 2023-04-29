@@ -7,19 +7,19 @@ using UWP.Library.LearningManagement.DTO;
 
 namespace UWP.LearningManagement.ViewModels
 {
-    public class CoursesVM
+    public class PeopleVM
     {
-        public CoursesVM() { }
-        public CoursesVM(CoursesDTO DTO)
+        public PeopleVM() { }
+        public PeopleVM(PeopleDTO DTO)
         {
             Dto = DTO;
         }
-        public CoursesDTO Dto { get; set; }
+        public PeopleDTO Dto { get; set; }
         public string Display
         {
             get
             {
-                return $"[{Dto.Code}] {Dto.Name} - {Dto.Description} - {Dto.Room} - {Dto.Semester} - {Dto.CreditHours} ]";
+                return $"[{Dto.Id}] - {Dto.Name}";
             }
         }
     }

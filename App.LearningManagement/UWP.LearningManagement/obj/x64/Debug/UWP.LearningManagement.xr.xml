@@ -4,7 +4,8 @@
     <RootPropertyPathName Name="CurrentPage" />
     <RootPropertyPathName Name="Name" />
     <RootPropertyPathName Name="Code" />
-    <RootPropertyPathName Name="CoursesDTOs" />
+    <RootPropertyPathName Name="People" />
+    <RootPropertyPathName Name="Courses" />
     <RootPropertyPathName Name="Id" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
