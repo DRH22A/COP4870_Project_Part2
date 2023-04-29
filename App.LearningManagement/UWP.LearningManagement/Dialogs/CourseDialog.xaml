@@ -1,0 +1,43 @@
+﻿<ContentDialog
+    x:Class="UWP.LearningManagement.Dialogs.CourseDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP.LearningManagement.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Add Course"
+    PrimaryButtonText="Ok"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Name" Grid.Row="0" Grid.Column="0"></TextBlock>
+        <TextBox Text="{Binding Path=Dto.Name, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
+
+        <TextBlock Text="Code" Grid.Row="1" Grid.Column="0"></TextBlock>
+        <TextBox Text="{Binding Path=Dto.Code, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+        
+        <TextBlock Text="Description" Grid.Row="2" Grid.Column="0"></TextBlock>
+        <TextBox Text="{Binding Path=Dto.Description, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+
+        <TextBlock Text="Credit Hours" Grid.Row="3" Grid.Column="0"></TextBlock>
+        <TextBox Text="{Binding Path=Dto.CreditHours, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
+
+        <TextBlock Text="Room" Grid.Row="4" Grid.Column="0"></TextBlock>
+        <TextBox Text="{Binding Path=Dto.Room, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"/>
+    </Grid>
+</ContentDialog>

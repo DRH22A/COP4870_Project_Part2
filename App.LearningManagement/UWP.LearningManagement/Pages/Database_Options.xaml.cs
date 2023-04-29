@@ -13,6 +13,8 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using UWP.Library.LearningManagement.Database;
+using UWP.LearningManagement.Dialogs;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -40,6 +42,16 @@ namespace UWP.LearningManagement.Pages
             Toggle_State.IsChecked = false;
             ViewToggle.Content = "Switch To TA/Instructor Mode";
 
+        }
+
+        private async void AddCourse_Database(object sender, RoutedEventArgs e)
+        {
+            var addDialog = new CourseDialog();
+            await addDialog.ShowAsync();
+        }
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }

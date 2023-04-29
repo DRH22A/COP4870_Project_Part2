@@ -118,3 +118,8 @@ C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningM
 C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Pages\Database_Options.g.cs
 C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Pages\Database_Options.xaml
 C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Pages\Database_Options.xbf
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\CourseDialog.g.i.cs
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\CourseDialog.g.cs
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\CourseDialog.xaml
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\CourseDialog.xbf
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Dialogs\CourseDialog.xbf

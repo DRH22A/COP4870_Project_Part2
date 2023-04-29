@@ -76,6 +76,9 @@
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Dialogs\CourseDialog.xbf">
+      <PackagePath>Dialogs\CourseDialog.xbf</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Course_Options.xbf">
       <PackagePath>Pages\Course_Options.xbf</PackagePath>
     </AppxPackagedFile>

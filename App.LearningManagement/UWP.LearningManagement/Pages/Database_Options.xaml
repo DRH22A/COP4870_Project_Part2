@@ -10,9 +10,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel x:Name="databaseMenu">  
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="databaseMenu">
             <ToggleButton x:Name="ViewToggle" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed" Checked="ViewToggleButton_Checked" Unchecked="ViewToggleButton_Unchecked" Grid.Row="0" />
-            <ListBox 
+            <ListBox Grid.Row ="1"
                 ItemsSource="{Binding CoursesDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -23,7 +30,16 @@
                 </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <ListBox 
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Add" Click="AddCourse_Database"/>
+
+            </Grid>
+                <ListBox 
                 ItemsSource="{Binding PeopleDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -35,5 +51,6 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
+        <Button Content="Return To Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click" Grid.Row="4"/>
     </Grid>
 </Page>

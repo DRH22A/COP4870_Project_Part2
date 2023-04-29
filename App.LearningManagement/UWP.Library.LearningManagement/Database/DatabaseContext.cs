@@ -16,7 +16,9 @@ namespace UWP.Library.LearningManagement.Database
 
         public static ObservableCollection<Person> people = new ObservableCollection<Person>
         {
-            new Student {Name = "DANNY", Id = 123, Classification = PersonClassification.Freshman}
+            new Student {Name = "DANNY", Id = 123, Classification = PersonClassification.Freshman},
+            new Instructor {Name = "Dr. Cool", Id = 12223},
+            new TeachingAssistant {Name = "Assistant Cool", Id = 99999},
         };
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using UWP.LearningManagement.Dialogs;
 using UWP.Library.LearningManagement.DTO;
 
 namespace UWP.LearningManagement.ViewModels
@@ -37,6 +38,7 @@ namespace UWP.LearningManagement.ViewModels
                 return returnVal;
             }
         }
+
 
         public IEnumerable<PeopleVM> PeopleDTOs
         {

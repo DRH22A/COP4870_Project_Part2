@@ -44,7 +44,7 @@ namespace Library.LearningManagement.Models
         public Course(CoursesDTO dto)
         {
             Code = dto.Code;
-            Name = dto.Name;
+            Name = dto.DisplayCourse;
             Description = dto.Description;
             Room = dto.Room;
             Semester = dto.Semester;

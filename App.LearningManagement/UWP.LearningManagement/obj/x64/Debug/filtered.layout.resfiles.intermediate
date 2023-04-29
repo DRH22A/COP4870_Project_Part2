@@ -7,6 +7,7 @@ Assets\Square44x44Logo.targetsize-24_altform-unplated.png
 Assets\StoreLogo.png
 Assets\Wide310x150Logo.scale-200.png
 App.xbf
+Dialogs\CourseDialog.xbf
 Pages\Course_Options.xbf
 Pages\Database_Options.xbf
 Pages\MainPage.xbf
