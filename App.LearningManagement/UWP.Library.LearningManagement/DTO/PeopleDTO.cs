@@ -8,6 +8,7 @@ namespace UWP.Library.LearningManagement.DTO
 {
     public class PeopleDTO
     { 
+        public PeopleDTO() { }
         public PeopleDTO(Person p) 
         {
             Id = p.Id;

@@ -15,7 +15,7 @@ namespace UWP.LearningManagement.ViewModels
             Dto = DTO;
         }
         public PeopleDTO Dto { get; set; }
-        public string Display
+        public string DisplayPeople
         {
             get
             {

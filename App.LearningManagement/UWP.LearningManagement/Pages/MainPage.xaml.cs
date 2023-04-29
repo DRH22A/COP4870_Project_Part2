@@ -33,6 +33,7 @@ namespace UWP.LearningManagement
             ViewToggle.Content = "Switch To Student Mode";
             studentInfo.Content = "View All Student Information";
             courseInfo.Content = "Manage All Courses";
+            databaseInfo.Content = "Look At Database Content";
         }
 
         private void ViewToggleButton_Unchecked(object sender, RoutedEventArgs e)
@@ -41,6 +42,7 @@ namespace UWP.LearningManagement
             ViewToggle.Content = "Switch To TA/Instructor Mode";
             studentInfo.Content = "Check Your Student Information";
             courseInfo.Content = "Manage Your Courses";
+            databaseInfo.Content = "Look At Database Content";
         }
 
         private void StudentOptions_Click(object sender, RoutedEventArgs e)
@@ -76,6 +78,7 @@ namespace UWP.LearningManagement
                 Login.Visibility = Visibility.Collapsed;
                 studentInfo.Visibility = Visibility.Visible;
                 courseInfo.Visibility = Visibility.Visible;
+                databaseInfo.Visibility = Visibility.Visible;
                 SignOut.Visibility = Visibility.Visible;
                 ViewToggle.Visibility = StudentService.Current.People.FirstOrDefault(p => p.Id == loggedInUserId) is Instructor || StudentService.Current.People.FirstOrDefault(p => p.Id == loggedInUserId) is TeachingAssistant ? Visibility.Visible : Visibility.Collapsed;
             }

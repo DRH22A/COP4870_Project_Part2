@@ -4,20 +4,36 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:UWP.LearningManagement.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:ViewModels="using:UWP.LearningManagement.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel x:ConnectionId='2' x:Name="databaseMenu">
-
+        <StackPanel x:ConnectionId='2' x:Name="databaseMenu">  
             <ToggleButton x:ConnectionId='3' x:Name="ViewToggle" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed"                                                                           Grid.Row="0" />
-            <ListBox
-            ItemsSource="{Binding Courses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            />
-            <ListBox
-            ItemsSource="{Binding People, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            />
+            <ListBox 
+                ItemsSource="{Binding CoursesDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{Binding DisplayCourses}">
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox 
+                ItemsSource="{Binding PeopleDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding DisplayPeople}">
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
     </Grid>
 </Page>

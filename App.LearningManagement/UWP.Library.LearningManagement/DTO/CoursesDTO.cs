@@ -7,6 +7,7 @@ namespace UWP.Library.LearningManagement.DTO
 {
     public class CoursesDTO
     {
+        public CoursesDTO() { }
         public CoursesDTO(Course c)
         {
             Code = c.Code;
@@ -17,7 +18,6 @@ namespace UWP.Library.LearningManagement.DTO
             CreditHours = c.CreditHours;
         }
 
-        public CoursesDTO() { }
         public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

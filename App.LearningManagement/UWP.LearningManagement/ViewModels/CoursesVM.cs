@@ -15,11 +15,11 @@ namespace UWP.LearningManagement.ViewModels
             Dto = DTO;
         }
         public CoursesDTO Dto { get; set; }
-        public string Display
+        public string DisplayCourses
         {
             get
             {
-                return $"[{Dto.Code}] {Dto.Name} - {Dto.Description} - {Dto.Room} - {Dto.Semester} - {Dto.CreditHours} ]";
+                return $"[{Dto.Code}] {Dto.Name} - {Dto.Description} - {Dto.Room} - {Dto.Semester} - {Dto.CreditHours}";
             }
         }
     }

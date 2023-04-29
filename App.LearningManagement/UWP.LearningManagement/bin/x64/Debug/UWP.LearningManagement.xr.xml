@@ -4,8 +4,10 @@
     <RootPropertyPathName Name="CurrentPage" />
     <RootPropertyPathName Name="Name" />
     <RootPropertyPathName Name="Code" />
-    <RootPropertyPathName Name="People" />
-    <RootPropertyPathName Name="Courses" />
+    <RootPropertyPathName Name="PeopleDTOs" />
+    <RootPropertyPathName Name="DisplayPeople" />
+    <RootPropertyPathName Name="CoursesDTOs" />
+    <RootPropertyPathName Name="DisplayCourses" />
     <RootPropertyPathName Name="Id" />
   </Roots.PropertyPathNames>
   <Roots.RootTypes>
@@ -83,6 +85,7 @@
     <RootType FullName="UWP.LearningManagement.Pages.Course_Options" />
     <RootType FullName="Windows.UI.Xaml.Controls.ListBox">
       <RootProperty Name="ItemsSource" />
+      <RootProperty Name="ItemTemplate" />
     </RootType>
     <RootType FullName="UWP.LearningManagement.Pages.Database_Options" />
     <RootType FullName="Windows.UI.Xaml.Controls.RowDefinition">

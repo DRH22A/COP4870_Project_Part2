@@ -42,11 +42,10 @@ namespace UWP.LearningManagement.ViewModels
         {
             get
             {
-                var payload = new WebRequestHandler().Get("http://localhost:5140/Courses").Result;
+                var payload = new WebRequestHandler().Get("http://localhost:5140/People").Result;
                 var returnVal = JsonConvert.DeserializeObject<ObservableCollection<PeopleDTO>>(payload).Select(p => new PeopleVM(p));
                 return returnVal;
             }
         }
-
     }
 }
