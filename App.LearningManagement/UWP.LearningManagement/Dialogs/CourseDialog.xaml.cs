@@ -20,10 +20,10 @@ namespace UWP.LearningManagement.Dialogs
 {
     public sealed partial class CourseDialog : ContentDialog
     {
-        public CourseDialog()
+        public CourseDialog(MainViewModel mvm)
         {
             this.InitializeComponent();
-            this.DataContext = new CoursesVM();
+            DataContext = new CoursesVM(mvm);
         }
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -20,7 +20,7 @@
         <StackPanel x:ConnectionId='2' x:Name="databaseMenu">
             <ToggleButton x:ConnectionId='4' x:Name="ViewToggle" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed"                                                                           Grid.Row="0" />
             <ListBox Grid.Row ="1"
-                ItemsSource="{Binding CoursesDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                ItemsSource="{Binding CoursesDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCourse, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -36,8 +36,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button x:ConnectionId='6' Content="Add"                           />
-
+                <Button x:ConnectionId='6' Content="Add"                            Grid.Column="0"/>
+                <Button x:ConnectionId='7' Content="Edit"                             Grid.Column="1"/>
             </Grid>
                 <ListBox 
                 ItemsSource="{Binding PeopleDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">

@@ -46,7 +46,13 @@ namespace UWP.LearningManagement.Pages
 
         private async void AddCourse_Database(object sender, RoutedEventArgs e)
         {
-            var addDialog = new CourseDialog();
+            var addDialog = new CourseDialog(DataContext as MainViewModel);
+            await addDialog.ShowAsync();
+        }
+
+        private async void EditCourse_Database(object sender, RoutedEventArgs e)
+        {
+            var addDialog = new CourseDialog(DataContext as MainViewModel);
             await addDialog.ShowAsync();
         }
         private void Return_Click(object sender, RoutedEventArgs e)

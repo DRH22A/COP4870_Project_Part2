@@ -11,13 +11,14 @@ namespace UWP.Library.LearningManagement.DTO
         public CoursesDTO(Course c)
         {
             Code = c.Code;
-            DisplayCourse = c.Name;
+            Name = c.Name;
             Description = c.Description;
             Room = c.Room;
             Semester = c.Semester;
             CreditHours = c.CreditHours;
+            Id = c.Id;
         }
-
+        public string Name { get; set; }
         public string Code { get; set; }
         public string DisplayCourse { get; set; }
         public string Description { get; set; }
@@ -29,6 +30,7 @@ namespace UWP.Library.LearningManagement.DTO
         public List<AssignmentGroup> AssignmentGroups { get; set; }
         public List<Announcement> Announcements { get; set; }
         public double CreditHours { get; set; }
+        public int Id { get; set; }
         public double TotalGPAPoints { get; set; }
     }
 }

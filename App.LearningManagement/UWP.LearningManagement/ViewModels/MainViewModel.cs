@@ -5,13 +5,15 @@ using SupportTicketApplication;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UWP.LearningManagement.Dialogs;
 using UWP.Library.LearningManagement.DTO;
 
 namespace UWP.LearningManagement.ViewModels
 {
-    internal class MainViewModel
+    public class MainViewModel : INotifyPropertyChanged
     {
         private CourseService courseService;
         private StudentService studentService;
@@ -34,7 +36,7 @@ namespace UWP.LearningManagement.ViewModels
             get
             {
                 var payload = new WebRequestHandler().Get("http://localhost:5140/Courses").Result;
-                var returnVal = JsonConvert.DeserializeObject<ObservableCollection<CoursesDTO>>(payload).Select(d => new CoursesVM(d));
+                var returnVal = JsonConvert.DeserializeObject<ObservableCollection<CoursesDTO>>(payload).Select(c => new CoursesVM(c));
                 return returnVal;
             }
         }
@@ -48,6 +50,19 @@ namespace UWP.LearningManagement.ViewModels
                 var returnVal = JsonConvert.DeserializeObject<ObservableCollection<PeopleDTO>>(payload).Select(p => new PeopleVM(p));
                 return returnVal;
             }
+        }
+
+        public CoursesVM SelectedCourse { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void RefreshList()
+        {
+            NotifyPropertyChanged(nameof(CoursesDTOs));
         }
     }
 }

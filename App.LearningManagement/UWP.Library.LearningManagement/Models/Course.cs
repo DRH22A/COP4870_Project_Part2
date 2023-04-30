@@ -24,6 +24,7 @@ namespace Library.LearningManagement.Models
         public List<Announcement> Announcements { get; set; }
         public double CreditHours { get; set; }
         public double TotalGPAPoints { get; set; }
+        public int Id { get; set; }
         public virtual string Display => $"{Code} - {Name}";
 
         public Course() { 
@@ -39,16 +40,18 @@ namespace Library.LearningManagement.Models
             Announcements = new List<Announcement>();
             CreditHours = 0;
             TotalGPAPoints = 0;
+            Id= 1;
         }
 
         public Course(CoursesDTO dto)
         {
             Code = dto.Code;
-            Name = dto.DisplayCourse;
+            Name = dto.Name;
             Description = dto.Description;
             Room = dto.Room;
             Semester = dto.Semester;
             CreditHours = dto.CreditHours;
+            Id = dto.Id;
         }
 
         public override string ToString()
