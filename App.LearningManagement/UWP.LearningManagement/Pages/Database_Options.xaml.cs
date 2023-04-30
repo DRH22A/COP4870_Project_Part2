@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using UWP.Library.LearningManagement.Database;
 using UWP.LearningManagement.Dialogs;
+using UWP.Library.LearningManagement.DTO;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -52,9 +53,17 @@ namespace UWP.LearningManagement.Pages
 
         private async void EditCourse_Database(object sender, RoutedEventArgs e)
         {
-            var addDialog = new CourseDialog(DataContext as MainViewModel);
-            await addDialog.ShowAsync();
+            var editDialog = new CourseDialog(DataContext as MainViewModel);
+            await editDialog.ShowAsync();
         }
+
+        private async void DeleteCourse_Database(object sender, RoutedEventArgs e)
+        {
+            var deleteDialog = new CourseRemoveDialog(DataContext as MainViewModel);
+            await deleteDialog.ShowAsync();
+        }
+
+
         private void Return_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));

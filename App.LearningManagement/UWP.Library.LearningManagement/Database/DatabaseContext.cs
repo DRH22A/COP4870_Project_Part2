@@ -11,7 +11,10 @@ namespace UWP.Library.LearningManagement.Database
     {
         public static ObservableCollection<Course> courses = new ObservableCollection<Course>
         {
-            new Course { Code = "COP1212", Name = "COMPUTING", Description = "COOL COMPUTERS", Room = "HCB103", Semester = { Season = SeasonEnum.Spring, Year = YearEnum.Year_2023}}
+            new Course { Code = "COP1212", Name = "COMPUTING", Description = "COOL COMPUTERS", Room = "HCB103", Semester = { Season = SeasonEnum.Spring, Year = YearEnum.Year_2023}},
+            new Course { Code = "COP12121", Name = "COMPUTING", Description = "COOL COMPUTERS", Room = "HCB103", Semester = { Season = SeasonEnum.Spring, Year = YearEnum.Year_2023}},
+            new Course { Code = "COP12122", Name = "COMPUTING", Description = "COOL COMPUTERS", Room = "HCB103", Semester = { Season = SeasonEnum.Spring, Year = YearEnum.Year_2023}}
+
         };
 
         public static ObservableCollection<Person> people = new ObservableCollection<Person>

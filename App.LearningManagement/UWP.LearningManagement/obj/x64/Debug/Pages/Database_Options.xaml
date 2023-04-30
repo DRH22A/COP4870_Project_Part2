@@ -38,6 +38,7 @@
                 </Grid.ColumnDefinitions>
                 <Button x:ConnectionId='6' Content="Add"                            Grid.Column="0"/>
                 <Button x:ConnectionId='7' Content="Edit"                             Grid.Column="1"/>
+                <Button x:ConnectionId='8' Content="Delete"                               Grid.Column="2"/>
             </Grid>
                 <ListBox 
                 ItemsSource="{Binding PeopleDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">

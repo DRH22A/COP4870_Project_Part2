@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using UWP.Library.LearningManagement.Database;
 using UWP.Library.LearningManagement.DTO;
 using Windows.Data.Json;
 
@@ -30,6 +31,7 @@ namespace UWP.LearningManagement.ViewModels
                 Dto = parentViewModel.SelectedCourse.Dto;
             }
         }
+
         public CoursesDTO Dto { get; set; }
         public CoursesVM(CoursesDTO DTO)
         {
@@ -50,6 +52,17 @@ namespace UWP.LearningManagement.ViewModels
             parentViewModel.RefreshList();
             return deserializedReturn;
         }
+
+        public async Task<CoursesDTO> RemoveCourse(int courseId)
+        {
+            var handler = new WebRequestHandler();
+            var returnVal = await handler.Delete($"http://localhost:5140/Courses/{courseId}", null);
+            var deserializedReturn = JsonConvert.DeserializeObject<CoursesDTO>(returnVal);
+            DatabaseContext.courses.Remove(DatabaseContext.courses.FirstOrDefault(c => c.Id == courseId));
+            parentViewModel.RefreshList();
+            return deserializedReturn;
+        }
+
         public string DisplayCourses
         {
             get

@@ -59,17 +59,18 @@
       <RootProperty Name="UpdateSourceTrigger" />
     </RootType>
     <RootType FullName="UWP.LearningManagement.Dialogs.CourseDialog" />
-    <RootType FullName="Windows.UI.Xaml.Controls.Page">
-      <RootProperty Name="Background" />
-      <RootProperty Name="Content" />
-    </RootType>
-    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.StackPanel">
       <RootProperty Name="Children" />
       <RootProperty Name="Orientation" />
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="HorizontalAlignment" />
     </RootType>
+    <RootType FullName="UWP.LearningManagement.Dialogs.CourseRemoveDialog" />
+    <RootType FullName="Windows.UI.Xaml.Controls.Page">
+      <RootProperty Name="Background" />
+      <RootProperty Name="Content" />
+    </RootType>
+    <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
     <RootType FullName="Windows.UI.Xaml.Controls.Button">
       <RootProperty Name="Content" />
       <RootProperty Name="FontSize" />

@@ -54,5 +54,26 @@ namespace SupportTicketApplication
                 }
             }
         }
+        public async Task<string> Delete(string url, object obj)
+        {
+            using (var client = new HttpClient())
+            {
+                using (var request = new HttpRequestMessage(HttpMethod.Delete, url))
+                {
+                    var json = JsonConvert.SerializeObject(obj);
+                    using (var response = await client
+                        .SendAsync(request,
+                        HttpCompletionOption.ResponseHeadersRead)
+                        .ConfigureAwait(false))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            return await response.Content.ReadAsStringAsync();
+                        }
+                        return "ERROR";
+                    }
+                }
+            }
+        }
     }
 }

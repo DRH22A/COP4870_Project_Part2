@@ -122,6 +122,9 @@
     <Compile Include="Dialogs\CourseDialog.xaml.cs">
       <DependentUpon>CourseDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\CourseRemoveDialog.xaml.cs">
+      <DependentUpon>CourseRemoveDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Database_Options.xaml.cs">
       <DependentUpon>Database_Options.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Dialogs\CourseDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\CourseRemoveDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

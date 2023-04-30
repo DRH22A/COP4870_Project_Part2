@@ -38,6 +38,7 @@
                 </Grid.ColumnDefinitions>
                 <Button Content="Add" Click="AddCourse_Database" Grid.Column="0"/>
                 <Button Content="Edit" Click="EditCourse_Database" Grid.Column="1"/>
+                <Button Content="Delete" Click="DeleteCourse_Database" Grid.Column="2"/>
             </Grid>
                 <ListBox 
                 ItemsSource="{Binding PeopleDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
