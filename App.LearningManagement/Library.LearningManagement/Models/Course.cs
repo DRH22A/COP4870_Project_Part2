@@ -68,6 +68,12 @@ namespace Library.LearningManagement.Models
     }
     public class AssignmentGroup
     {
+        public AssignmentGroup()
+        {
+            group_name = string.Empty;
+            assignments = new List<Assignment>();
+            weight = 0;
+        }
         public string group_name { get; set; }
         public List<Assignment> assignments { get; set; }
         public double weight { get; set; }

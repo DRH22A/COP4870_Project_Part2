@@ -1,4 +1,5 @@
-﻿using Library.LearningManagement.Models;
+﻿using Library.LearningManagement.DTO;
+using Library.LearningManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,10 +26,9 @@ namespace UWP.Library.LearningManagement.DTO
         public string Room { get; set; }
         public Semester Semester { get; set; }
         public List<Person> Roster { get; set; }
+        public List<AnnouncementDTO> Announcements { get; set; }
         public List<AssignmentDTO> Assignments { get; set; }
-        public List<Module> Modules { get; set; }
-        public List<AssignmentGroup> AssignmentGroups { get; set; }
-        public List<Announcement> Announcements { get; set; }
+        public List<ModuleDTO> Modules { get; set; }
         public double CreditHours { get; set; }
         public int Id { get; set; }
         public double TotalGPAPoints { get; set; }

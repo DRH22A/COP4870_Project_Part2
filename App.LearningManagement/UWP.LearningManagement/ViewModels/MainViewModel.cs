@@ -37,10 +37,9 @@ namespace UWP.LearningManagement.ViewModels
             {
                 var payload = new WebRequestHandler().Get("http://localhost:5140/Courses").Result;
                 var returnVal = JsonConvert.DeserializeObject<ObservableCollection<CoursesDTO>>(payload).Select(c => new CoursesVM(c));
-                return returnVal;
+                return returnVal.OrderBy(c => c.Dto.Id);
             }
         }
-
 
         public IEnumerable<PeopleVM> PeopleDTOs
         {
@@ -48,11 +47,13 @@ namespace UWP.LearningManagement.ViewModels
             {
                 var payload = new WebRequestHandler().Get("http://localhost:5140/People").Result;
                 var returnVal = JsonConvert.DeserializeObject<ObservableCollection<PeopleDTO>>(payload).Select(p => new PeopleVM(p));
-                return returnVal;
+                return returnVal.OrderBy(p => p.Dto.Id);
             }
         }
+        public PeopleVM SelectedPerson { get; set; }
 
         public CoursesVM SelectedCourse { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -63,6 +64,7 @@ namespace UWP.LearningManagement.ViewModels
         public void RefreshList()
         {
             NotifyPropertyChanged(nameof(CoursesDTOs));
+            NotifyPropertyChanged(nameof(PeopleDTOs));
         }
     }
 }

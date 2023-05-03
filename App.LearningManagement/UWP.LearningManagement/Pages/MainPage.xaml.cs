@@ -69,12 +69,9 @@ namespace UWP.LearningManagement
         {
             base.OnNavigatedTo(e);
 
-            // Check if a user is already logged in
             if (ApplicationData.Current.LocalSettings.Values.TryGetValue("LoggedInUserId", out object loggedInUserIdObject))
             {
                 loggedInUserId = (int)loggedInUserIdObject;
-
-                // Update the UI accordingly
                 Login.Visibility = Visibility.Collapsed;
                 studentInfo.Visibility = Visibility.Visible;
                 courseInfo.Visibility = Visibility.Visible;
@@ -110,11 +107,9 @@ namespace UWP.LearningManagement
                 int id = int.Parse(idTextBox.Text);
                 string password = passwordBox.Password;
 
-                // Find the person with the given ID and password
                 Person person = StudentService.Current.People.FirstOrDefault(p => p.Id == id && p.Password == password);
                 if (person != null)
                 {
-                    // Store the logged-in user's ID
                     loggedInUserId = person.Id;
                     ApplicationData.Current.LocalSettings.Values["LoggedInUserId"] = loggedInUserId;
                     StudentService.Current.LoggedInUserId = person.Id;
@@ -157,21 +152,17 @@ namespace UWP.LearningManagement
         }
         private async void Logout_Click(object sender, RoutedEventArgs e)
         {
-            // Clear the logged-in user's ID
             loggedInUserId = -1;
             StudentService.Current.LoggedInUserId = -1;
             CourseService.Current.LoggedInUserId = -1;
 
-            // Hide the student and course info controls
             studentInfo.Visibility = Visibility.Collapsed;
+            databaseInfo.Visibility= Visibility.Collapsed;
             courseInfo.Visibility = Visibility.Collapsed;
             ViewToggle.Visibility = Visibility.Collapsed;
-
-            // Show the login control and hide the sign out control
             Login.Visibility = Visibility.Visible;
             SignOut.Visibility = Visibility.Collapsed;
 
-            // Show a success message
             var dialog = new ContentDialog()
             {
                 Title = "Success!",

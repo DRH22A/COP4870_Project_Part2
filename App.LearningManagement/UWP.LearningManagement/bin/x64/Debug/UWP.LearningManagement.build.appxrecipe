@@ -82,6 +82,12 @@
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Dialogs\CourseRemoveDialog.xbf">
       <PackagePath>Dialogs\CourseRemoveDialog.xbf</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Dialogs\PeopleDialog.xbf">
+      <PackagePath>Dialogs\PeopleDialog.xbf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Dialogs\PeopleRemoveDialog.xbf">
+      <PackagePath>Dialogs\PeopleRemoveDialog.xbf</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Pages\Course_Options.xbf">
       <PackagePath>Pages\Course_Options.xbf</PackagePath>
     </AppxPackagedFile>

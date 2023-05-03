@@ -7,8 +7,10 @@
     <RootPropertyPathName Name="Description" />
     <RootPropertyPathName Name="Code" />
     <RootPropertyPathName Name="Name" />
+    <RootPropertyPathName Name="Password" />
     <RootPropertyPathName Name="CurrentPage" />
     <RootPropertyPathName Name="PeopleDTOs" />
+    <RootPropertyPathName Name="SelectedPerson" />
     <RootPropertyPathName Name="DisplayPeople" />
     <RootPropertyPathName Name="CoursesDTOs" />
     <RootPropertyPathName Name="SelectedCourse" />
@@ -66,6 +68,8 @@
       <RootProperty Name="HorizontalAlignment" />
     </RootType>
     <RootType FullName="UWP.LearningManagement.Dialogs.CourseRemoveDialog" />
+    <RootType FullName="UWP.LearningManagement.Dialogs.PeopleDialog" />
+    <RootType FullName="UWP.LearningManagement.Dialogs.PeopleRemoveDialog" />
     <RootType FullName="Windows.UI.Xaml.Controls.Page">
       <RootProperty Name="Background" />
       <RootProperty Name="Content" />

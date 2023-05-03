@@ -2,7 +2,7 @@
 using Library.LearningManagement.Models;
 using Library.LearningManagement.Services;
 
-namespace MyApp // Note: actual namespace depends on the project name.
+namespace MyApp
 {
     internal class Program
     {
@@ -79,17 +79,17 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
         static void ShowCourseMenu(CourseHelper courseHelper)
         {
-            Console.WriteLine("1. Add a new course");               //course
-            Console.WriteLine("2. Update a course");                //course
+            Console.WriteLine("1. Add a new course");               
+            Console.WriteLine("2. Update a course");                
             Console.WriteLine("3. Add a student to a course");
             Console.WriteLine("4. Remove a student from a course");
             Console.WriteLine("5. Add an assignment");
             Console.WriteLine("6. Add an assignment to a group");
             Console.WriteLine("7. Update an assignment");
             Console.WriteLine("8. Remove an assignment");
-            Console.WriteLine("9. List all courses");                //course
-            Console.WriteLine("10. Search for a course");            //course
-            Console.WriteLine("11. CRUD annoucement for a course");  //course
+            Console.WriteLine("9. List all courses");                
+            Console.WriteLine("10. Search for a course");            
+            Console.WriteLine("11. CRUD annoucement for a course"); 
             Console.WriteLine("12. CRUD course modules");
 
 

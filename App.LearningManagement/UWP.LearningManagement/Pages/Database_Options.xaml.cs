@@ -63,6 +63,24 @@ namespace UWP.LearningManagement.Pages
             await deleteDialog.ShowAsync();
         }
 
+        private async void AddPerson_Database(object sender, RoutedEventArgs e)
+        {
+            var addDialog = new PeopleDialog(DataContext as MainViewModel);
+            await addDialog.ShowAsync();
+        }
+
+        private async void EditPerson_Database(object sender, RoutedEventArgs e)
+        {
+            var editDialog = new PeopleDialog(DataContext as MainViewModel);
+            await editDialog.ShowAsync();
+        }
+
+        private async void DeletePerson_Database(object sender, RoutedEventArgs e)
+        {
+            var deleteDialog = new PeopleRemoveDialog(DataContext as MainViewModel);
+            await deleteDialog.ShowAsync();
+        }
+
 
         private void Return_Click(object sender, RoutedEventArgs e)
         {

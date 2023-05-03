@@ -8,11 +8,13 @@ namespace Library.LearningManagement.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
+        public virtual string Display => $"{Id} - {Name}";
+
 
         public Person()
         {
             Name = string.Empty;
-            Id= 0;
+            Id= 1;
             Password = string.Empty;
         }
 

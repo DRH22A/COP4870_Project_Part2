@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UWP.Library.LearningManagement.DTO;
 
 namespace Library.LearningManagement.Models
 {
@@ -9,7 +10,14 @@ namespace Library.LearningManagement.Models
         public List<ContentItem> Content { get; set; }
 
         public Module() { 
-            Content= new List<ContentItem>();
+            Name = string.Empty;
+            Description = string.Empty;
+        }
+
+        public Module(ModuleDTO dto) 
+        {
+            Name = dto.Name;
+            Description = dto.Description;
         }
         public override string ToString()
         {

@@ -128,3 +128,13 @@ C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningM
 C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\CourseRemoveDialog.g.cs
 C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\CourseRemoveDialog.xaml
 C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\CourseRemoveDialog.xbf
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\PeopleDialog.g.i.cs
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\PeopleDialog.g.cs
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\PeopleRemoveDialog.g.i.cs
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\PeopleRemoveDialog.g.cs
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\PeopleDialog.xaml
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\PeopleRemoveDialog.xaml
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\PeopleDialog.xbf
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\obj\x64\Debug\Dialogs\PeopleRemoveDialog.xbf
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Dialogs\PeopleDialog.xbf
+C:\Users\drhal\source\repos\COP4870_Project\App.LearningManagement\UWP.LearningManagement\bin\x64\Debug\Dialogs\PeopleRemoveDialog.xbf

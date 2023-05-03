@@ -12,22 +12,19 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+
         </Grid.RowDefinitions>
         <StackPanel x:Name="databaseMenu">
             <ToggleButton x:Name="ViewToggle" Content="Switch To TA/Instructor Mode" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10" Visibility="Collapsed" Checked="ViewToggleButton_Checked" Unchecked="ViewToggleButton_Unchecked" Grid.Row="0" />
             <ListBox Grid.Row ="1"
                 ItemsSource="{Binding CoursesDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCourse, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <TextBlock Text="{Binding DisplayCourses}">
-                        </TextBlock>
-                    </Grid>
-                </DataTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <TextBlock Text="{Binding DisplayCourses}">
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             <Grid Grid.Row="2">
@@ -36,22 +33,34 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Add" Click="AddCourse_Database" Grid.Column="0"/>
-                <Button Content="Edit" Click="EditCourse_Database" Grid.Column="1"/>
-                <Button Content="Delete" Click="DeleteCourse_Database" Grid.Column="2"/>
+                <Button Content="Add Course" Click="AddCourse_Database" Grid.Column="0"/>
+                <Button Content="Edit Course" HorizontalAlignment="Center" Click="EditCourse_Database" Grid.Column="1"/>
+                <Button Content="Delete Course" HorizontalAlignment="Right" Click="DeleteCourse_Database" Grid.Column="2"/>
             </Grid>
+            <StackPanel Grid.Row="3">
                 <ListBox 
-                ItemsSource="{Binding PeopleDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <TextBlock Text="{Binding DisplayPeople}">
-                            </TextBlock>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                    ItemsSource="{Binding PeopleDTOs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPerson, Mode=TwoWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Text="{Binding DisplayPeople}">
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Add Person" Click="AddPerson_Database" Grid.Column="0"/>
+                    <Button Content="Edit Person" HorizontalAlignment="Center" Click="EditPerson_Database" Grid.Column="1"/>
+                    <Button Content="Delete Person" HorizontalAlignment="Right" Click="DeletePerson_Database" Grid.Column="2"/>
+                </Grid>
+            </StackPanel>
         </StackPanel>
-        <Button Content="Return To Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click" Grid.Row="4"/>
+        <Button Content="Return To Main Menu" HorizontalAlignment="Stretch" FontSize="14" Click="Return_Click" VerticalAlignment="Bottom" Grid.Row="4"/>
     </Grid>
 </Page>

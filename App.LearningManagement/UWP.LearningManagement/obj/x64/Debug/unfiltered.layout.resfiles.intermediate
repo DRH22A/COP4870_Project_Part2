@@ -9,6 +9,8 @@ Assets\Wide310x150Logo.scale-200.png
 App.xbf
 Dialogs\CourseDialog.xbf
 Dialogs\CourseRemoveDialog.xbf
+Dialogs\PeopleDialog.xbf
+Dialogs\PeopleRemoveDialog.xbf
 Pages\Course_Options.xbf
 Pages\Database_Options.xbf
 Pages\MainPage.xbf
